@@ -1,0 +1,5 @@
+/Users/dejw/Desktop/PO/#4/Zad4/bin/Debug/Zad4.exe
+/Users/dejw/Desktop/PO/#4/Zad4/bin/Debug/Zad4.pdb
+/Users/dejw/Desktop/PO/#4/Zad4/obj/x86/Debug/Zad4.csproj.CoreCompileInputs.cache
+/Users/dejw/Desktop/PO/#4/Zad4/obj/x86/Debug/Zad4.exe
+/Users/dejw/Desktop/PO/#4/Zad4/obj/x86/Debug/Zad4.pdb
