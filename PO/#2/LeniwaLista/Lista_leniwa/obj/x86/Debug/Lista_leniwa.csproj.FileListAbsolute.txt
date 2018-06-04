@@ -1,0 +1,10 @@
+/Users/dejw/Projects/Lista_leniwa/bin/Debug/Lista_leniwa.exe
+/Users/dejw/Projects/Lista_leniwa/bin/Debug/Lista_leniwa.pdb
+/Users/dejw/Projects/Lista_leniwa/obj/x86/Debug/Lista_leniwa.csproj.CoreCompileInputs.cache
+/Users/dejw/Projects/Lista_leniwa/obj/x86/Debug/Lista_leniwa.exe
+/Users/dejw/Projects/Lista_leniwa/obj/x86/Debug/Lista_leniwa.pdb
+/Users/dejw/Desktop/PO/C#/Projects/Lista_leniwa/bin/Debug/Lista_leniwa.exe
+/Users/dejw/Desktop/PO/C#/Projects/Lista_leniwa/bin/Debug/Lista_leniwa.pdb
+/Users/dejw/Desktop/PO/C#/Projects/Lista_leniwa/obj/x86/Debug/Lista_leniwa.csproj.CoreCompileInputs.cache
+/Users/dejw/Desktop/PO/C#/Projects/Lista_leniwa/obj/x86/Debug/Lista_leniwa.exe
+/Users/dejw/Desktop/PO/C#/Projects/Lista_leniwa/obj/x86/Debug/Lista_leniwa.pdb

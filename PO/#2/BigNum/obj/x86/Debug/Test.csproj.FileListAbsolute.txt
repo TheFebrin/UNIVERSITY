@@ -1,0 +1,10 @@
+/Users/dejw/Desktop/C#/Test/bin/Debug/Test.exe
+/Users/dejw/Desktop/C#/Test/bin/Debug/Test.pdb
+/Users/dejw/Desktop/C#/Test/obj/x86/Debug/Test.csproj.CoreCompileInputs.cache
+/Users/dejw/Desktop/C#/Test/obj/x86/Debug/Test.exe
+/Users/dejw/Desktop/C#/Test/obj/x86/Debug/Test.pdb
+/Users/dejw/Desktop/PO/C#/Test/bin/Debug/Test.exe
+/Users/dejw/Desktop/PO/C#/Test/bin/Debug/Test.pdb
+/Users/dejw/Desktop/PO/C#/Test/obj/x86/Debug/Test.csproj.CoreCompileInputs.cache
+/Users/dejw/Desktop/PO/C#/Test/obj/x86/Debug/Test.exe
+/Users/dejw/Desktop/PO/C#/Test/obj/x86/Debug/Test.pdb
