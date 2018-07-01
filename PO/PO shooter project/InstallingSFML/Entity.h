@@ -19,6 +19,9 @@ public:
     Text text;
     CircleShape shape;
     
+public:
+    void Draw(RenderWindow &win);
+    
 private:
     
 };

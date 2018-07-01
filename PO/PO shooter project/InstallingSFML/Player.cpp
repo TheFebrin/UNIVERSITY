@@ -5,7 +5,7 @@ Player::Player(Texture* texture, Vector2u imageCount, float switchTime, float he
 {
     
     Health = 100;
-    PlayerSpeed = 180.f;
+    PlayerSpeed = 980.f;
     row = 0;
     
     body.setSize(Vector2f(width, height));
@@ -59,4 +59,20 @@ void Player::DrawPlayer(RenderWindow &win){
 
 Vector2f Player::GetPlayerPosition() {
     return body.getPosition();
+}
+
+Collider Player::GetCollider(){
+    return Collider(body);
+}
+
+int Player::GetPlayerDir(){
+    return direction;
+}
+
+void Player::LowerHealth(int n){
+    Health -= n;
+}
+
+int Player::GetHealth(){
+    return Health;
 }

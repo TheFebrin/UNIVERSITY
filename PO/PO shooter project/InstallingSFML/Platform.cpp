@@ -11,11 +11,17 @@ Platform::Platform(Texture* texture, Vector2f size, Vector2f position)
 }
 
 
-Platform::~Platform()
-{
+Platform::~Platform(){
 }
 
-void Platform::Draw(RenderWindow& window)
-{
+void Platform::Draw(RenderWindow& window){
     window.draw(body);
+}
+
+Collider Platform::GetCollider(){
+    return Collider(body);
+}
+
+RectangleShape Platform::GetBody(){
+    return body;
 }

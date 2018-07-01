@@ -9,18 +9,17 @@
 #include<cstdlib>
 
 #include "Collider.h"
+#include "Entity.h"
 using namespace sf;
 
-class Platform
+class Platform : public Entity
 {
 public:
     Platform(Texture* texture, Vector2f size, Vector2f position);
     ~Platform();
     
     void Draw(RenderWindow& window);
-    Collider GetCollider() { return Collider(body); }
-    
-private:
-    RectangleShape body;
+    Collider GetCollider();
+    RectangleShape GetBody();
 };
 

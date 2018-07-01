@@ -84,3 +84,7 @@ void Enemy::DrawEnemy(RenderWindow &win) {
 Vector2f Enemy::GetEnemyPosition() {
     return body.getPosition();
 }
+
+int Enemy::GetDamage(){
+    return Damage;
+}

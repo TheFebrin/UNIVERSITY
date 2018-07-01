@@ -21,14 +21,17 @@ public:
     Enemy(Texture* texture, Vector2u imageCount, float switchTime, int xPos, int yPos);
     ~Enemy();
     
-    void Update(float deltaTime, Player player);
-    void DrawEnemy(RenderWindow &win);
-    
     Vector2f GetEnemyPosition();
     Collider GetCollider() { return Collider(body); }
     
+    void Update(float deltaTime, Player player);
+    void DrawEnemy(RenderWindow &win);
+    
+    int GetDamage();
+    
 private:
-    float Speed, Damage, Health;
+    float Speed;
+    int Damage, Health;
     bool isAlive;
     
     unsigned int row;

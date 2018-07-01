@@ -22,8 +22,10 @@ public:
     void DrawPlayer(RenderWindow &win);
     
     Vector2f GetPlayerPosition();
-    Collider GetCollider() { return Collider(body); }
-    int GetPlayerDir() { return direction; }
+    Collider GetCollider();
+    
+    int GetPlayerDir();
+    void LowerHealth(int n); int GetHealth();
     
 private:
     int Health, Armor;
