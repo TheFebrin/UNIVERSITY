@@ -3,7 +3,8 @@
 Enemy::Enemy(Texture* texture, Vector2u imageCount, float switchTime, int xPos, int yPos)
 :animation(texture, imageCount, switchTime)
 {
-    Health = 100;
+    Damage = 10;
+    Health = 4;
     Speed = 100.f;
     row = 0;
     body.setSize(Vector2f(50.f, 75.f));
@@ -77,14 +78,26 @@ void Enemy::Update(float deltaTime, Player player)
     body.move(movement);
 }
 
-void Enemy::DrawEnemy(RenderWindow &win) {
-    win.draw(body);
-}
-
 Vector2f Enemy::GetEnemyPosition() {
     return body.getPosition();
 }
 
 int Enemy::GetDamage(){
     return Damage;
+}
+
+bool Enemy::ToDestroy(){
+    return destroy;
+}
+
+void Enemy::Destroy(){
+    destroy = true;
+}
+
+void Enemy::LowerHealth(int n){
+    Health -= n;
+}
+
+int Enemy::GetHealth(){
+    return Health;
 }

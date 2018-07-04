@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Bullet_h
+
 #include<iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -24,17 +26,18 @@ public:
     Vector2f currvelocity;
     void Update(float deltaTime);
     void DrawBullet(RenderWindow &win);
+    bool ToDestroy();
+    void Destroy();
     
-    Vector2f GetEnemyPosition() { return shape.getPosition(); };
     Collider GetCollider() { return Collider(shape); }
     
 public:
-    int creationTime , lifeTime;
+    int timeCounter , lifeTime;
 private:
     float maxspeed;
     bool destroy;
     
-    
-    
 };
+
+#endif
 

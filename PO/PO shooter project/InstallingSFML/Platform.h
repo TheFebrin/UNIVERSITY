@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Platform_h
+
 #include<iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -23,3 +25,4 @@ public:
     RectangleShape GetBody();
 };
 
+#endif

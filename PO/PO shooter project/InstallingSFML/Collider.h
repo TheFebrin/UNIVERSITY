@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Collider_h
+
 #include<iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -32,3 +34,4 @@ private:
     CircleShape& shape;
 };
 
+#endif

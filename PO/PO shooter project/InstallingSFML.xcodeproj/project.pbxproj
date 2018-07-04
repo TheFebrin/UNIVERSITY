@@ -15,11 +15,11 @@
 		93A0A0ED20E90ABB0067D87A /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93A0A0EC20E90ABB0067D87A /* ResourcePath.mm */; };
 		93A0A0EF20E90B2B0067D87A /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0A0EE20E90B2B0067D87A /* Entity.cpp */; };
 		93A0A0F220E90B770067D87A /* TextDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93A0A0F120E90B760067D87A /* TextDisplay.cpp */; };
+		93EB076620E9190E00D1C7DB /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 93EB076520E9190E00D1C7DB /* Fonts */; };
 		CA21091E1B7AABFD009AAEAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA21091D1B7AABFD009AAEAE /* main.cpp */; };
-		CA2109301B7ABCA4009AAEAE /* spriteWalk.png in Resources */ = {isa = PBXBuildFile; fileRef = CA21092F1B7ABCA4009AAEAE /* spriteWalk.png */; };
 		CA21093C1B7AC7D2009AAEAE /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA21093A1B7AC7D2009AAEAE /* Player.cpp */; };
 		CAE333ED1B7B021500299126 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAE333EB1B7B021500299126 /* enemy.cpp */; };
-		CAE333EF1B7B03D000299126 /* enemySpriteSheet.png in Resources */ = {isa = PBXBuildFile; fileRef = CAE333EE1B7B03D000299126 /* enemySpriteSheet.png */; };
+		D74D046020EADF4400A14738 /* HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D74D045E20EADF4400A14738 /* HUD.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,16 +37,17 @@
 		93A0A0EE20E90B2B0067D87A /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		93A0A0F020E90B760067D87A /* TextDisplay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextDisplay.hpp; sourceTree = "<group>"; };
 		93A0A0F120E90B760067D87A /* TextDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextDisplay.cpp; sourceTree = "<group>"; };
+		93EB076520E9190E00D1C7DB /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		CA2109151B7AABFD009AAEAE /* InstallingSFML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstallingSFML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2109191B7AABFD009AAEAE /* InstallingSFML-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InstallingSFML-Info.plist"; sourceTree = "<group>"; };
 		CA21091D1B7AABFD009AAEAE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		CA21092F1B7ABCA4009AAEAE /* spriteWalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spriteWalk.png; sourceTree = "<group>"; };
 		CA2109381B7AC764009AAEAE /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		CA21093A1B7AC7D2009AAEAE /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		CA21093B1B7AC7D2009AAEAE /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		CAE333EB1B7B021500299126 /* enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy.cpp; sourceTree = "<group>"; };
 		CAE333EC1B7B021500299126 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
-		CAE333EE1B7B03D000299126 /* enemySpriteSheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemySpriteSheet.png; sourceTree = "<group>"; };
+		D74D045E20EADF4400A14738 /* HUD.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HUD.cpp; sourceTree = "<group>"; };
+		D74D045F20EADF4400A14738 /* HUD.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HUD.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,12 +91,14 @@
 				937DEB5D20E683F5006EF765 /* Animation.cpp */,
 				937DEB5820E6832F006EF765 /* Collider.h */,
 				937DEB5720E6832F006EF765 /* Collider.cpp */,
-				93A0A0F120E90B760067D87A /* TextDisplay.cpp */,
 				93A0A0F020E90B760067D87A /* TextDisplay.hpp */,
+				93A0A0F120E90B760067D87A /* TextDisplay.cpp */,
+				D74D045F20EADF4400A14738 /* HUD.hpp */,
+				D74D045E20EADF4400A14738 /* HUD.cpp */,
 				CA2109381B7AC764009AAEAE /* Entity.h */,
 				93A0A0EE20E90B2B0067D87A /* Entity.cpp */,
-				937DEB6020E68486006EF765 /* Platform.cpp */,
 				937DEB6120E68486006EF765 /* Platform.h */,
+				937DEB6020E68486006EF765 /* Platform.cpp */,
 				93A0A0EB20E90ABB0067D87A /* ResourcePath.hpp */,
 				93A0A0EC20E90ABB0067D87A /* ResourcePath.mm */,
 				CA21091F1B7AABFD009AAEAE /* Resources */,
@@ -115,9 +118,8 @@
 		CA21091F1B7AABFD009AAEAE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				93EB076520E9190E00D1C7DB /* Fonts */,
 				937DEB6320E68518006EF765 /* Images */,
-				CAE333EE1B7B03D000299126 /* enemySpriteSheet.png */,
-				CA21092F1B7ABCA4009AAEAE /* spriteWalk.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -179,9 +181,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA2109301B7ABCA4009AAEAE /* spriteWalk.png in Resources */,
 				937DEB6420E68518006EF765 /* Images in Resources */,
-				CAE333EF1B7B03D000299126 /* enemySpriteSheet.png in Resources */,
+				93EB076620E9190E00D1C7DB /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +211,7 @@
 			files = (
 				937DEB6220E68486006EF765 /* Platform.cpp in Sources */,
 				937DEB5C20E683B3006EF765 /* Bullet.cpp in Sources */,
+				D74D046020EADF4400A14738 /* HUD.cpp in Sources */,
 				CA21093C1B7AC7D2009AAEAE /* Player.cpp in Sources */,
 				93A0A0F220E90B770067D87A /* TextDisplay.cpp in Sources */,
 				937DEB5F20E683F5006EF765 /* Animation.cpp in Sources */,

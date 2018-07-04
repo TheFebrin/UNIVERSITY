@@ -8,7 +8,6 @@
 
 #include "Entity.h"
 
-void Entity::Draw(RenderWindow &win)
-{
-    
+void Entity::Draw(RenderWindow &win){
+    win.draw(body);
 }

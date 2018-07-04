@@ -28,9 +28,13 @@ class TextDisplay : public Entity
 public:
     TextDisplay();
     void Update();
+    void DrawText(RenderWindow &win);
+    bool ToDestroy();
     
 public:
     std::string MyString = "Default";
+    int timeCounter , lifeTime;
+    bool destroy = false;
     
 private:
  

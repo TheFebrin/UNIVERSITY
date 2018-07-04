@@ -10,12 +10,25 @@
 
 TextDisplay::TextDisplay()
 {
+    timeCounter = 0;
+    lifeTime = 30;
     text.setColor(Color::Red);
-    text.setCharacterSize(50);
-    text.setPosition(0, 0);
+    text.setCharacterSize(30);
+    text.setString(MyString);
 }
 
 void TextDisplay::Update()
 {
+    text.move(0, -2);
     
+    timeCounter++;
+    if (timeCounter >= lifeTime) destroy = true;
+}
+
+void TextDisplay::DrawText(RenderWindow &win){
+    win.draw(text);
+}
+
+bool TextDisplay::ToDestroy(){
+    return destroy;
 }

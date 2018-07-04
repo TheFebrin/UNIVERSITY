@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Player_h
+
 #include<iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -22,16 +24,21 @@ public:
     void DrawPlayer(RenderWindow &win);
     
     Vector2f GetPlayerPosition();
+    Vector2f GetPlayerSize();
     Collider GetCollider();
     
     int GetPlayerDir();
     void LowerHealth(int n); int GetHealth();
+    int GetDamage();
+    float GetBulletRelease();
     
 private:
-    int Health, Armor;
-    float PlayerSpeed;
+    int Health, Damage;
+    float PlayerSpeed, BulletRelease;
     int direction;
     
+    
+    Vector2f PlayerSize;
     RectangleShape body;
     Animation animation;
     Texture PlayerTexture;
@@ -40,3 +47,4 @@ private:
     
 };
 
+#endif

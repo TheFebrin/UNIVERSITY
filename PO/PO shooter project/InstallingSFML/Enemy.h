@@ -1,3 +1,5 @@
+#pragma once
+#ifndef Enemy_h
 
 #include<iostream>
 #include <SFML/Audio.hpp>
@@ -25,18 +27,21 @@ public:
     Collider GetCollider() { return Collider(body); }
     
     void Update(float deltaTime, Player player);
-    void DrawEnemy(RenderWindow &win);
-    
     int GetDamage();
+    void Destroy();
+    bool ToDestroy();
+    void LowerHealth(int n);
+    int GetHealth();
     
 private:
     float Speed;
     int Damage, Health;
-    bool isAlive;
+    bool destroy;
     
     unsigned int row;
+    
 private:
-    Animation animation;
-    RectangleShape body;
+     Animation animation;
 };
 
+#endif

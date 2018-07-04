@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Animation_h
+
 #include<iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -29,3 +31,4 @@ private:
     float switchTime;
 };
 
+#endif
