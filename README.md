@@ -7,7 +7,7 @@
  <li>Wstęp do programowania w języku C (wyk: Marek Piotrów, prac: Krystian Bacławski)</li>
  <li>Wstęp do Informatyki (wyk: Tomasz Jurdziński, ćw: Artur Kraska)</li>
  <li>Kurs języka programowania Java (wyk: Paweł Rzechonek, prac: Przemysław Gospodarczyk)</li>
-<ul>
+</ul>
 <br>
 <h3>Semestr 2</h3>
 <ul>
