@@ -1,0 +1,69 @@
+Dawid Dieu
+Projekt: Labirynt i najkrótsza droga.
+
+Cel programu:
+	
+	W wygenerowanym losowo labiryncie użytkownik ma za zadanie dojść do jego końca
+oznaczonego literą 'M', czyli dojść do mety. Należy zrobić to jak najmniejszą ilością 
+ruchów aby otrzymać jak największy wynik.
+
+
+Działanie programu:
+
+	Program będzie działał w terminalu z pomocą biblioteki ncurses.
+Po jego skompilowaniu i uruchomieniu użytkownikowi ukaże się tytuł "The Maze Game".
+Będzie on poproszony o naciśnięcie dowolnego przycisku. Następnie widzieć będziemy
+menu główne gry. Na samej górze widnieć będzie napis "MAZE". Poniżej do wyboru pokażą
+się trzy możliwości wyboru. "START", "HELP" oraz EXIT. Po wybraniu EXIT nastąpi wyjście
+z programu oraz wyświetlona zostanie wiadomość pożegnalna. 
+Opcja HELP wyświetli skrócony opis działania gry, a także instrukcję do niej.
+Natomiast pierwsza z nich, czyli START prowadzić będzie do właściwego rozpoczęcia
+naszego programu. Użytkownik stanie przed możliwością wyboru. Wybór dotyczyć
+będzie ustalenia wymiarów labiryntu. Najpierw trzeba będzie podać programowi
+jakiej wysokości oczekujemy, a następnie jaka ma być szerokość labiryntu,
+który wygeneruje program. Z uwagi na algorytm generujący labirynt, zarówno
+wysokość jak i szerokość muszą być wielkościami nieparzystymi, a z uwagi
+na wielkość naszego terminala wielkości te będą musiały być mniejsze niż 
+jego rozmiar.
+	Gdy zatwierdzimy już wymiary naszego labiryntu pokaże się pasek ładowania.
+Po jego załadowaniu zostaniemy przeniesieni do następnego okna, które będzie 
+składało się z dwóch pod-okien. W lewym z nich w którym program wypisze wygenerowany algorytm.
+Poruszanie po nim będzie odbywało się za pomocą strzałek. 
+Nad labiryntem widnieć będzie nasza aktualna pozycja.
+Nasz cel, do którego chcemy dojść, czyli koniec labiryntu będzie oznaczony
+literą 'M'. W prawym pod-oknie użytkownik będzie miał podgląd na swoją
+aktualną ilość ruchów, które wykonał. 
+W każdym momencie działania programu możliwe jest naciśnięcie literki 'd'.
+Spowoduje to uruchomienie automatycznego algorytmu. Algorytm ten przejdzie
+cały labirynt i wypisze użytkownikowi najkrótsza drogę z początku do mety
+w omawianym labiryncie. 
+	W wypadku gdy użytkownik nacisnął 'd' jego wynik będzie wynosił 0, ponieważ
+nie doszedł on do mety. Jeżeli uda mu się znaleźć drogę do mety zostanie
+pokazany mu wynik. Wynik bierze pod uwagę ilość ruchów, które zrobił
+użytkownik oraz minimalną ilość ruchów potrzebna do przejścia labiryntu.
+Właściwie będzie to już koniec działania programu i nie będzie on w stanie
+już nic zaoferować. Po naciśnięciu dowolnego przycisku wyświetli się
+wiadomość pożegnalna i nastąpi wyjście z programu.
+
+Etapy pracy:
+
+	Etap 1:
+Stworzenie ekranu powitalnego z wiadomością oraz interaktywnego menu głównego. Menu będzie miało 3 opcje wyboru.
+Ponadto dodanie ozdobników graficznych takich jak nazwa gry. Napisanie skróconego opisu gry i instrukcji, 
+którą można zobaczyć wchodząc w HELP.
+
+	Etap 2:
+Stworzenie okien, które będą się włączały po uruchomieniu poszczególnych opcji menu. Możliwość powrotu
+do głównego menu po wybraniu opcji HELP. Działanie przycisku EXIT.
+Napisanie algorytmu, który wygeneruje losowy labirynt.
+
+	Etap 3:
+Wyświetlanie wygenerowanego labiryntu i wyświetlenie go w lewym pod-oknie. Dodanie możliwości poruszania
+się po labiryncie przez użytkownika. Stworzenie prawego okna ze wszystkimi potrzebnymi danymi, czyli
+np. liczbą wykonanych ruchów.
+
+	Etap 4:
+Napisanie algorytmu, który przejdzie labirynt i znajdzie najkrótszą drogę do wyjścia. Dodanie opcji
+użycia autosolve'a w prawym pod-oknie, który sam przejdzie labirynt. Wyświetlenie wyniku użytkownika. Dodanie
+wszystkich ozdobników graficznych i kolorów.
+

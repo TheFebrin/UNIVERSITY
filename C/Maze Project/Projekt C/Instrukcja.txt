@@ -1,0 +1,23 @@
+Instrukcja
+
+Program nalezy skompilowac poleceniem 'make'
+w terminalu. Nastepnie trzeba uruchomic
+plik 'maze', ktory zostanie utworzony.
+Naszym oczom ukarze sie menu glowne gry.
+Gdy wejdziemy w HELP, bedziemy mogli
+przeczytac szybkie przypomnienie zasad.
+Natomiast wybranie opcji START pozwoli
+nam przejsc do okna, w ktorym bedziemy
+inicjalizowac wymiary naszego labirytu.
+Gdy zatwierdzimy je ENTERem wygenerowany
+zostanie losowy labirynt o takich
+wlasnie wymiarach. Naszym celem bedzie
+dojscie do pola z napisem M. Poruszanie sie
+odbywa sie za pomoca strzalek.
+Gdy uda nam sie dojsc do mety bedziemy
+mogli zobaczyc swoj wynik porownany do
+najkrotszej mozliwej drogi. W dowolnej
+chwili mozemy rowniez uruchomic autosolve,
+ktory przejdzie labirynt za nas. W takim
+wypadku jednak wynik zawsze bedzie wynosil 0.
+Powodzenia!
