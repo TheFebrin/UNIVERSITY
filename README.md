@@ -1,4 +1,4 @@
-# II--UWR-
+# -ALL-COURSES-
 <br>
 
 <h3>Semestr 1</h3>
