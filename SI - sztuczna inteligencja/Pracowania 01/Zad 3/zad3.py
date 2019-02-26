@@ -189,7 +189,7 @@ def gen_Blotkarz_hand():
     cards = []
     suits = []
     for _ in range(5):
-        cards.append(random.randint(0, 8))
+        cards.append(random.randint(0, len(Blotkarz) - 1))
         suits.append(random.randint(0, 3))
 
     for i in range(5):

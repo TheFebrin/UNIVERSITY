@@ -20,10 +20,11 @@ ANSWERS = []
 
 def find_sentences(text, ptr_beg, ptr_end, act_sentence, act_len):
     while ptr_end <= len(text):
+        act_word = text[ptr_beg: ptr_end]
+
         if ptr_end - ptr_beg >= longest_word:
             return
 
-        act_word = text[ptr_beg: ptr_end]
         if act_word in WORDS:
             find_sentences(text, ptr_end, ptr_end + 1, act_sentence + ' ' + act_word, act_len + len(act_word))
 
