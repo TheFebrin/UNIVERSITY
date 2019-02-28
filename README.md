@@ -37,7 +37,6 @@
 <ul>
     <li>Algorytmy i struktury danych (wyk: Krzysztof Loryś, ćw: Krzysztof Loryś)</li>
     <li>Sztuczna inteligencja (wyk: Paweł Rychlikowski, ćw: Paweł Rychlikowski)</li>
-    <li>Bazy Danych (wyk: Piotr Wieczorek, ćw: Jan Otop)</li>
     <li>Rachunek prawdopodobieństwa i statystyka (wyk: Witold Karczewski, ćw: Pratik Ghosal)</li>
     <li>Kurs języka C++ (wyk: Paweł Rzechonek, prac: Przemysław Uznański)</li>
     <li>O ekonomii i gospodarce inaczej (wyk: Witold Kwaśnicki) </li>

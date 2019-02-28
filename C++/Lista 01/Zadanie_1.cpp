@@ -18,38 +18,38 @@ typedef vector <pair< int , int > > vpi;
 #define MAX 1e6 + 42
 #define MOD 1e9 + 7
 
-
-void Zadanie_2(){
-    clog << "Podaj pole figury: ";
-    double pole;
-    cin >> pole;
-
-    if( pole < 0 ){
-        clog << "Podano ujemne pole! \n";
+void Zadanie_1(){
+    clog << "Podaj 3 boki trojkata: ";
+    double a, b, c;
+    cin >> a >> b >> c;
+    if( a <= 0 or b <= 0 or c <= 0){
+        clog << "Bok musi miec dodatnia dlugosc! \n";
         return;
     }
 
-    assert( pole >= 0 );
+    assert( a > 0 and b > 0 and c > 0);
 
+    if( c >= a + b or a >= c + b or b >= a + c){
+        clog << "Warunek budowy trojkata niespelniony! \n";
+        return;
+    }
+    
     clog << endl;
-    cout << "Promien kola o takim samym polu powierzchni wynosi: ";
-    cout << sqrt( pole / M_PI ) << endl;
+    cout << "Pole trojkata wynosi: ";
+    double p = (a + b + c) / 2;
+    cout << setprecision(3) << sqrt(p * (p - a) * (p - b) * (p - c)) << endl;
 }
-
-
 
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
-    // snitch nigga thats that shit I dont like
     
-    Zadanie_2();
+    Zadanie_1();
     
     // g++ Lista1.cpp -o lista
-    // ./lista <promien.in> promien.out
+    // ./lista <boki> boki.out
 
     return 0;
 }
