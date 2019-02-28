@@ -80,7 +80,6 @@ int main()
     cin.tie(0);
     cout.tie(0);
 
-    
     string s;
     cin >> s;
 
@@ -89,7 +88,7 @@ int main()
 
     cout << solve(s, D) << endl;
     
-    
+    cout.flush();
 
     return 0;
 }
