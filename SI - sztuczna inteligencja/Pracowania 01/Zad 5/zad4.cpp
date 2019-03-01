@@ -22,7 +22,7 @@ typedef vector < pair< int , int > > vpi;
 int solve(string s, int D){
 
     int n = (int)s.size();
-
+    
     vi pref;
     pref.assign(n, 0);
 
@@ -32,38 +32,21 @@ int solve(string s, int D){
         pref[ i ] += s[ i ] == '1';
     }
 
-    int first_1 = 0, last_1 = n - 1;
-    FOR0( n ){
-        if( s[ i ] == '1'){
-            first_1 = i;
-            break;
-        }
-    }
-
-    FOR_REV( n ){
-        if(s[ i ] == '1'){
-            last_1 = i;
-            break;
-        }
-    }
-
-//    for(auto a: pref) cout << a;
-//    cout << endl;
-
     int ans = INT_MAX;
-    while (first_1 + D - 1 < n and first_1 < last_1) {
+    
+    int p = 0;
+    while (p + D - 1 < n) {
         int ones_before = 0;
-        if( first_1 > 0) ones_before = pref[ first_1 - 1];
+        if( p > 0) ones_before = pref[ p - 1 ];
 
-        int ones_after = pref[ n - 1 ];
-        if( last_1 > 0) ones_after -= pref[ first_1 + D - 1 ];
+        int ones_after = pref[ n - 1 ] - pref[ p + D - 1];
 
-        int ones_in_range = pref[ first_1 + D - 1 ] - ones_before;
+        int ones_in_range = pref[ p + D - 1 ] - ones_before;
 
         int changes_need = ones_before + ones_after + D - ones_in_range;
-        //cout << first_1 << " -> " << first_1 + D - 1<< " changes: " << changes_need << " b4: " << ones_before << " aft: " << ones_after << endl;
+        //cout << p << " -> " << p + D - 1<< " changes: " << changes_need << " b4: " << ones_before << " aft: " << ones_after << endl;
         ans = min(ans, changes_need);
-        first_1 ++;
+        p ++;
     }
 
     return ans;
@@ -80,15 +63,15 @@ int main()
     cin.tie(0);
     cout.tie(0);
 
+    //test();
+    
     string s;
     cin >> s;
-
+    
     int D;
     cin >> D;
-
-    cout << solve(s, D) << endl;
     
-    cout.flush();
+    cout << solve(s, D) << endl;
 
     return 0;
 }

@@ -2,7 +2,7 @@ import subprocess
 import random
 
 
-def opt_dist(s, D):
+def opt_dist(s, D): # TODO TASK 4
     p = subprocess.Popen(["g++", "zad4.cpp"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     p = subprocess.Popen(["./a.out"], shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
 
