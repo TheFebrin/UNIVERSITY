@@ -158,27 +158,6 @@ Blotkarz = {
     10: 4
 }
 
-# tmp = n
-#     while tmp > 0:
-#         r_card = random.choice(list(Figurant))
-#         if Figurant[r_card] == 0:
-#             continue
-#         else:
-#             Figurant[r_card] -= 1
-#             cards.append(r_card)
-
-#         tmp -= 1
-
-#     while n > 0:
-#         r_suit = random.choice(list(all_suits))
-#         if all_suits[r_suit] == 0:
-#             continue
-#         else:
-#             all_suits[r_suit] -= 1
-#             suits.append(r_suit)
-
-#         n -= 1
-
 
 def gen_Figurants_hand(n):
     cards = []
@@ -225,12 +204,6 @@ def lets_play_a_game(hand_size):
 
         if fig and blt:
             return (1, 0)
-
-
-# test_hand = ([2, 3, 4, 5, 6], ['D', 'D', 'D', 'D', 'D'])
-# print('straight_flush test: ', straight_flush(test_hand))
-# print('Karty figuranta: ', gen_Figurants_hand())
-# print('Karty Blotkarza: ', gen_Blotkarz_hand())
 
 
 number_of_games = 10000

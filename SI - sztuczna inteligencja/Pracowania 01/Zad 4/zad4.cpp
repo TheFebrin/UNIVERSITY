@@ -55,6 +55,9 @@ int solve(string s, int D){
 void test(){
     string s1 = "0010001000";
     FOR_REV( 6 ) printf("%s D = %d  --> %d \n", s1.c_str(), i, solve(s1, i));
+    
+    s1 = "0010101000";
+    FOR_REV( 6 ) printf("%s D = %d  --> %d \n", s1.c_str(), i, solve(s1, i));
 
 }
 int main()
@@ -63,12 +66,16 @@ int main()
     cin.tie(0);
     cout.tie(0);
 
+    cout << "TEST CASES: \n";
     test();
+   
     
+    cout << "\n\nUSER'S TEST: \n";
     string s;
     cin >> s;
     
     int D;
+    
     cin >> D;
     
     cout << solve(s, D) << endl;
