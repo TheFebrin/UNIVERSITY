@@ -12,7 +12,9 @@ with open('words.txt') as f:
 
 # reading input file
 INPUT = []
-with open('in.txt') as f:
+in_file = 'in.txt'
+max_test = 'pan_tadeusz.txt'
+with open(max_test) as f:
     for line in f:
         INPUT.append(line.replace('\n', ''))
 
@@ -34,64 +36,66 @@ def valid_sequence(k, text):
 
 
 def find_sentences(text):
-    valid_seq_arr = [False for _ in range(len(text) + 42)]
-    word_beg_candidate = [[] for _ in range(len(text) + 42)]
+    valid_seq_arr = [False for _ in range(len(text))]
+    word_beg_candidate = [[] for _ in range(len(text))]
+    act_length = [[] for _ in range(len(text))]
 
     for k in range(1, len(text) + 1):
         if text[:k] in WORDS:
             valid_seq_arr[k - 1] = True
             word_beg_candidate[k - 1].append(0)
-            continue
+            act_length[k - 1].append(k ** 2)
 
         for j in range(k):
             if valid_seq_arr[j] and text[j + 1:k] in WORDS:
-                # print(k, text[:j + 1], text[j + 1:k])
                 valid_seq_arr[k - 1] = True
-                word_beg_candidate[k - 1].append(j + 1)
+                word_beg_candidate[k - 1].append(j)
+                act_length[k - 1].append((k - j - 1) ** 2)
 
-    for i in range(len(text)):
-        print(i, text[i], valid_seq_arr[i], word_beg_candidate[i])
+    # debug for dp, dp[k] is beg of word that ends on k-pos
+    # for i in range(len(text)):
+    #     print(i, text[i], valid_seq_arr[i], word_beg_candidate[i], act_length[i])
 
-    Q = deque()
-    Q.append((len(text) - 1, ''))
+    # dp counting sentence with biggest sum of squares
+    answer = [0 for _ in range(len(text))]
+    beginning = [-1 for _ in range(len(text))]
 
-    while len(Q) > 0:
-        first = Q.popleft()
+    # dp
+    for i in reversed(range(1, len(text))):
+        for j in range(len(word_beg_candidate[i])):
+            act_beg = word_beg_candidate[i][j]
 
-        next_beg = []
-        for x in word_beg_candidate[first[0]]:
-            word = text[x: first[0] + 1]
-            if x > 0:
-                Q.append((x - 1, first[1] + ' ' + word))
-            else:
-                print (first[1] + ' ' + word)
+            if act_length[i][j] + answer[i] >= answer[act_beg]:
+                answer[act_beg] = act_length[i][j] + answer[i]
+                beginning[act_beg] = i
 
-    # ANSWERS.append(' '.join(list(reversed(answer))))
-    # print(*list(reversed(answer)))
+    # for i in reversed(range(len(text))):
+    #     print(i, answer[i], beginning[i])
 
+    final_sentence = []
+    final_sentence.append(text[:beginning[0] + 1])
+    start = beginning[0]
 
-def choose_best_sentence(text):
-    ANSWERS.clear()
-    find_sentences(text)
+    # going back in dp constructing sentence
+    while start > 0:
+        final_sentence.append(text[start + 1: beginning[start] + 1])
+        start = beginning[start]
 
-    words_sq = 0
-    for a in ANSWERS:
-        sq = [len(x) ** 2 for x in a.split(' ')]
-        words_sq = max(words_sq, sum(sq))
+    # sometimes when first word is single letter it s joined with secon word
+    if not final_sentence[0] in WORDS:
+        final_sentence = [final_sentence[0][0]] + final_sentence
+        final_sentence[1] = final_sentence[1][1:]
 
+    print(*final_sentence)
     f = open('answer.txt', 'a')
-    for a in ANSWERS:
-        sq = [len(x) ** 2 for x in a.split(' ')]
-        if sum(sq) == words_sq:
-            f.write(a + '\n')
-            print(a)
+    f.write(' '.join(final_sentence) + '\n')
+    f.close()
 
 
 def solve():
     for line in INPUT:
-        # choose_best_sentence(line)
         find_sentences(line)
 
 
-find_sentences(INPUT[0])
-# solve()
+# find_sentences(INPUT[3])
+solve()
