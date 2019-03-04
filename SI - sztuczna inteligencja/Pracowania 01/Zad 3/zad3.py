@@ -132,41 +132,50 @@ def one_pair(hand):
 # hand is a pair: (cards, suits)
 
 
-all_suits = {
-    'D': 4,
-    'S': 4,
-    'H': 4,
-    'C': 4
-}
+all_suits = [
+    'D',
+    'S',
+    'H',
+    'C'
+]
 
-Figurant = {
-    'A': 4,
-    'K': 4,
-    'Q': 4,
-    'J': 4
-}
+Figurant = [
+    'A1', 'A2', 'A3', 'A4',
+    'K1', 'K2', 'K3', 'K4',
+    'Q1', 'Q2', 'Q3', 'Q4',
+    'J1', 'J2', 'J3', 'J4'
+]
 
-Blotkarz = {
-    2: 4,
-    3: 4,
-    4: 4,
-    5: 4,
-    6: 4,
-    7: 4,
-    8: 4,
-    9: 4,
-    10: 4
-}
+Blotkarz = [
+    21, 22, 23, 24,
+    31, 32, 33, 34,
+    41, 42, 43, 44,
+    51, 52, 53, 54,
+    61, 62, 63, 64,
+    71, 72, 73, 74,
+    81, 82, 83, 84,
+    91, 92, 93, 94,
+    101, 102, 103, 104
+]
+
+Blotkarz_test = [
+    21, 31, 41, 51, 61, 71, 81, 91, 101
+]
+
+Blotkarz_test_2 = [
+    91, 92, 93, 94,
+    101, 102, 103, 104,
+    81, 82, 83, 84,
+]
 
 
 def gen_Figurants_hand(n):
     cards = []
     suits = []
 
-    while n > 0:
-        cards.append(random.choice(list(Figurant)))
-        suits.append(random.choice(list(all_suits)))
-        n -= 1
+    cards = random.sample(Figurant, n)
+    suits = [all_suits[int(card[-1]) - 1] for card in cards]
+    cards = [card[:-1] for card in cards]
 
     return (cards, suits)
 
@@ -175,10 +184,9 @@ def gen_Blotkarz_hand(n):
     cards = []
     suits = []
 
-    while n > 0:
-        cards.append(random.choice(list(Blotkarz)))
-        suits.append(random.choice(list(all_suits)))
-        n -= 1
+    cards = random.sample(Blotkarz, n)
+    suits = [all_suits[card % 10 - 1] for card in cards]
+    cards = [card // 10 for card in cards]
 
     return (cards, suits)
 
