@@ -22,7 +22,7 @@ typedef vector < pair< int , int > > vpi;
 int solve(string s, int D){
 
     int n = (int)s.size();
-    
+
     vi pref;
     pref.assign(n, 0);
 
@@ -33,7 +33,7 @@ int solve(string s, int D){
     }
 
     int ans = INT_MAX;
-    
+
     int p = 0;
     while (p + D - 1 < n) {
         int ones_before = 0;
@@ -55,9 +55,22 @@ int solve(string s, int D){
 void test(){
     string s1 = "0010001000";
     FOR_REV( 6 ) printf("%s D = %d  --> %d \n", s1.c_str(), i, solve(s1, i));
-    
+
     s1 = "0010101000";
     FOR_REV( 6 ) printf("%s D = %d  --> %d \n", s1.c_str(), i, solve(s1, i));
+
+    int D = 1;
+    s1 = "0000000001";
+    printf("%s D = %d  --> %d \n", s1.c_str(), D, solve(s1, D));
+
+    s1 = "0000000010";
+    printf("%s D = %d  --> %d \n", s1.c_str(), D, solve(s1, D));
+
+    s1 = "1000000000";
+    printf("%s D = %d  --> %d \n", s1.c_str(), D, solve(s1, D));
+
+    s1 = "0100000000 ";
+    printf("%s D = %d  --> %d \n", s1.c_str(), D, solve(s1, D));
 
 }
 int main()
@@ -68,16 +81,16 @@ int main()
 
     cout << "TEST CASES: \n";
     test();
-   
-    
+
+
     cout << "\n\nUSER'S TEST: \n";
     string s;
     cin >> s;
-    
+
     int D;
-    
+
     cin >> D;
-    
+
     cout << solve(s, D) << endl;
 
     return 0;

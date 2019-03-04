@@ -216,4 +216,4 @@ for _ in range(number_of_games):
     blotk += result[1]
 
 print(f'After {number_of_games} games, \nFigurant won: {figur} games, Blotkarz: {blotk}\n')
-print(f'Probability of Blotkarz winning is {blotk / number_of_games * 100}%\n')
+print(f'Probability of Blotkarz winning is {blotk / number_of_games * 100}% \n')
