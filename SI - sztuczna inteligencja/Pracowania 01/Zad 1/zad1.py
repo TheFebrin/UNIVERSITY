@@ -38,7 +38,11 @@ def pos_to_cords(pos):
     return(ord(pos[0]) - 96, int(pos[1]))
 
 
-def find_mate_pos(w_k, b_k, first):
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+
+def find_mate_pos(w_k, w_rook, b_k, first):
     w_k = pos_to_cords(w_k)
     b_k = pos_to_cords(b_k)
 
@@ -46,9 +50,11 @@ def find_mate_pos(w_k, b_k, first):
     if first == 'white':
         Q.append(w_k)
         Q.append(b_k)
+        Q.append(w_rook)
     else:
         Q.append(b_k)
         Q.append(w_k)
+        Q.append(w_rook)
 
     print(Q.popleft())
 
