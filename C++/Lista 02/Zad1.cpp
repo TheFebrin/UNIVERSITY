@@ -39,11 +39,6 @@ string bin2rzym( int x ){
 }
 
 bool check( string s ){
-    if( s[ 0 ] == '0' ){
-        clog << s << " is not a valid number! \n";
-        return false;
-    }
-
     for(auto c: s) if( !isdigit(c) ){
         clog << s << " is not a valid number! \n";
         return false;
@@ -59,17 +54,17 @@ bool check( string s ){
         clog << s << " is greater than 3999! \n";
         return false;
     }
+
+    if( s[ 0 ] == '0' ){
+        clog << s << " is not a valid number! \n";
+        return false;
+    }
+
     return true;
 }
 
 int main(int argc, char *argv[])
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    // freopen("input.in","r",stdin);
-    // freopen("output.txt","w",stdout);
 
     cout << "You have entered " << argc - 1 << " numbers:" << "\n\n";
 
