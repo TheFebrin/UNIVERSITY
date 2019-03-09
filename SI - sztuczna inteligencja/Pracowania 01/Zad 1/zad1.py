@@ -81,9 +81,7 @@ def can_move(x, y, state, who):
 
 
 def check_mate(state):
-    b_k = state.black_king
-    w_k = state.white_king
-    w_r = state.white_rook
+    b_k, w_k, w_r = state.black_king, state.white_king, state.white_rook
 
     if b_k[0] == 1 and w_k[0] == 3 and b_k[1] == w_k[1] and w_r[0] == 1 and abs(b_k[1] - w_r[1]) > 1:
         return True
@@ -100,21 +98,50 @@ def check_mate(state):
     return False
 
 
-#----- MAIN BFS ---------------------------------------------------------------------------------------------------------------
-def find_mate_pos(w_k, w_rook, b_k, first):
-    # BFS based function that checks all positions and looks for check-mate ones
-    ALL_STATES.clear()
-    w_k = pos_to_cords(w_k)
-    b_k = pos_to_cords(b_k)
-    w_rook = pos_to_cords(w_rook)
+def do_check_mate(akt_state, pre_white, pre_black, beg_state, debug):
+    # now backtrack answers:
+    answer = akt_state.moves_no
+    winning_moves = []
+    if debug:
+        while akt_state != beg_state:
+            winning_moves.append((akt_state.white_king, akt_state.white_rook, akt_state.black_king, akt_state.moves_no))
 
+            akt_state = pre_white[(akt_state.white_king, akt_state.white_rook, akt_state.black_king, akt_state.moves_no)]
+
+    winning_moves.reverse()
+    for w in winning_moves:
+        print('Move number: ', w[3])
+        chess_board = printer.pos_to_char(w[0], w[1], w[2])
+        printer.print_board(chess_board[0], chess_board[1], chess_board[2])
+
+    print('\nCheck mate position: ')
+    chess_board = printer.pos_to_char(akt_state.white_king, akt_state.white_rook, akt_state.black_king)
+    printer.print_board(chess_board[0], chess_board[1], chess_board[2])
+    print('We did check mate in ', answer, ' moves!')
+    for _ in range(50):
+        print('_', end='')
+    print('\n\n\n\n')
+
+
+#----- MAIN BFS ---------------------------------------------------------------------------------------------------------------
+
+
+def find_mate_pos(w_k, w_rook, b_k, first, debug):
+    # BFS based function that checks all positions and looks for check-mate ones
+
+    ALL_STATES.clear()
+    pre_black, pre_white = {}, {}
+    w_k, b_k, w_rook = pos_to_cords(w_k), pos_to_cords(b_k), pos_to_cords(w_rook)
+    beg_state = 0
     Q = deque()
 
     # starting state
     if first == 'white':
-        Q.append(State('white', w_k, w_rook, b_k, 0))
+        beg_state = State('white', w_k, w_rook, b_k, 0)
+        Q.append(beg_state)
     else:
-        Q.append(State('black', w_k, w_rook, b_k, 0))
+        beg_state = State('black', w_k, w_rook, b_k, 0)
+        Q.append(beg_state)
 
     # proper BFS
     total = 0
@@ -124,13 +151,7 @@ def find_mate_pos(w_k, w_rook, b_k, first):
 
         # WE DID CHECK MATE!
         if check_mate(akt_state):
-            print('Check mate position: ')
-            chess_board = printer.pos_to_char(akt_state.white_king, akt_state.white_rook, akt_state.black_king)
-            printer.print_board(chess_board[0], chess_board[1], chess_board[2])
-            print('We did check mate in ', akt_state.moves_no, ' moves!')
-            for _ in range(50):
-                print('_', end='')
-            print('\n\n')
+            do_check_mate(akt_state, pre_white, pre_black, beg_state, debug)
             return
 
         if akt_state.move == 'black':
@@ -140,6 +161,7 @@ def find_mate_pos(w_k, w_rook, b_k, first):
 
                 if can_move(new_x, new_y, akt_state, 'black_king'):
                     Q.append(State('white', akt_state.white_king, akt_state.white_rook, (new_x, new_y), akt_state.moves_no + 1))
+                    pre_white[(akt_state.white_king, akt_state.white_rook, (new_x, new_y), akt_state.moves_no + 1)] = akt_state
 
         if akt_state.move == 'white':
             # king move
@@ -149,6 +171,7 @@ def find_mate_pos(w_k, w_rook, b_k, first):
 
                 if can_move(new_x, new_y, akt_state, 'white_king'):
                     Q.append(State('black', (new_x, new_y), akt_state.white_rook, akt_state.black_king, akt_state.moves_no + 1))
+                    pre_white[((new_x, new_y), akt_state.white_rook, akt_state.black_king, akt_state.moves_no + 1)] = akt_state
 
             # rook move
             rook_x, rook_y = akt_state.white_rook[0], akt_state.white_rook[1]
@@ -166,6 +189,7 @@ def find_mate_pos(w_k, w_rook, b_k, first):
                     continue
                 if can_move(i, rook_y, akt_state, 'white_rook'):
                     Q.append(State('black', akt_state.white_king, (i, rook_y), akt_state.black_king, akt_state.moves_no + 1))
+                    pre_white[(akt_state.white_king, (i, rook_y), akt_state.black_king, akt_state.moves_no + 1)] = akt_state
 
             # y - move
             left, right = 1, 8
@@ -180,6 +204,7 @@ def find_mate_pos(w_k, w_rook, b_k, first):
                     continue
                 if can_move(rook_x, i, akt_state, 'white_rook'):
                     Q.append(State('black', akt_state.white_king, (rook_x, i), akt_state.black_king, akt_state.moves_no + 1))
+                    pre_white[(akt_state.white_king, (rook_x, i), akt_state.black_king, akt_state.moves_no + 1)] = akt_state
 
     print('We considered ', total, ' situations!')
 
@@ -189,7 +214,7 @@ with open('input.txt') as f:
     for line in f:
         INPUT.append(line.strip())
 
-# start of the whole symulation
+debug = False
 
 
 def solve(board):
@@ -202,7 +227,7 @@ def solve(board):
         w_rook = board[2]
         b_king = board[3]
 
-        find_mate_pos(w_king, w_rook, b_king, first_move)
+        find_mate_pos(w_king, w_rook, b_king, first_move, debug)
 
 
 solve(INPUT)
