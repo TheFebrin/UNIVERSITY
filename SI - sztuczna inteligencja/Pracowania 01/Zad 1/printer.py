@@ -32,7 +32,7 @@ def print_board(wk, wt, bk):
     c, r = pos2d(bk)
     board[r][c] = figures[2]
 
-    board = [([chr(j + 49)] + board[j]) for j in range(8)] + [[' '] + [chr(j + 97) for j in range(8)]]
+    board = [ ([chr(j + 49)] + board[j]) for j in range(8)] + [[' '] + [chr(j + 97) for j in range(8)]]
 
     print((tabulate.tabulate(board)))
     print()
