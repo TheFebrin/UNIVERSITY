@@ -127,7 +127,7 @@ def solve(obr):
         step += 1
 
 
-solve(test1[3])
+solve(test1[2])
 
 '''
 TEST 0

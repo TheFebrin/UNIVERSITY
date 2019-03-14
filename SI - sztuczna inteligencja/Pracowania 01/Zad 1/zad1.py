@@ -214,7 +214,7 @@ with open('input.txt') as f:
     for line in f:
         INPUT.append(line.strip())
 
-debug = False
+debug = True
 
 
 def solve(board):

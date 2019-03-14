@@ -15,7 +15,7 @@ INPUT = []
 in_file = 'in.txt'
 max_test = 'pan_tadeusz.txt'
 validator = 'zad2_input.txt'
-with open(validator) as f:
+with open(in_file) as f:
     for line in f:
         INPUT.append(line.replace('\n', ''))
 

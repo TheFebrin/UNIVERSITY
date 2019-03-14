@@ -184,7 +184,7 @@ def gen_Blotkarz_hand(n):
     cards = []
     suits = []
 
-    cards = random.sample(Blotkarz, n)
+    cards = random.sample(Blotkarz_test, n)
     suits = [all_suits[card % 10 - 1] for card in cards]
     cards = [card // 10 for card in cards]
 
