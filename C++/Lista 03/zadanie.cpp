@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	Punkt a = Punkt(1.0,1.0), b = Punkt(2.0,2.0), c = Punkt(6.0,6.0);
+	Punkt a = Punkt(1.0,1.0), b = Punkt(0.0,0.0), c = Punkt(6.0,6.0);
 
 	cout << "Punkt a: ";
 	a.print();
@@ -26,7 +26,7 @@ int main()
 
 	//--ODCINEK-----------------------------------------------
 	cout <<"Odcinek o: \n";
-	Odcinek o = Odcinek(a,b);
+	Odcinek o = Odcinek(b,a);
 	o.print();
 
 	cout << "Dlugosc odcinka: " << o.dlugosc() << endl;
@@ -35,15 +35,23 @@ int main()
 
 	cout << "Srodek odcinka o: ";
 	 o.srodek_odcinka().print();
+	 Punkt p = o.srodek_odcinka();
 
+	 o.obrot(b,90);
+	 o.print();
 
 	cout << endl;
 
 
 	//--TROJKAT-----------------------------------------------
 	cout << "Trojkat t: \n";
-	Trojkat t = Trojkat(a,b,c);
+	Trojkat t = Trojkat(Punkt(0,0), Punkt(5,0), Punkt(5,10));
 	t.print();
+
+	cout << "Czy punkt (1,1) w trojkacie?: " << t.czy_punkt_w_srodku(Punkt(1,1)) << endl;
+
+	Trojkat t2 = Trojkat(Punkt(4,0), Punkt(10,0), Punkt(10,100));
+	cout << "Czy t zawiera t1?: " << t.zawiera(t, t2) << endl;
 	cout << endl;
 
 

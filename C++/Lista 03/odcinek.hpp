@@ -26,7 +26,7 @@ public:
 
     bool rownolegle(Odcinek o, Odcinek m);
     bool prostopadle(Odcinek o, Odcinek m);
-    Punkt punkt_przeciecia(Odcinek o, Odcinek m); //TODO
+    Punkt punkt_przeciecia(Odcinek o, Odcinek m);
 
 
 private:

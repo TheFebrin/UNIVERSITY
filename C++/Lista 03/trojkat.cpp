@@ -16,7 +16,7 @@ Trojkat::Trojkat(Punkt a, Punkt b, Punkt c){
     double c_x = c.get_x(), c_y = c.get_y();
 
     if( (a_x == b_x and a_x == c_x and b_x == c_x)
-    or (a_y == b_y && a_y == c_y and b_y == c_y))
+    or (a_y == b_y and a_y == c_y and b_y == c_y))
         throw std::invalid_argument("Wszystkie wierzcholki są tym samym punktem!");
 
     if( (a_x == b_x and a_y == b_y) or (b_x == c_x and b_y == c_y) or (a_x == c_x and a_y == c_y) )
@@ -94,6 +94,18 @@ bool Trojkat::czy_punkt_w_srodku(Punkt p){
     plus = (d1 > 0) or (d2 > 0) or (d3 > 0);
 
     return !(minus and plus);
+}
+
+bool Trojkat::zawiera(Trojkat t1, Trojkat t2) {
+    Punkt a1 = t1.get_a();
+    Punkt b1 = t1.get_b();
+    Punkt c1 = t1.get_c();
+
+    Punkt a2 = t2.get_a();
+    Punkt b2 = t2.get_b();
+    Punkt c2 = t2.get_c();
+
+    return (!t1.czy_punkt_w_srodku(a1) and !t1.czy_punkt_w_srodku(b1) and !t1.czy_punkt_w_srodku(c1) and !t2.czy_punkt_w_srodku(a2) and !t2.czy_punkt_w_srodku(b2)and !t2.czy_punkt_w_srodku(c2));
 }
 
 void Trojkat::translacja(double x, double y){

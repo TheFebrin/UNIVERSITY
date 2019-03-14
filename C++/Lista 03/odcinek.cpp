@@ -99,14 +99,33 @@ bool Odcinek::prostopadle(Odcinek o, Odcinek m){
     return (odc_1 == -odc_2) or (-odc_1 == odc_2);
 }
 
-// Punkt Odcinek::punkt_przeciecia(Odcinek o, Odcinek m){
-//     // wyjatek jesli nie ma punktu przeciecia
-//     if (rownolegle(o, m))
-//         throw std::invalid_argument("Odcinki sa rownolegle!");
+Punkt Odcinek::punkt_przeciecia(Odcinek o, Odcinek m){
+    // wyjatek jesli nie ma punktu przeciecia
+    if (rownolegle(o, m))
+        throw std::invalid_argument("Odcinki sa rownolegle!");
 
-//     double x = (a.getA() - b.getA()) / (b.getB() - a.getB());
-//     double y = a.getA() * x + a.getB();
+    Punkt o_p = o.get_first();
+    Punkt o_k = o.get_second();
 
-//     return Punkt(x, y);
+    Punkt m_p = m.get_first();
+    Punkt m_k = m.get_second();
 
-// }
+    double ax1 = (o_p.get_y() - o_k.get_y()) / (o_p.get_x() - o_k.get_x());
+    double b1  = o_p.get_y()- ax1 * o_p.get_x();
+
+    double ax2 = (m_p.get_y() - m_k.get_y()) / (m_p.get_x() - m_k.get_x());
+    double b2  = m_p.get_y()- ax1 * m_p.get_x();
+
+    double x = (ax1 - ax2) / (b2 - b1);
+    double y = ax1 * x + b1;
+
+    Punkt p = Punkt(x, y);
+
+    if( o.czy_punkt_lezy_na_odcinku(p) and o.czy_punkt_lezy_na_odcinku(p) ){
+        return Punkt(x, y);
+    }
+    else{
+        throw std::invalid_argument("Odcinki sa rozłączne!");
+    }
+
+}

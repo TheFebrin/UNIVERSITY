@@ -38,11 +38,12 @@ void Punkt::obroc(Punkt a, double alfa){
 
     double t_x = this->x;
     double t_y = this->y;
-    double kat = -alfa * M_PI / 180;
+    double kat = alfa * M_PI / 180;
 
-    this->x = cos(kat) * (t_x - a_x) + sin(kat) * (t_y - a_y) + a_x;
+    this->x = t_x * cos(kat) - t_y * sin(kat);
+    this->y = t_x * sin(kat) + t_y * cos(kat);
 
-    this->y = sin(kat) * (this->x - a_x) + cos(kat) * (t_y - a_y) - a_y;
+    this->translacja(a_x, a_y);
 }
 
 void Punkt::translacja(double x, double y){
