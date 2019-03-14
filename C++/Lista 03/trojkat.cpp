@@ -78,30 +78,23 @@ Punkt Trojkat::srodek(Trojkat t){
 
 }
 
-double sign (Punkt p1, Punkt p2, Punkt p3){
+double Trojkat::znak(Punkt p1, Punkt p2, Punkt p3){
     return (p1.get_x() - p3.get_x()) * (p2.get_y() - p3.get_y()) - (p2.get_x() - p3.get_x()) * (p1.get_y() - p3.get_y());
 }
 
-bool trojkat::punkt_w_srodku(punkt p) {
+bool Trojkat::czy_punkt_w_srodku(Punkt p){
     double d1, d2, d3;
-    bool has_neg, has_pos;
+    bool minus, plus;
 
-    d1 = sign(p, get_a(), get_b());
-    d2 = sign(p, get_b(), get_c());
-    d3 = sign(p, get_c(), get_a());
+    d1 = znak(p, this->get_a(), this->get_b());
+    d2 = znak(p, this->get_b(), this->get_c());
+    d3 = znak(p, this->get_c(), this->get_a());
 
-    has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
-    has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+    minus = (d1 < 0) or (d2 < 0) or (d3 < 0);
+    plus = (d1 > 0) or (d2 > 0) or (d3 > 0);
 
-    return !(has_neg && has_pos);
+    return !(minus and plus);
 }
-
-
- bool Trojkat::czy_punkt_w_srodku(Punkt p, Trojkat t){
-
-
-    return true;
- }
 
 void Trojkat::translacja(double x, double y){
     this->p1.translacja(x, y);

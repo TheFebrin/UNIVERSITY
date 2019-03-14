@@ -17,12 +17,13 @@ public:
     double obwod(Trojkat t);
     Punkt srodek(Trojkat t);
     double znak(Punkt p1, Punkt p2, Punkt p3);
-    bool czy_punkt_w_srodku(Punkt p, Trojkat t); //TO DO
+    bool czy_punkt_w_srodku(Punkt t);
 
     void translacja(double x, double y);
     void obrot(Punkt p, double alfa);
 
 private:
     Punkt p1, p2, p3;
+
 };
 #endif
