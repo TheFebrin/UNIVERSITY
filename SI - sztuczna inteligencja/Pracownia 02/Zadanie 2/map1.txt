@@ -1,0 +1,7 @@
+WWWWWW
+W.GWWW
+W..WWW
+W*K..W
+W..B.W
+W..WWW
+WWWWWW

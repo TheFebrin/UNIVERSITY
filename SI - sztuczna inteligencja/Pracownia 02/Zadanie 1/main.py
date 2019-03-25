@@ -1,4 +1,5 @@
 import random
+from os import system
 
 R, C = 0, 0
 rows, cols = [], []
@@ -275,6 +276,7 @@ def solve():
     if best_cell_to_change != -1:
         change_cell(i, best_cell_to_change)
 
+        system('clear')
         print_picture()
 
 
@@ -289,5 +291,4 @@ while not good_rows():
     solve()
     n += 1
 
-print_picture()
-print()
+print('FINISHED')
