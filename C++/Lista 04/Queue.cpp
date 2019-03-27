@@ -11,28 +11,25 @@ Queue::Queue(){
 
 Queue::Queue(int capacity) : Queue()
 {
-    if (capacity <= 0){
-        throw new std::invalid_argument("Kolejka o wielkosci 0!!!\n");
-    }
-
+    if (capacity <= 0) throw new invalid_argument("Zero capacity! \n");
     this->capacity = capacity;
     queue = new string[capacity];
 }
 
 Queue::Queue(initializer_list<string> il){
-    if (il.size() == 0){
-        throw new std::invalid_argument("Kolejka o wielkosci 0!!!\n");
-    }
+    if (il.size() == 0) throw new invalid_argument("Empty list! \n");
+
     capacity = il.size();
     queue = new string[capacity];
-    beg = 0;
     number_of_elements = il.size();
 
+    beg = 0;
     for (auto elem : il){
         queue[beg % capacity] = elem;
         beg ++;
     }
 }
+
 
 Queue::Queue(const Queue &k){
     capacity = k.capacity;
@@ -55,6 +52,13 @@ Queue::Queue(Queue &&k)
     k.beg = 0;
     k.number_of_elements = 0;
 }
+
+Queue::~Queue(){
+    delete[] queue;
+}
+
+
+
 
 Queue &Queue::operator=(const Queue &k){
     if (this != &k){
@@ -79,34 +83,37 @@ Queue &Queue::operator=(Queue &&k){
     return *this;
 }
 
-Queue::~Queue(){
-    delete[] queue;
+
+
+
+string Queue::pop(){
+    auto del = front();
+    if (this->isEmpty()) throw invalid_argument("Empty queue! \n");
+    beg++;
+    number_of_elements --;
+    return del;
 }
 
+string Queue::front(){
+    if (this->isEmpty()) throw invalid_argument("Empty queue! \n");
+    return queue[beg % capacity];
+}
+
+
+
+
 void Queue::insert(string x){
-    if (this->isFull()){
-        throw std::invalid_argument("Kolejka pelna!\n");
-    }
+    if (this->isFull()) throw invalid_argument("Full queue! \n");
     queue[ (beg + number_of_elements) % capacity ] = x;
     number_of_elements ++;
 }
 
-string Queue::pop(){
-    if (this->isEmpty()){
-        throw std::invalid_argument("Kolejka pusta!\n");
-    }
-    string s = front();
-    beg++;
-    number_of_elements--;
-    return s;
+void Queue::print_queue(){
+    for (int i = 0; i < number_of_elements; i ++) cout << queue[ i ] << " ";
 }
 
-string Queue::front(){
-    if (this->isEmpty()){
-        throw std::invalid_argument("kolejka jest pusta");
-    }
-    return queue[beg % capacity];
-}
+
+
 
 int Queue::size(){
     return number_of_elements;
@@ -120,6 +127,3 @@ bool Queue::isFull(){
     return capacity == number_of_elements;
 }
 
-void Queue::print_queue(){
-    for (int i = 0; i < number_of_elements; i++) cout << queue[i] << " ";
-}

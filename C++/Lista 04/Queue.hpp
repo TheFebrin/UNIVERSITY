@@ -15,11 +15,11 @@ public:
   Queue(initializer_list <string> il);
   Queue(const Queue &k);
   Queue(Queue &&k);
+  ~Queue();
 
   /* operatory przypisania */
   Queue &operator=(const Queue &k); // kopiujacy
   Queue &operator=(Queue &&k); // przenoszacy
-  ~Queue();
 
  /* funkcje */
   string pop();

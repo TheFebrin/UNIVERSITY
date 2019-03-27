@@ -5,98 +5,90 @@ using namespace std;
 
 int main()
 {
-    bool nieKoniec = true;
+    bool run = true;
     char c;
     int n;
 
-    cout << "Podaj rozmiar kolejki: ";
+    cout << "Queue size: ";
     cin >> n;
 
     Queue *k;
     k = new Queue(n);
 
-    while (nieKoniec)
-    {
-        cout << "e - wloz do koleki\n"
-             << "d - wyciagnij z kolejki\n"
-             << "b - sprawdz poczatek\n"
-             << "s - podaj rozmiar\n"
-             << "f - czy jest pelna\n"
-             << "c - zawartosc\n"
-             << "l - wyjdz\n";
+    while (run){
+
+        cout << "\n";
+        cout << "i - insert \n"
+             << "p - pop \n"
+             << "f - front \n"
+             << "s - size \n"
+             << "z - print Queue \n"
+             << "q - quit \n";
+        cout << "\n";
 
         cin >> c;
 
-        switch (c)
-        {
-        case 'e':
-            try
-            {
-                string element;
-                cin >> element;
-                k->insert(element);
-                cout << "Do kolejki dodano element: " << element << "\n";
-            }
-            catch (const std::exception &e)
-            {
-                std::cerr << e.what() << '\n';
-            }
-            break;
-        case 'd':
-            try
-            {
-                string element = k->pop();
-                cout << "Z kolejki usunieto element: " << element << "\n";
-            }
-            catch (const std::exception &e)
-            {
-                std::cerr << e.what() << '\n';
-            }
-            break;
-        case 'b':
-            try
-            {
-                string element = k->front();
-                cout << "Poczatek kolejki: " << element << "\n";
-            }
-            catch (const std::exception &e)
-            {
-                std::cerr << e.what() << '\n';
-            }
-            break;
-        case 's':
-            cout << "Rozmiar kolejki: " << k->size() << "\n";
-            break;
-        case 'f':
-            cout << "Czy pelna: " << k->isFull() << "\n";
-            break;
+        system("clear");
 
-        case 'c':
-            k->print_queue();
-            cout << "\n";
-            break;
-        case 'l':
-            nieKoniec = false;
-            break;
+        switch (c){
+
+            case 'i':
+            {
+                cout << "Insert something: \n";
+                string x;
+                cin >> x;
+                k->insert(x);
+                cout << "Added: " << x << "\n";
+                break;
+            }
+
+            case 'p':
+            {
+                cout << "Deleted: " << k->pop() << "\n";
+                break;
+            }
+
+            case 'f':
+            {
+                cout << "Front: " << k->front() << "\n";
+                break;
+            }
+
+            case 's':
+            {
+                cout << "Size: " << k->size() << "\n";
+                break;
+            }
+
+            case 'z':
+            {
+                k->print_queue();
+                cout << "\n";
+                break;
+            }
+
+            case 'q':
+            {
+                run = false;
+                break;
+            }
         }
     }
 
-    Queue *kolejka, *kolejka2, *kolejka3, *kolejka4;
+    // cout << "TEST KONSTRUKTORÓW I OPERATORÓW \n";
+    // Queue *Q, *Q2;
+    // Q = new Queue(initializer_list<string>{"cat", "dog", 12, 112, "dskgjndfgdjng"});
+    // Q2 = new Queue(*kolejka);
 
-    kolejka = new Queue(initializer_list<string>{"A", "B", "C"});
+    // Q->print_queue();
+    // cout << "\n";
 
-    kolejka2 = new Queue(*kolejka);
-    kolejka3 = new Queue(initializer_list<string>{"X", "y", "Z"});
+    // Q = Q2;
 
-    kolejka3->print_queue();
-    cout << "\n";
+    // Q->print_queue();
+    // cout << "\n";
 
-    kolejka3 = kolejka;
-
-    kolejka3->print_queue();
-    cout << "\n";
-
-    kolejka3->print_queue();
+    // Q->print_queue();
 
     return 0;
 }
