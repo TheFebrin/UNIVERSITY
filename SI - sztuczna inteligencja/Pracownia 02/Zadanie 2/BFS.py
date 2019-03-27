@@ -18,7 +18,7 @@ maps = [
     'map9.txt',  # 8 - ans: 78
     'map10.txt',  # 9 - ans: 50
 ]
-with open(maps[9]) as f:
+with open(maps[0]) as f:
     for line in f:
         MAP.append(list(line.strip()))
 

@@ -40,18 +40,19 @@ for i in range(N):
 print(start, ' --> ', goal)
 
 
-def heuristic(x, y):
-    return abs(x - goal[0]) + abs(y - goal[1])
+def heuristic(x, y, act):
+    return abs(x - goal[0]) + abs(y - goal[1]) - act
 
 
 Q = []
 counter = 0
 visited = set()
-heapq.heappush(Q, (0, start))
+heapq.heappush(Q, (0, start, 0))
 while len(Q) > 0:
     counter += 1
     act = heapq.heappop(Q)
     cords = act[1]
+    steps = act[2]
 
     MAZE[cords[0]][cords[1]] = '0'
 
@@ -68,5 +69,5 @@ while len(Q) > 0:
             continue
 
         if MAZE[new_x][new_y] == ' ' or MAZE[new_x][new_y] == 'G':
-            heapq.heappush(Q, (heuristic(new_x, new_y), (new_x, new_y)))
+            heapq.heappush(Q, (heuristic(new_x, new_y, steps), (new_x, new_y), steps + 1))
             visited.add((new_x, new_y))

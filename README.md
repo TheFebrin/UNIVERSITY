@@ -35,7 +35,7 @@
 
 <h3>Semestr 4</h3>
 <ul>
-    <li>Algorytmy i struktury danych (wyk: Krzysztof Loryś, ćw: Krzysztof Loryś)</li>
+    <li>Algorytmy i struktury danych (wyk: Krzysztof Loryś, ćw: Szymon Dudycz)</li>
     <li>Sztuczna inteligencja (wyk: Paweł Rychlikowski, ćw: Paweł Rychlikowski)</li>
     <li>Rachunek prawdopodobieństwa i statystyka (wyk: Witold Karczewski, ćw: Pratik Ghosal)</li>
     <li>Kurs języka C++ (wyk: Paweł Rzechonek, prac: Przemysław Uznański)</li>

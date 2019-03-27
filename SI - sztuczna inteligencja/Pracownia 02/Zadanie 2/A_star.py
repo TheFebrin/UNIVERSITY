@@ -159,7 +159,7 @@ def heuristic(state):
             act_dist += abs(c[0] - g[0]) + abs(c[1] - g[1])
             min_dist = min(min_dist, act_dist)
 
-    return min_dist
+    return min_dist + len(state[3])
 
 
 # A*

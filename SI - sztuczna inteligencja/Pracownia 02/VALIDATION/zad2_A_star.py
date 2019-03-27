@@ -24,10 +24,6 @@ with open('zad_input.txt') as f:
 
 N, M = len(MAP), len(MAP[0])
 
-print('START!')
-for m in MAP:
-    print(*m)
-
 # extract all positions
 # K - player's position
 # B - chest's position
@@ -157,9 +153,9 @@ def change(c):
 
 
 def print_answer(state):
-    print('Number of steps: ', len(state[3]))
-    print()
-    print([direction(i) for i in state[3]])
+    # print('Number of steps: ', len(state[3]))
+    # print()
+    # print([direction(i) for i in state[3]])
 
     answer = ''
     for c in [direction(i) for i in state[3]]:
@@ -180,7 +176,7 @@ def heuristic(state):
             act_dist += abs(c[0] - g[0]) + abs(c[1] - g[1])
             min_dist = min(min_dist, act_dist)
 
-    return 0
+    return min_dist + len(state[3])
 
 
 # A*
@@ -196,8 +192,8 @@ while len(Q) > 0:
     act_state = act_state[1]
 
     if win(act_state[2]):
-        print('\nSOLUTION FOUND!!\n')
-        print_map(act_state)
+        # print('\nSOLUTION FOUND!!\n')
+        # print_map(act_state)
         print_answer(act_state)
         break
 
