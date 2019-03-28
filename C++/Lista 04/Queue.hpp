@@ -22,13 +22,13 @@ public:
   Queue &operator=(Queue &&k); // przenoszacy
 
  /* funkcje */
-  string pop();
-  string front();
+  string wyciagnij();
+  string sprawdz();
 
-  void insert(string x);
-  void print_queue();
+  void wloz(string x);
+  void wypisz();
 
-  int size();
-  bool isEmpty();
-  bool isFull();
+  int rozmiar();
+  bool czy_pelna();
+  bool czy_pusta();
 };

@@ -12,8 +12,7 @@ int main()
     cout << "Queue size: ";
     cin >> n;
 
-    Queue *k;
-    k = new Queue(n);
+    Queue *Q = new Queue(n);
 
     while (run){
 
@@ -37,32 +36,37 @@ int main()
                 cout << "Insert something: \n";
                 string x;
                 cin >> x;
-                k->insert(x);
+
+                if( Q->czy_pelna() ){
+                    clog << "Full queue! \n";
+                    break;
+                }
+                Q->wloz(x);
                 cout << "Added: " << x << "\n";
                 break;
             }
 
             case 'p':
             {
-                cout << "Deleted: " << k->pop() << "\n";
+                cout << "Deleted: " << Q->wyciagnij() << "\n";
                 break;
             }
 
             case 'f':
             {
-                cout << "Front: " << k->front() << "\n";
+                cout << "Front: " << Q->sprawdz() << "\n";
                 break;
             }
 
             case 's':
             {
-                cout << "Size: " << k->size() << "\n";
+                cout << "Size: " << Q->rozmiar() << "\n";
                 break;
             }
 
             case 'z':
             {
-                k->print_queue();
+                Q->wypisz();
                 cout << "\n";
                 break;
             }

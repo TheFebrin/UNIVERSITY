@@ -3,54 +3,56 @@
 
 
 Queue::Queue(){
-    capacity = 1;
-    queue = new string[capacity];
-    beg = 0;
-    number_of_elements = 0;
+    beg = 0, capacity = 1, number_of_elements = 0;
+    queue = new string[ capacity ];
 }
 
-Queue::Queue(int capacity) : Queue()
-{
-    if (capacity <= 0) throw new invalid_argument("Zero capacity! \n");
-    this->capacity = capacity;
-    queue = new string[capacity];
+Queue::Queue(int capacity){
+    if (capacity <= 0){
+        clog << "Zero capacity! \n";
+    }
+    else{
+         this->capacity = capacity;
+        beg = 0, number_of_elements = 0;
+        queue = new string[capacity];
+    }
 }
 
-Queue::Queue(initializer_list<string> il){
-    if (il.size() == 0) throw new invalid_argument("Empty list! \n");
+Queue::Queue(initializer_list <string> list){
+    if (list.size() == 0){
+        clog << "Empty list! \n";
+    }
+    else{
+        capacity = list.size();
+        queue = new string[capacity];
+        number_of_elements = list.size();
+        beg = 0;
 
-    capacity = il.size();
-    queue = new string[capacity];
-    number_of_elements = il.size();
-
-    beg = 0;
-    for (auto elem : il){
-        queue[beg % capacity] = elem;
-        beg ++;
+        int ptr = beg;
+        for (auto elem : list) queue[ ptr ++ ] = elem;
     }
 }
 
 
 Queue::Queue(const Queue &k){
     capacity = k.capacity;
-    queue = new string[capacity];
     beg = k.beg;
     number_of_elements = k.number_of_elements;
+
+    queue = new string[capacity];
     copy(k.queue, k.queue + k.capacity, queue);
 }
 
-Queue::Queue(Queue &&k)
-    : capacity(0), queue(nullptr), beg(0), number_of_elements(0)
-{
+Queue::Queue(Queue &&k){
     capacity = k.capacity;
     queue = k.queue;
     beg = k.beg;
     number_of_elements = k.number_of_elements;
 
     k.capacity = 0;
-    k.queue = nullptr;
     k.beg = 0;
     k.number_of_elements = 0;
+    k.queue = nullptr;
 }
 
 Queue::~Queue(){
@@ -61,15 +63,19 @@ Queue::~Queue(){
 
 
 Queue &Queue::operator=(const Queue &k){
-    if (this != &k){
+    if (this == &k){
+        return *this;
+    }
+    else{
         delete[] queue;
         capacity = k.capacity;
         queue = new string[capacity];
         beg = k.beg;
         number_of_elements = k.number_of_elements;
         copy(k.queue, k.queue + k.capacity, queue);
+
+        return *this;
     }
-    return *this;
 }
 
 Queue &Queue::operator=(Queue &&k){
@@ -86,44 +92,64 @@ Queue &Queue::operator=(Queue &&k){
 
 
 
-string Queue::pop(){
-    auto del = front();
-    if (this->isEmpty()) throw invalid_argument("Empty queue! \n");
-    beg++;
-    number_of_elements --;
-    return del;
+string Queue::wyciagnij(){
+    if (this->czy_pusta()){
+        clog << "Empty queue! \n";
+        return 0;
+    }
+    else{
+        auto del = sprawdz();
+        beg ++;
+        number_of_elements --;
+        return del;
+    }
 }
 
-string Queue::front(){
-    if (this->isEmpty()) throw invalid_argument("Empty queue! \n");
-    return queue[beg % capacity];
+string Queue::sprawdz(){
+    if (this->czy_pusta()){
+        clog << "Empty queue! \n";
+        return 0;
+    }
+    else{
+        beg %= capacity;
+        return queue[ beg ];
+    }
 }
 
 
 
 
-void Queue::insert(string x){
-    if (this->isFull()) throw invalid_argument("Full queue! \n");
-    queue[ (beg + number_of_elements) % capacity ] = x;
-    number_of_elements ++;
+void Queue::wloz(string x){
+    if (this->czy_pelna()){
+        clog << "Full queue! \n";
+    }
+    else{
+        queue[ (beg + number_of_elements) % capacity ] = x;
+        number_of_elements ++;
+    }
 }
 
-void Queue::print_queue(){
-    for (int i = 0; i < number_of_elements; i ++) cout << queue[ i ] << " ";
+void Queue::wypisz(){
+    // cout << "Beg: " << beg << endl;
+    int i = beg, cnt = number_of_elements;
+    while( cnt -- ) {
+        cout << queue[ i % capacity ] << " ";
+        i ++;
+    }
 }
 
 
 
 
-int Queue::size(){
+int Queue::rozmiar(){
     return number_of_elements;
 }
 
-bool Queue::isEmpty(){
+bool Queue::czy_pusta(){
     return number_of_elements == 0;
 }
 
-bool Queue::isFull(){
+bool Queue::czy_pelna(){
     return capacity == number_of_elements;
 }
 
