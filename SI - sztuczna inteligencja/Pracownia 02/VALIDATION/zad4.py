@@ -203,8 +203,9 @@ while len(Q) > 0:
         Q.clear()
 
     if mission_complete(positions):
-        print('FINISHED!')
-        print(moves)
+        if DEBUG:
+            print('FINISHED!')
+            print(moves)
         print_answer(moves)
         break
 
