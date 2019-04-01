@@ -41,7 +41,7 @@ print(start, ' --> ', goal)
 
 
 def heuristic(x, y, act):
-    return abs(x - goal[0]) + abs(y - goal[1]) - act
+    return abs(x - goal[0]) + abs(y - goal[1])
 
 
 Q = []

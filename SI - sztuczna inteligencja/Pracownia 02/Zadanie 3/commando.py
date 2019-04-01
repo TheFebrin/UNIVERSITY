@@ -13,7 +13,8 @@ color_table = {
     '#': 'black',
     ' ': 'white',
     'S': 'yellow',
-    'G': 'green'
+    'G': 'green',
+    'B': 'green'
 }
 
 
@@ -78,8 +79,6 @@ class Maze:
         if self.m[y][x] == 'G':
           self.goals.add((x, y))
         if self.m[y][x] == 'B':
-          self.start = (x, y)
-          self.starts.add((x, y))
           self.goals.add((x, y))
         if self.m[y][x] != '#':
           self.states.add((x, y))
@@ -103,21 +102,17 @@ class Maze:
 
 
 maze_str = """
-######################
-# G   G              #
-#    #       #S      #
-#  S #       #       #
-######### ############
-#    G#           G  #
-##   ##    ###########
-#    #       S       #
-# ## ###########     #
-#    #            S  #
-#S         ####      #
-######################
+##########################
+#                        #
+#         ############ ###
+#                S#     S#
+#                 #   B  #
+##########        # B    #
+#                 #   B  #
+##########################
 """
 
-#LLUULLULLLLURRULUUUULLLLLLLLRRRRR
+# LLUULLULLLLURRULUUUULLLLLLLLRRRRR
 
 maze = Maze(maze_str)
 states = maze.starts
