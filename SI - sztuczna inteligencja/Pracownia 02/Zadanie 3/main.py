@@ -19,6 +19,8 @@ def print_maze():
     for m in MAZE:
         print(*m)
 
+# printing act position of all commandos
+
 
 def print_pos(positions):
     OUT = [[] for _ in range(N)]
@@ -92,6 +94,8 @@ def do_moves(moves):
 
     return (Q, len(Q))
 
+# check if we can make this move
+
 
 def good_move(positions):
     h_s = tuple(positions)
@@ -100,6 +104,8 @@ def good_move(positions):
 
     visited.add(h_s)
     return True
+
+# move all commandos along a vector
 
 
 def make_new_pos(i, positions):
@@ -123,6 +129,8 @@ def mission_complete(state):
         if not s in goals:
             return False
     return True
+
+# if we can merge 2 commandos we do it!
 
 
 def can_merge(positions):
