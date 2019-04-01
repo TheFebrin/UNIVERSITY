@@ -6,9 +6,9 @@ goals = []
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 visited = set()
-DEBUG = True
+DEBUG = False
 
-with open('maze2.txt') as f:
+with open('zad_input.txt') as f:
     for line in f:
         MAZE.append(list(line.strip()))
 
@@ -142,6 +142,12 @@ def can_merge(positions):
     return False
 
 
+def print_answer(answer):
+    f = open('zad_output.txt', 'w')
+    f.write(answer)
+    f.close()
+
+
 if DEBUG:
     print('INPUT MAZE')
     print_maze()
@@ -153,7 +159,7 @@ minimal_moves = 1e9
 best_positions = []
 
 for seq in all_sequences:
-    no = 15
+    no = 10
     act_seq = seq[0] * no + seq[1] * no + seq[2] * no + seq[3] * no
 
     after_seq = do_moves(act_seq)
@@ -199,6 +205,7 @@ while len(Q) > 0:
     if mission_complete(positions):
         print('FINISHED!')
         print(moves)
+        print_answer(moves)
         break
 
     for i in range(4):

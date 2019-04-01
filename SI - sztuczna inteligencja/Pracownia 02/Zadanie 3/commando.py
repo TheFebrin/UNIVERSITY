@@ -102,17 +102,25 @@ class Maze:
 
 
 maze_str = """
-##########################
-#                        #
-#         ############ ###
-#                S#     S#
-#                 #   B  #
-##########        # B    #
-#                 #   B  #
-##########################
+######################
+#        #         B #
+#         S  ##      #
+#        #############
+#      ###           #
+#      ###           #
+#S       #           #
+## #######           #
+#                    #
+#                    #
+#                    #
+#                    #
+#                    #
+#                    #
+#         S          #
+######################
 """
 
-# LLUULLULLLLURRULUUUULLLLLLLLRRRRR
+# RDLLLLLLLLLDDDDDDDRLUUUUUUUURRRRUUURRURRRRURRRRRRR
 
 maze = Maze(maze_str)
 states = maze.starts
