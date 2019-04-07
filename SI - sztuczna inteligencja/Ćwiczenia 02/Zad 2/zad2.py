@@ -1,7 +1,7 @@
 from collections import deque
 
 WORDS = set()
-open('zad2_output.txt', 'w').close()  # clearing answer file
+open('valid_output.txt', 'w').close()  # clearing answer file
 longest_word = 0
 
 # opening file with all words and creating big set of words
@@ -14,9 +14,8 @@ with open('words.txt') as f:
 INPUT = []
 in_file = 'in.txt'
 max_test = 'pan_tadeusz.txt'
-validator = 'zad2_input.txt'
 
-with open(in_file) as f:
+with open(max_test) as f:
     for line in f:
         INPUT.append(line.replace('\n', ''))
 
@@ -88,8 +87,8 @@ def find_sentences(text):
         final_sentence = [final_sentence[0][0]] + final_sentence
         final_sentence[1] = final_sentence[1][1:]
 
-    print(*final_sentence)
-    f = open('zad2_output.txt', 'a')
+    # print(*final_sentence)
+    f = open('valid_output.txt', 'a')
     f.write(' '.join(final_sentence) + '\n')
     f.close()
 
