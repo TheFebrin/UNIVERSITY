@@ -9,6 +9,10 @@ wielomian::wielomian()
 
 wielomian::wielomian(int n, double a[])
 {
+    if( n < 0 ){
+        throw invalid_argument("Nie mozna utworzyc wielomianu o ujemnym stopnniu!\n");
+    }
+
     this->n = n;
     this->a = a;
 }
@@ -74,6 +78,11 @@ istream &operator >> (istream &in, wielomian &W)
 {
     int n;
     in >> n;
+
+    if( n < 0 ){
+        throw invalid_argument("Nie mozna utworzyc wielomianu o ujemnym stopnniu!\n");
+    }
+
     double *new_a = new double[ n + 1 ];
 
     for (int i = 0; i <= n; i ++)
