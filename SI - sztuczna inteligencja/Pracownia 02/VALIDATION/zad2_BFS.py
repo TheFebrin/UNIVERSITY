@@ -170,10 +170,15 @@ state = (sokoban_pos, chests, good_chests, [])
 Q.append(state)
 ALL_STATES.add(hash_state(sokoban_pos[0], sokoban_pos[1], state))
 
+cnt = 0
 while len(Q) > 0:
     act_state = Q.popleft()
     # print(act_state)
     # print_map(act_state)
+
+    cnt += 1
+    if cnt % 100000 == 0:
+        print(cnt)
 
     if win(act_state[2]):
         # print('\nSOLUTION FOUND!!\n')

@@ -71,3 +71,4 @@ while len(Q) > 0:
         if MAZE[new_x][new_y] == ' ' or MAZE[new_x][new_y] == 'G':
             heapq.heappush(Q, (heuristic(new_x, new_y, steps), (new_x, new_y), steps + 1))
             visited.add((new_x, new_y))
+            MAZE[new_x][new_y] = '0'
