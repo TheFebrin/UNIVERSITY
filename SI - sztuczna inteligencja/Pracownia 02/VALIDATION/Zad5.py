@@ -95,6 +95,7 @@ def merge(positions):
 def heuristic(positions, moves):
     distances = [DISTANCE[pos] for pos in positions]
     return max(distances) + moves
+    # return sum(distances) + moves
 
 
 def print_answer(answer):

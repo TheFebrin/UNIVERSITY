@@ -8,9 +8,9 @@ dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 
 map1 = 'map1.txt'
-validate = 'zadanie_input.txt'
+validate = 'zad_input.txt'
 
-with open(map1) as f:
+with open(validate) as f:
     for line in f:
         MAP.append(list(line.strip()))
 
@@ -65,16 +65,28 @@ def count_players_pos(x, y, direction, v):
     return player_pos
 
 
+def blocked_chest(x, y):
+    cnt = 0
+    for i in range(4):
+        if MAP[x + dx[i]][y + dy[i]] == '#':
+            cnt += 1
+
+    return cnt >= 3
+
+
 def good_move(x, y, chests, state, direction):
 
     # print('player on: ', count_players_pos(x, y, direction, 2), ' chest: ', x, y, direction)
     if tuple(chests) in ALL_STATES:
-
         return False
 
     # chest is moved out of boundry or into wall or chest position is occupied by another chest
     if not(0 <= x <= N) or not(0 <= y <= M) or MAP[x][y] == 'W' or (x, y) in state[1]:
         return False
+
+    for chest in chests:
+        if MAP[chest[0]][chest[1]] == '#' or blocked_chest(chest[0], chest[1]):
+            return False
 
     # positon that is needed to push chest on (x,y)
     player_pos = count_players_pos(x, y, direction, 2)
@@ -130,23 +142,52 @@ def print_map(state, ret):
         print()
 
 
+def change(c):
+    if c == 'down':
+        return 'D'
+
+    if c == 'up':
+        return 'U'
+
+    if c == 'left':
+        return 'L'
+
+    if c == 'right':
+        return 'R'
+
+
 def print_answer(state):
-    print('Number of steps: ', len(state[3]))
-    print()
-    print(state[3])
+    answer = ''
+    for c in state[3]:
+        answer += change(c)
+
+    print(answer)
+
+    f = open('zad_output.txt', 'w')
+    f.write(answer)
+    f.close()
+
+
+def manhattan_dist(A, B):
+    return abs(A[0] - B[0]) + abs(A[1] - B[1])
 
 
 def heuristic(state):
-    min_dist = 1e9
-    player_x, player_y = state[0][0], state[0][1]
-    chests = state[1]
-    for c in chests:
-        for g in goals:
-            act_dist = abs(player_x - c[0]) + abs(player_y - c[1])
-            act_dist += abs(c[0] - g[0]) + abs(c[1] - g[1])
-            min_dist = min(min_dist, act_dist)
+    # player_x, player_y = state[0][0], state[0][1]
+    chests = state[1].copy()
 
-    return min_dist
+    dist = 0
+    for g in goals:
+        if not chests:
+            break
+
+        distances = [(manhattan_dist(c, g), c) for c in chests]
+        min_dist = min(distances)
+
+        chests.remove(min_dist[1])
+        dist += min_dist[0]
+
+    return dist
 
 
 # A*
@@ -155,17 +196,20 @@ state = (sokoban_pos, chests, good_chests, [])
 heapq.heappush(Q, (heuristic(state), state))
 ALL_STATES.add(tuple(chests))
 
-
+cnt = 0
 while len(Q) > 0:
     act_state = heapq.heappop(Q)
     act_state = act_state[1]
 
+    cnt += 1
+    if cnt % 10000 == 0:
+        print(cnt)
     # print(act_state[1])
     # print_map(act_state, False)
 
     if win(act_state[2]):
-        print('\nSOLUTION FOUND!!\n')
-        print_map(act_state, False)
+        # print('\nSOLUTION FOUND!!\n')
+        # print_map(act_state, False)
         print_answer(act_state)
         break
 

@@ -69,11 +69,10 @@ def good_move(x, y, chests, state, direction):
 
     # print('player on: ', count_players_pos(x, y, direction, 2), ' chest: ', x, y, direction)
     if tuple(chests) in ALL_STATES:
-
         return False
 
     # chest is moved out of boundry or into wall or chest position is occupied by another chest
-    if not(0 <= x <= N) or not(0 <= y <= M) or MAP[x][y] == 'W' or (x, y) in state[1]:
+    if not(0 < x <= N) or not(0 < y <= M) or MAP[x][y] == 'W' or (x, y) in state[1]:
         return False
 
     # positon that is needed to push chest on (x,y)
@@ -149,6 +148,8 @@ def print_answer(state):
     for c in state[3]:
         answer += change(c)
 
+    print(answer)
+
     f = open('zad_output.txt', 'w')
     f.write(answer)
     f.close()
@@ -160,19 +161,22 @@ def print_answer(state):
 
 
 def heuristic(state):
-    min_dist = 1e9
-    player_x, player_y = state[0][0], state[0][1]
+    # player_x, player_y = state[0][0], state[0][1]
     chests = state[1]
-    for c in chests:
-        for g in goals:
-            act_dist = abs(player_x - c[0]) + abs(player_y - c[1])
-            act_dist += abs(c[0] - g[0]) + abs(c[1] - g[1])
+
+    dist = 0
+    for g in goals:
+        min_dist = 1e9
+        for c in chests:
+            # act_dist = abs(player_x - c[0]) + abs(player_y - c[1])
+            act_dist = abs(c[0] - g[0]) + abs(c[1] - g[1])
             min_dist = min(min_dist, act_dist)
 
-    return min_dist
+        dist += min_dist
+
+    return dist
 
 
-# A*
 Q = []  # priority queue
 state = (sokoban_pos, chests, good_chests, [])
 heapq.heappush(Q, (heuristic(state), state))
@@ -190,8 +194,8 @@ while len(Q) > 0:
     # print_map(act_state, False)
 
     if win(act_state[2]):
-        print('\nSOLUTION FOUND!!\n')
-        print_map(act_state, False)
+        # print('\nSOLUTION FOUND!!\n')
+        # print_map(act_state, False)
         print_answer(act_state)
         break
 
