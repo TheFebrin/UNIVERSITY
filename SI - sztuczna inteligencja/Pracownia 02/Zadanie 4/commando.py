@@ -102,22 +102,14 @@ class Maze:
 
 
 maze_str = """
-######################
-#        #         B #
-#         S  ##      #
-#        #############
-#      ###           #
-#      ###           #
-#S       #           #
-## #######           #
-#                    #
-#                    #
-#                    #
-#                    #
-#                    #
-#                    #
-#         S          #
-######################
+#####
+#B#S#
+#SSS#
+#SSB#
+#S#S#
+#SSS#
+#SSS#
+#####
 """
 
 # RDLLLLLLLLLDDDDDDDRLUUUUUUUURRRRUUURRURRRRURRRRRRR
