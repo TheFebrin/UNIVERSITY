@@ -5,7 +5,6 @@ using namespace obliczenia;
 
 int main()
 {
-
     cout << "START!\n";
 
     wymierna w(2,-8);
@@ -16,9 +15,6 @@ int main()
 
     wymierna x1 = wymierna(4,5);
     cout << x1.get_licznik() << " " << x1.get_mianownik() << endl << endl;
-
-    cout << "Wypisywanie dla 5 / 11 \n";
-    cout << wymierna(5,11) << endl << endl;
 
     w = !w;
     cout << "Test operatora ! dla -1 / 4 \n";
@@ -47,6 +43,28 @@ int main()
     cout << "Test operatora * dla 2 / 3 + 3 / 4 \n";
     wymierna razy = wymierna(2,3) * wymierna(3,4);
     cout << razy.get_licznik() << " " << razy.get_mianownik() << endl << endl;
+
+    cout << "Test operatora / dla 2 / 3 + 3 / 4 \n";
+    wymierna dziel = wymierna(2,3) / wymierna(3,4);
+    cout << dziel.get_licznik() << " " << dziel.get_mianownik() << endl << endl;
+
+    cout << "Wypisywanie dla 1 / 3 \n";
+    cout << wymierna(1,3) << endl << endl;
+
+    cout << "Wypisywanie dla 5 / 11 \n";
+    cout << wymierna(5,11) << endl << endl;
+
+    cout << "Wypisywanie dla 1 / 9801 \n";
+    cout << wymierna(1,9801) << endl << endl;
+
+    cout << "Wypisywanie dla 1 / 32 \n";
+    cout << wymierna(1,32) << endl << endl;
+
+    cout << "Wypisywanie dla 1 / 23 \n";
+    cout << wymierna(1,23) << endl << endl;
+
+    cout << "Wypisywanie dla 3227 / 555 \n";
+    cout << wymierna(3227,555) << endl << endl;
 
 
 

@@ -1,4 +1,5 @@
 #include "wymierna.hpp"
+#include "wyjatki.hpp"
 
 namespace obliczenia
 {
@@ -41,7 +42,38 @@ int wymierna::gcd(int a , int b)
 
 std::ostream &operator<<(std::ostream &wyj, const wymierna &w){
     //Liczba rzeczywista z rozwinieciem ulamkowym
-    return wyj <<  (double)w.licznik / (double)w.mianownik;
+    int licznik = w.licznik;
+    int mianownik = w.mianownik;
+
+    string rozwiniecie_dziesietne;
+    unordered_map < int, int > M;
+    int r = licznik % mianownik;
+
+    while( r and M.find( r ) == M.end() ){
+        M[ r ] = rozwiniecie_dziesietne.size();
+        r *= 10;
+        rozwiniecie_dziesietne += to_string(r / mianownik);
+
+        r %= mianownik;
+    }
+
+    if( r == 0 ) // brak okresowosci
+    {
+        string pocz = to_string(licznik / mianownik ) + ".";
+        rozwiniecie_dziesietne = pocz + rozwiniecie_dziesietne;
+
+        return wyj << rozwiniecie_dziesietne;
+    }
+    else // ulamek okresowy
+    {
+        string pocz = to_string(licznik / mianownik ) + ".";
+        rozwiniecie_dziesietne.insert(M[ r ],"(");
+        rozwiniecie_dziesietne = pocz + rozwiniecie_dziesietne + ")";
+
+        return wyj << rozwiniecie_dziesietne;
+    }
+
+
 }
 
 wymierna &wymierna::operator!(){
@@ -78,6 +110,10 @@ wymierna operator+(const wymierna &w1, const wymierna &w2){
 
     int licznik2 = w2.licznik * lcm / w2.mianownik;
 
+    if( 1LL * licznik * 1LL * licznik2 > INT_MAX ){
+        throw out_of_range("Zakres int przekroczony!\n");
+    }
+
     return wymierna(licznik + licznik2, lcm);
 }
 
@@ -93,8 +129,28 @@ wymierna operator-(const wymierna &w1, const wymierna &w2){
 }
 
 wymierna operator*(const wymierna &w1, const wymierna &w2){
+
+    if( 1LL * w1.licznik * 1LL * w2.licznik > INT_MAX ){
+        throw przekroczenie_zakresu();
+    }
+
     int licznik = w1.licznik * w2.licznik;
     int mianownik = w1.mianownik * w2.mianownik;
+
+    if( mianownik < 0 ){
+        mianownik *= -1;
+        licznik *= -1;
+    }
+    return wymierna(licznik, mianownik);
+}
+
+wymierna operator/(const wymierna &w1, const wymierna &w2){
+    int licznik = w1.licznik * w2.mianownik;
+    int mianownik = w1.mianownik * w2.licznik;
+
+    if( mianownik == 0 ){
+        throw dzielenie_przez_0();
+    }
 
     if( mianownik < 0 ){
         mianownik *= -1;
