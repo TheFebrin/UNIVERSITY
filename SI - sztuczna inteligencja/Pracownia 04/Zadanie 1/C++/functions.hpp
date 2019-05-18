@@ -100,15 +100,32 @@ bool gg( vector < vector < char > >  BOARD ){
     return true;
 }
 
-int heuristic( vector < vector < char > >  BOARD  ){
+int K = 10;
+int heuristic( vector < vector < char > >  BOARD ){
+    int weights[ 8 ][ 8 ] = {
+         {200, -100, 100,  50,  50, 100, -100,  200},
+        {-100, -200, -50, -50, -50, -50, -200, -100},
+         {100,  -50, 100,   0,   0, 100,  -50,  100},
+          {50,  -50,   0,   0,   0,   0,  -50,   50},
+          {50,  -50,   0,   0,   0,   0,  -50,   50},
+         {100,  -50, 100,   0,   0, 100,  -50,  100},
+        {-100, -200, -50, -50, -50, -50, -200, -100},
+         {200, -100, 100,  50,  50, 100, -100,  200}
+    };
+
     int ans = 0;
     for(int i = 0; i < 8 ; i ++){
         for(int j = 0; j < 8 ; j ++){
-            if( BOARD[ i ][ j ] == 'W' ) ans ++;
-            if( BOARD[ i ][ j ] == 'B' ) ans --;
+            if( BOARD[ i ][ j ] == 'W' ) ans += K * weights[ i ][ j ];
+            if( BOARD[ i ][ j ] == 'B' ) ans -= K * weights[ i ][ j ];
         }
     }
     return ans;
+}
+
+
+bool foo(pair < pi, vpi > A, pair < pi, vpi > B ){
+    return A.second.size() > B.second.size();
 }
 
 int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, int player ){
@@ -116,7 +133,12 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
         return heuristic(BOARD);
     }
 
-    map < pi, vpi > moves = find_moves( BOARD, player );
+    map < pi, vpi > M = find_moves( BOARD, player );
+    vector < pair < pi, vpi > > moves;
+    for(auto m: M) moves.pb( {m.first, m.second} );
+
+    // we sort all available states from this one by some heuristics foo
+    sort( moves.begin(), moves.end(), foo);
 
     if(moves.size() == 0){
         return heuristic(BOARD);
@@ -142,7 +164,7 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
             make_move( New_Board, m.second, m.first, player);
             int eval_child = minimax(New_Board, depth - 1, alpha, beta, 0);
             minEval = min(minEval, eval_child);
-            alpha = max(alpha, eval_child);
+            beta = min(beta, eval_child);
 
             if(beta <= alpha) break;
         }

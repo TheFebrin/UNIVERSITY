@@ -120,15 +120,6 @@ void prepare_boad(){
     BOARD[ 3 ][ 4 ] = 'B';
     BOARD[ 4 ][ 3 ] = 'B';
     BOARD[ 4 ][ 4 ] = 'W';
-
-// . B B B B B B B
-// W W W W W W W W
-// W B W W W W W B
-// W B W B B B W B
-// W B B B W B W B
-// W B B W W B W B
-// W B B W W B B B
-// W B B B B B B B
 }
 
 void print_board(int p){
