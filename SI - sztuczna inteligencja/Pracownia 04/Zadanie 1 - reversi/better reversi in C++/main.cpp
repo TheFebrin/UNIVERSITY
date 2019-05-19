@@ -60,12 +60,21 @@ int main()
                     print_board(player);
                     cout << "\n--------------------------------------------\n";
                 }
+                cout << "Game : " << g << "  ->  ";
                 white_score += game_summary( BOARD );
                 break;
             }
 
             if( debug ) print_board(player);
             map < pi, vpi > moves = find_moves(BOARD,player);
+
+            // for(auto m : moves) {
+            //     cout << m.first.first << " " << m.first.second << endl;
+            //     cout << "FROM: \n";
+            //     for(auto a: m.second) cout << a.first << " " << a.second << endl;
+            //     cout << endl;
+            // }
+            // cout << endl;
 
             // skip if player has no move to make
             if( moves.size() == 0 ){
@@ -75,7 +84,7 @@ int main()
                 continue;
             }
 
-            if( player == 1 ) // random player
+            if( player == 0 ) // random player
             {
                 int random_move = rand() % moves.size();
                 auto iter = moves.begin();
@@ -104,7 +113,7 @@ int main()
             end_game = 0;
         }
     }
-
+    cout << "\n--------------------------------------------\n";
     cout << "Whites won: " << white_score << endl;
     cout << "Whites winning % : " << (double)white_score / (double)games_no * 100 << "% !\n";
     cout << "Duration " << (clock() - t) / CLOCKS_PER_SEC << " sec\n";

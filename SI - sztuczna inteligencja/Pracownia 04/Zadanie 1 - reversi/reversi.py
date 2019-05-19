@@ -2,7 +2,7 @@ import random
 import sys
 from collections import defaultdict as dd
 from turtle import *
-from copy import deepcopy
+import copy
 
 #####################################################
 # turtle graphic
@@ -13,6 +13,25 @@ BOK = 50
 SX = -100
 SY = 0
 M = 8
+
+weights = (
+    (200, -100, 100, 50, 50, 100, -100, 200),
+    (-100, -200, -50, -50, -50, -50, -200, -100),
+    (100, -50, 100, 0, 0, 100, -50, 100),
+    (50, -50, 0, 0, 0, 0, -50, 50),
+    (50, -50, 0, 0, 0, 0, -50, 50),
+    (100, -50, 100, 0, 0, 100, -50, 100),
+    (-100, -200, -50, -50, -50, -50, -200, -100),
+    (200, -100, 100, 50, 50, 100, -100, 200))
+
+
+def deepcopy(obj):
+    res = Board(obj.debug)
+    res.board = []
+    for row in obj.board:
+        res.board.append(row.copy())
+    res.fields = obj.fields.copy()
+    return res
 
 
 def kwadrat(x, y, kolor):
@@ -41,7 +60,7 @@ def kolko(x, y, kolor):
 
 
 def initial_board():
-    B = [[None] * M for i in range(M)]
+    B = [[None] * M for _ in range(M)]
     B[3][3] = 0
     B[4][4] = 0
     B[3][4] = 1
@@ -55,6 +74,7 @@ class Board:
     def __init__(self, debug):
         self.board = initial_board()
         self.fields = set()
+        self.debug = debug
         # self.move_list = []
         # self.history = []
         for i in range(M):
@@ -145,9 +165,9 @@ class Board:
             for x in range(M):
                 b = self.board[y][x]
                 if b == 0:
-                    res += 1
+                    res += weights[y][x]
                 elif b == 1:
-                    res -= 1
+                    res -= weights[y][x]
         return res
 
     def heuristic(self):
@@ -162,56 +182,45 @@ class Board:
             return random.choice(ms)
         return [None]
 
-    def find_best(self, deep, player):
+    def find_best(self, depth, player):
+        def alphabeta(state, depth, alpha, beta, maximizing_player):
+            if depth == 0 or state.terminal() or state.moves(maximizing_player) == [None]:
+                return state.heuristic()
 
-        def minimax(Board_State, depth, alpha, beta, maximizingPlayer):
-            # print('AAAAAkt Board BEGGG: ')
-            # Board_State.draw()
-
-            if depth == 0 or Board_State.terminal() or Board_State.moves(maximizingPlayer) == [None]:
-                # print('END!!!', Board_State.heuristic())
-                return Board_State.heuristic()
-
-            children = Board_State.moves(maximizingPlayer)
-            # print(children)
-            # print('\n\n\n')
-
-            if maximizingPlayer:
-                maxEval = -1e9
+            children = state.moves(maximizing_player)
+            if maximizing_player:
+                value = -1e9
                 for move in children:
-                    New_Board = deepcopy(Board_State)
-                    New_Board.do_move(move, maximizingPlayer)
-                    eval_child = minimax(New_Board, depth - 1, alpha, beta, False)
-                    maxEval = max(maxEval, eval_child)
-                    alpha = max(alpha, eval_child)
-                    if beta <= alpha:
+                    new_board = deepcopy(state)
+                    new_board.do_move(move, player)
+                    value = max(value, alphabeta(new_board, depth - 1, alpha, beta, False))
+                    alpha = max(alpha, value)
+                    if alpha >= beta:
                         break
-                return maxEval
-
+                return value
             else:
-                minEval = +1e9
+                value = 1e9
                 for move in children:
-                    New_Board = deepcopy(Board_State)
-                    New_Board.do_move(move, maximizingPlayer)
-                    eval_child = minimax(New_Board, depth - 1, alpha, beta, True)
-                    minEval = min(minEval, eval_child)
-                    beta = min(beta, eval_child)
-                    if beta <= alpha:
+                    new_board = deepcopy(state)
+                    new_board.do_move(move, player)
+                    value = min(value, alphabeta(new_board, depth - 1, alpha, beta, True))
+                    beta = min(beta, value)
+                    if alpha >= beta:
                         break
-                return minEval
-
-        available_moves = self.moves(player)
+                return value
 
         best_move = None
         best_score = -1e9
+        for move in self.moves(player):
+            new_board = deepcopy(self)
+            new_board.do_move(move, player)
 
-        for move in available_moves:
-            New_Board = deepcopy(self)
-            New_Board.do_move(move, player)
-
-            val = minimax(New_Board, deep, -1e9, 1e9, player)
+            val = alphabeta(new_board, depth, -1e9, 1e9, player)
             if val > best_score:
-                best_score = val
                 best_move = move
+                best_score = val
 
         return best_move
+
+    def finish(self):
+        done()

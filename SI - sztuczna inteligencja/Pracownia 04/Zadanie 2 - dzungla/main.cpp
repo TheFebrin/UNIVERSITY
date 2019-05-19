@@ -15,7 +15,7 @@ typedef vector < tuple <int , int, int> > vti;
 double t = clock();
 vector < vector < char > > BOARD;
 vector < vector < char > > ANIMALS;
-map < char, int > animal_val[ 2 ];
+map < char, int > animal_val;
 
 void fill_animal_val();
 void prepare_boad();
@@ -46,23 +46,71 @@ int main()
     prepare_animals();
 
     int player = 0;
-    int x = 1;
+    int total_moves = 1000;
+    int moves_no = 0;
+    int N = 200;
 
-    while( x-- ){
-        cin >> x;
+    // BOT has big letters
+
+    for(int i = 1; i <= total_moves; i ++ ){
+        if( player == 1 ) std::this_thread::sleep_for(std::chrono::milliseconds(2));
+        system("clear");
+        cout <<"Move: " << i << endl;
         print_animals();
-
         vector < one_move > moves = gen_moves(BOARD, ANIMALS, player, animal_val);
-        int random_move = rand() % moves.size();
 
-        one_move m = moves[ random_move ];
-        ANIMALS[ m.x_from ][ m.y_from ] = '.';
-        ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+        if( moves.size() == 0 ){
+            player ^= 1;
+            continue;
+        }
 
-        cout << m.animal << endl;
-        cout << "FROM: " << m.x_from << " " << m.y_from << endl;
-        cout << "TO: " << m.x_to << " " << m.y_to << endl << endl;
+        if( moves_no == max_games )
+        {
+            int result = game_over( ANIMALS, animal_val );
+            if( result == 1 ) cout << "Bot won!\n";
+            else cout << "Player won!\n";
+            break;
+        }
 
+        if( player == 0 )
+        {
+            assert( moves.size() > 0 );
+            int random_move = rand() % moves.size();
+            one_move m = moves[ random_move ];
+
+            if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_no ++;
+            else moves_no = 0;
+
+            if( m.animal == 't' or m.animal == 'T' or m.animal == 'l' or m.animal == 'L'){
+                auto np = move_over_lake( BOARD, m.x_from, m.y_from, m.x_to, m.y_to);
+                m.x_to = np.first;
+                m.y_to = np.second;
+            }
+
+            ANIMALS[ m.x_from ][ m.y_from ] = '.';
+            ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+
+        }
+        else
+        {
+            assert( moves.size() > 0 );
+            one_move m = simulate(moves, BOARD, ANIMALS, player, N, animal_val);
+
+            if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_no ++;
+            else moves_no = 0;
+
+            if( m.animal == 't' or m.animal == 'T' or m.animal == 'l' or m.animal == 'L'){
+                auto np = move_over_lake( BOARD, m.x_from, m.y_from, m.x_to, m.y_to);
+                m.x_to = np.first;
+                m.y_to = np.second;
+            }
+
+            ANIMALS[ m.x_from ][ m.y_from ] = '.';
+            ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+        }
+
+
+        cout << "-------------------------------\n\n";
         player ^= 1;
     }
 
@@ -108,7 +156,7 @@ void prepare_animals(){
     vector < char > row4 = {'.', '.', '.', '.', '.', '.', '.' };
     vector < char > row5 = {'.', '.', '.', '.', '.', '.', '.' };
     vector < char > row6 = {'.', '.', '.', '.', '.', '.', '.' };
-    vector < char > row7 = {'e', '.', 'w', '.', 'j', '.', 'r' };
+    vector < char > row7 = {'e', '.', 'l', '.', 'j', '.', 'r' };
     vector < char > row8 = {'.', 'c', '.', '.', '.', 'd', '.' };
     vector < char > row9 = {'t', '.', '.', '.', '.', '.', 'l' };
 
@@ -147,20 +195,20 @@ void print_animals(){
 
 void fill_animal_val()
 {
-    animal_val[ 1 ][ 'R' ] = 0;
-    animal_val[ 0 ][ 'r' ] = 0;
-    animal_val[ 1 ][ 'C' ] = 1;
-    animal_val[ 0 ][ 'c' ] = 1;
-    animal_val[ 1 ][ 'D' ] = 2;
-    animal_val[ 0 ][ 'd' ] = 2;
-    animal_val[ 1 ][ 'W' ] = 3;
-    animal_val[ 0 ][ 'w' ] = 3;
-    animal_val[ 1 ][ 'J' ] = 4;
-    animal_val[ 0 ][ 'j' ] = 4;
-    animal_val[ 1 ][ 'T' ] = 5;
-    animal_val[ 0 ][ 't' ] = 5;
-    animal_val[ 1 ][ 'L' ] = 6;
-    animal_val[ 0 ][ 'l' ] = 6;
-    animal_val[ 1 ][ 'E' ] = 7;
-    animal_val[ 0 ][ 'e' ] = 7;
+    animal_val[ 'R' ] = 0;
+    animal_val[ 'r' ] = 0;
+    animal_val[ 'C' ] = 1;
+    animal_val[ 'c' ] = 1;
+    animal_val[ 'D' ] = 2;
+    animal_val[ 'd' ] = 2;
+    animal_val[ 'W' ] = 3;
+    animal_val[ 'w' ] = 3;
+    animal_val[ 'J' ] = 4;
+    animal_val[ 'j' ] = 4;
+    animal_val[ 'T' ] = 5;
+    animal_val[ 't' ] = 5;
+    animal_val[ 'L' ] = 6;
+    animal_val[ 'l' ] = 6;
+    animal_val[ 'E' ] = 7;
+    animal_val[ 'e' ] = 7;
 }

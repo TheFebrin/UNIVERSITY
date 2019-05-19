@@ -6,7 +6,6 @@ def PLAY_GAME(no, debug, game_mode, deep):
     '''
     # = black piece - random_player
     o = white piece - our bot
-
     Result is + for whites
     '''
 
@@ -16,10 +15,8 @@ def PLAY_GAME(no, debug, game_mode, deep):
         B = reversi.Board(debug)
 
         cnt = 1
-        while cnt:
+        while True:
             # B.draw()
-            if cnt % 16 == 0:
-                print(f'{cnt / 64 * 100}%')
             if debug:
                 print(f'Move: {cnt}')
                 B.draw()
@@ -48,6 +45,7 @@ def PLAY_GAME(no, debug, game_mode, deep):
             cnt += 1
 
         if debug:
+            print('End of game')
             B.draw()
             B.show()
             input()
@@ -58,9 +56,13 @@ def PLAY_GAME(no, debug, game_mode, deep):
         if B.result() < 0:
             black_win += 1
 
-        print(f'Game: {game_no}, result: {B.result()}')
+        # B.draw()
 
-    print(f'Overall whites won: {white_win / (white_win + black_win) * 100}%')
+        print(f'Game: {game_no}, result: {B.result()}')
+        # B.finish()
+    print('-' * 20)
+    print(f'Whites won {white_win} / {no} games')
+    print(f'It is : {white_win / (white_win + black_win) * 100}%')
 
 
 if __name__ == "__main__":
@@ -78,8 +80,12 @@ if __name__ == "__main__":
     print('Your choise: ', end=' ')
     game_mode = int(input())
 
-    print('\nSelect deepness of search: ', end=' ')
-    deep = int(input())
+    depth = 0
+    if game_mode == 2:
+        print('\nSelect deepness of search: ', end=' ')
+        depth = int(input())
     print('\n\n')
 
-    PLAY_GAME(no, debug, game_mode, deep)
+    start = time.time()
+    PLAY_GAME(no, debug, game_mode, depth)
+    print(f'\nTIME: {time.time() - start}')
