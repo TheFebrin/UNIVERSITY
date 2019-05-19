@@ -113,36 +113,117 @@ int heuristic( vector < vector < char > >  BOARD ){
          {200, -100, 100,  50,  50, 100, -100,  200}
     };
 
-    int ans = 0;
+    int pieces_on_board = 0;
     for(int i = 0; i < 8 ; i ++){
         for(int j = 0; j < 8 ; j ++){
-            if( BOARD[ i ][ j ] == 'W' ) ans += K * weights[ i ][ j ];
-            if( BOARD[ i ][ j ] == 'B' ) ans -= K * weights[ i ][ j ];
+            if( BOARD[ i ][ j ] != '.' ) pieces_on_board ++;
         }
     }
+
+    int ans = 0, white = 0, black = 0;
+
+    int W = 0;
+    for(int i = 0; i < 8 ; i ++){
+        for(int j = 0; j < 8 ; j ++){
+            if( BOARD[ i ][ j ] == 'W' ) {
+                W += K * weights[ i ][ j ];
+                white ++;
+            }
+            if( BOARD[ i ][ j ] == 'B' ) {
+                W -= K * weights[ i ][ j ];
+                black ++;
+            }
+        }
+    }
+
+    int C = 0; // corners
+    if( BOARD[ 0 ][ 0 ] == 'W' ) C ++;
+    if( BOARD[ 0 ][ 0 ] == 'B' ) C --;
+    if( BOARD[ 7 ][ 0 ] == 'W' ) C ++;
+    if( BOARD[ 7 ][ 0 ] == 'B' ) C --;
+    if( BOARD[ 7 ][ 7 ] == 'W' ) C ++;
+    if( BOARD[ 7 ][ 7 ] == 'B' ) C --;
+    if( BOARD[ 0 ][ 7 ] == 'W' ) C ++;
+    if( BOARD[ 0 ][ 7 ] == 'B' ) C --;
+
+    int parity = -1;
+    if( pieces_on_board % 2 ) parity = 1;
+
+    if( pieces_on_board <= 20 ){
+        ans += 20 * W;
+        ans += 10000 * C;
+    }
+    else if( pieces_on_board <= 58 ){
+        ans += 10 * (white - black);
+        ans += 10 * W;
+        ans += 100 * parity;
+        ans += 10000 * C;
+    }
+    else{
+        ans += 500 * (white - black);
+        ans += 500 * parity;
+        ans += 10000 * C;
+    }
+
+
     return ans;
 }
 
 
-bool foo(pair < pi, vpi > A, pair < pi, vpi > B ){
-    return A.second.size() > B.second.size();
+bool foo(vector < vector < char > >  BOARD_A, vector < vector < char > >  BOARD_B ){
+    int A_balance = 0, B_balance = 0;
+    for(int i = 0; i < 8 ; i ++){
+        for(int j = 0; j < 8 ; j ++){
+            if( BOARD_A[ i ][ j ] == 'W' ) A_balance ++;
+            if( BOARD_A[ i ][ j ] == 'B' ) A_balance --;
+            if( BOARD_B[ i ][ j ] == 'W' ) B_balance ++;
+            if( BOARD_B[ i ][ j ] == 'B' ) B_balance --;
+        }
+    }
+    return A_balance > B_balance;
 }
 
 int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, int player ){
     if(depth == 0 or gg( BOARD )){
         return heuristic(BOARD);
     }
+    map < pi, vpi > moves = find_moves( BOARD, player );
 
-    map < pi, vpi > M = find_moves( BOARD, player );
-    vector < pair < pi, vpi > > moves;
-    for(auto m: M) moves.pb( {m.first, m.second} );
+    // vector <  vector < vector < char > > > Next_States;
+    // for(auto m: moves){
+    //     auto New_Board = BOARD;
+    //     make_move( New_Board, m.second, m.first, player);
+    //     Next_States.pb( New_Board );
+    // }
 
-    // we sort all available states from this one by some heuristics foo
-    sort( moves.begin(), moves.end(), foo);
+    // sort( Next_States.begin(), Next_States.end(), foo );
 
-    if(moves.size() == 0){
-        return heuristic(BOARD);
-    }
+    // if(moves.size() == 0){
+    //     return heuristic(BOARD);
+    // }
+
+    // if(player == 0){
+    //     int maxEval = -1e9;
+    //     for(auto state: Next_States){
+    //         int eval_child = minimax(state, depth - 1, alpha, beta, 1);
+    //         maxEval = max(maxEval, eval_child);
+    //         alpha = max(alpha, eval_child);
+
+    //         if(beta <= alpha) break;
+    //     }
+    //     return maxEval;
+    // }
+    // else{
+    //     int minEval = +1e9;
+    //     for(auto state: Next_States){
+    //         int eval_child = minimax(state, depth - 1, alpha, beta, 0);
+    //         minEval = min(minEval, eval_child);
+    //         beta = min(beta, eval_child);
+
+    //         if(beta <= alpha) break;
+    //     }
+    //     return minEval;
+    // }
 
     if(player == 0){
         int maxEval = -1e9;
