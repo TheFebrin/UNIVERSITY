@@ -60,7 +60,7 @@ int main()
                     print_board(player);
                     cout << "\n--------------------------------------------\n";
                 }
-                cout << "Game : " << g << "  ->  ";
+                cout << "Game : " << g + 1 << "  ->  ";
                 white_score += game_summary( BOARD );
                 break;
             }

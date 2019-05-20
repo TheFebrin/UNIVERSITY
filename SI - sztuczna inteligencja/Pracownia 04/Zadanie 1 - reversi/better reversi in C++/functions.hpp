@@ -91,14 +91,19 @@ void make_move( vector < vector < char > > &BOARD , vpi moves, pi goal, int play
     }
 }
 
-bool gg( vector < vector < char > >  BOARD ){
-    for(int i = 0; i < 8 ; i ++){
-        for(int j = 0; j < 8 ; j ++){
-            if( BOARD[ i ][ j ] == '.' ) return false;
-        }
-    }
-    return true;
-}
+//bool gg( vector < vector < char > >  BOARD ){
+//
+//    int black = 0;
+//    int white = 0;
+//    for(int i = 0; i < 8 ; i ++){
+//        for(int j = 0; j < 8 ; j ++){
+//            if( BOARD[ i ][ j ] == 'W' ) white ++;
+//            if( BOARD[ i ][ j ] == 'B' ) black ++;
+//        }
+//    }
+//    if( black == 0 or white == 0 ) return true;
+//    return false;
+//}
 
 int K = 10;
 int heuristic( vector < vector < char > >  BOARD ){
@@ -184,10 +189,14 @@ bool foo(vector < vector < char > >  BOARD_A, vector < vector < char > >  BOARD_
 }
 
 int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, int player ){
-    if(depth == 0 or gg( BOARD )){
+    if(depth <= 0 ){
         return heuristic(BOARD);
     }
     map < pi, vpi > moves = find_moves( BOARD, player );
+    
+    if( moves.size() == 0 ){
+        return heuristic( BOARD );
+    }
 
     // vector <  vector < vector < char > > > Next_States;
     // for(auto m: moves){
@@ -229,7 +238,7 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
         int maxEval = -1e9;
         for(auto m: moves){
             auto New_Board = BOARD;
-            make_move( New_Board, m.second, m.first, player);
+            make_move( New_Board, m.second, m.first, 1);
             int eval_child = minimax(New_Board, depth - 1, alpha, beta, 1);
             maxEval = max(maxEval, eval_child);
             alpha = max(alpha, eval_child);
@@ -242,7 +251,7 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
         int minEval = +1e9;
         for(auto m: moves){
             auto New_Board = BOARD;
-            make_move( New_Board, m.second, m.first, player);
+            make_move( New_Board, m.second, m.first, 0);
             int eval_child = minimax(New_Board, depth - 1, alpha, beta, 0);
             minEval = min(minEval, eval_child);
             beta = min(beta, eval_child);
