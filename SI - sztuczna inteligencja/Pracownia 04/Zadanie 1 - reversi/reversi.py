@@ -165,13 +165,21 @@ class Board:
             for x in range(M):
                 b = self.board[y][x]
                 if b == 0:
+                    res += 1
+                elif b == 1:
+                    res -= 1
+        return res
+
+    def heuristic(self):
+        res = 0
+        for y in range(M):
+            for x in range(M):
+                b = self.board[y][x]
+                if b == 0:
                     res += weights[y][x]
                 elif b == 1:
                     res -= weights[y][x]
         return res
-
-    def heuristic(self):
-        return self.result()
 
     def terminal(self):
         return self.moves(True) == [None] and self.moves(False) == [None]

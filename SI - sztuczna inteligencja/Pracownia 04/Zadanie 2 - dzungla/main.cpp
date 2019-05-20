@@ -48,7 +48,7 @@ int main()
     int player = 0;
     int total_moves = 1000;
     int moves_no = 0;
-    int N = 200;
+    int N = 2000;
 
     // BOT has big letters
 

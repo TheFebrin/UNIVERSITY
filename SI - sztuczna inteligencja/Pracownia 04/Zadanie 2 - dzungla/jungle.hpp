@@ -11,7 +11,7 @@ typedef vector < tuple <int , int, int> > vti;
 
 int dx[ 4 ] = {0, 0, 1, -1};
 int dy[ 4 ] = {1, -1, 0, 0};
-int max_games = 100;
+int max_games = 300;
 
 bool my_animal(char a, bool player ){
     if( player == 0 ){

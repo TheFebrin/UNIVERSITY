@@ -105,7 +105,7 @@ void make_move( vector < vector < char > > &BOARD , vpi moves, pi goal, int play
 //    return false;
 //}
 
-int K = 10;
+int K = 1;
 int heuristic( vector < vector < char > >  BOARD ){
     int weights[ 8 ][ 8 ] = {
          {200, -100, 100,  50,  50, 100, -100,  200},
@@ -239,7 +239,7 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
         for(auto m: moves){
             auto New_Board = BOARD;
             make_move( New_Board, m.second, m.first, 1);
-            int eval_child = minimax(New_Board, depth - 1, alpha, beta, 1);
+            int eval_child = minimax(New_Board, depth - 1, alpha, beta, 1 );
             maxEval = max(maxEval, eval_child);
             alpha = max(alpha, eval_child);
 
@@ -252,7 +252,7 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
         for(auto m: moves){
             auto New_Board = BOARD;
             make_move( New_Board, m.second, m.first, 0);
-            int eval_child = minimax(New_Board, depth - 1, alpha, beta, 0);
+            int eval_child = minimax(New_Board, depth - 1, alpha, beta, 0 );
             minEval = min(minEval, eval_child);
             beta = min(beta, eval_child);
 
