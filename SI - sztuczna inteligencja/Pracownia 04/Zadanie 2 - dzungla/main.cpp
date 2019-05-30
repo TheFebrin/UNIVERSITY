@@ -46,28 +46,25 @@ int main()
     prepare_animals();
 
     int player = 0;
-    int total_moves = 1000;
     int moves_no = 0;
-    int N = 2000;
+    int N = 200;
+    int move = 0;
 
     // BOT has big letters
 
-    for(int i = 1; i <= total_moves; i ++ ){
-        if( player == 1 ) std::this_thread::sleep_for(std::chrono::milliseconds(2));
-        system("clear");
-        cout <<"Move: " << i << endl;
+    while( true ){
+        //if( player == 1 ) std::this_thread::sleep_for(std::chrono::milliseconds(2));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        //system("clear");
+        cout <<"Move: " << move ++ << endl;
         print_animals();
         vector < one_move > moves = gen_moves(BOARD, ANIMALS, player, animal_val);
 
-        if( moves.size() == 0 ){
-            player ^= 1;
-            continue;
-        }
 
-        if( moves_no == max_games )
+        if( moves_no == max_games or moves.size() == 0 )
         {
             int result = game_over( ANIMALS, animal_val );
-            if( result == 1 ) cout << "Bot won!\n";
+            if( result > 0 ) cout << "Bot won!\n";
             else cout << "Player won!\n";
             break;
         }
@@ -90,6 +87,16 @@ int main()
             ANIMALS[ m.x_from ][ m.y_from ] = '.';
             ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
 
+            bool b1 = m.x_to == 0 and m.y_to == 3;
+            bool b2 = m.x_to == 8 and m.y_to == 3;
+            if( b1 or b2 ){
+                int result = game_over( ANIMALS, animal_val );
+                cout << "JAMA! \n";
+                if( result > 0 ) cout << "Bot won!\n";
+                else cout << "Player won!\n";
+                break;
+            }
+
         }
         else
         {
@@ -107,6 +114,16 @@ int main()
 
             ANIMALS[ m.x_from ][ m.y_from ] = '.';
             ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+
+            bool b1 = m.x_to == 0 and m.y_to == 3;
+            bool b2 = m.x_to == 8 and m.y_to == 3;
+            if( b1 or b2 ){
+                int result = game_over( ANIMALS, animal_val );
+                cout << "JAMA! \n";
+                if( result > 0 ) cout << "Bot won!\n";
+                else cout << "Player won!\n";
+                break;
+            }
         }
 
 
@@ -114,7 +131,7 @@ int main()
         player ^= 1;
     }
 
-
+    print_animals();
     cout << "Duration " << (clock() - t) / CLOCKS_PER_SEC << " sec\n";
 
     return 0;
@@ -156,7 +173,7 @@ void prepare_animals(){
     vector < char > row4 = {'.', '.', '.', '.', '.', '.', '.' };
     vector < char > row5 = {'.', '.', '.', '.', '.', '.', '.' };
     vector < char > row6 = {'.', '.', '.', '.', '.', '.', '.' };
-    vector < char > row7 = {'e', '.', 'l', '.', 'j', '.', 'r' };
+    vector < char > row7 = {'e', '.', 'w', '.', 'j', '.', 'r' };
     vector < char > row8 = {'.', 'c', '.', '.', '.', 'd', '.' };
     vector < char > row9 = {'t', '.', '.', '.', '.', '.', 'l' };
 

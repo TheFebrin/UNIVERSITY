@@ -5,7 +5,7 @@ from math import *
 from scipy.stats import binom
 from scipy.stats import norm
 
-p = 0.5
+p = 0.4
 q = 0.6
 
 n = 50
@@ -13,6 +13,7 @@ n = 50
 
 def foo_bernoulli(x, n):
     return binom.cdf(x, n, p)
+    # return norm.pdf(x)
 
 
 def foo_normal(x, n):
@@ -26,12 +27,12 @@ y_n = [foo_normal(a, n) for a in x]
 
 
 diff = [abs(a - b) for a, b in zip(y_b, y_n)]
-
+print(diff)
 print('Maximum absolute error: ', max(diff))
 # print('Maximum relative error: ', max([a / b for a, b in zip(diff, y_b)]))
 
 
-plt.plot(x, y_b)
-plt.plot(x, y_n)
+plt.scatter(x, y_b)
+plt.scatter(x, y_n)
 
 plt.show()

@@ -11,7 +11,7 @@ typedef vector < tuple <int , int, int> > vti;
 
 int dx[ 4 ] = {0, 0, 1, -1};
 int dy[ 4 ] = {1, -1, 0, 0};
-int max_games = 300;
+int max_games = 100;
 
 bool my_animal(char a, bool player ){
     if( player == 0 ){
@@ -80,8 +80,7 @@ bool good_move( int x, int y, int xd, int yd, vector < vector < char > > BOARD, 
 
             int act_x = xd, act_y = yd;
             while( BOARD[ act_x ][ act_y ] == '~' ){
-                if( player == 0 and ANIMALS[ act_x ][ act_y ] == 'R' ) return false;
-                if( player == 1 and ANIMALS[ act_x ][ act_y ] == 'r' ) return false;
+                if( ANIMALS[ act_x ][ act_y ] == 'R' or ANIMALS[ act_x ][ act_y ] == 'r' ) return false;
                 act_x += vx;
                 act_y += vy;
             }
@@ -177,18 +176,23 @@ int game_over( vector < vector < char > > ANIMALS, map < char, int > animal_val)
         for(int j = 0; j < 7 ; j ++){
             if( ANIMALS[ i ][ j ] < 96 and ANIMALS[ i ][ j ] > 64 ) // player 1 - big letters
             {
-                best_1 = max(best_1, animal_val[ ANIMALS[ i ][ j ] ]);
+                //best_1 = max(best_1, animal_val[ ANIMALS[ i ][ j ] ]);
+                best_1 += animal_val[ ANIMALS[ i ][ j ] ];
             }
             if( ANIMALS[ i ][ j ] > 96 ) //player 0 has small letters
             {
-                best_0 = max(best_0, animal_val[ ANIMALS[ i ][ j ] ]);
+                //best_0 = max(best_0, animal_val[ ANIMALS[ i ][ j ] ]);
+                best_0 += animal_val[ ANIMALS[ i ][ j ] ];
             }
         }
     }
-    if( best_0 == best_1 ) return 1;
 
-    if( best_0 > best_1 ) return -1;
-    else return 1;
+    return best_1 - best_0;
+
+    // if( best_0 == best_1 ) return -1;
+
+    // if( best_0 > best_1 ) return -1;
+    // else return 1;
 }
 
 pi move_over_lake(vector < vector < char > > BOARD, int x, int y, int x_to, int y_to){
@@ -206,7 +210,7 @@ pi move_over_lake(vector < vector < char > > BOARD, int x, int y, int x_to, int 
 }
 
 
-pi play( vector < vector < char > > ANIMALS, vector < vector < char > > BOARD, map < char, int > animal_val, bool player){
+int play( vector < vector < char > > ANIMALS, vector < vector < char > > BOARD, map < char, int > animal_val, bool player){
     int moves_no = 0;
     int score = 0;
     int moves_without_kill = 0;
@@ -218,7 +222,7 @@ pi play( vector < vector < char > > ANIMALS, vector < vector < char > > BOARD, m
 
          if( moves_without_kill == max_games or moves.size() == 0){
             score = game_over( ANIMALS, animal_val );
-            return {score, moves_no};
+            return score;
         }
 
         int random_move = rand() % moves.size();
@@ -240,7 +244,7 @@ pi play( vector < vector < char > > ANIMALS, vector < vector < char > > BOARD, m
         moves_no ++;
     }
 
-    return {score, moves_no};
+    return score;
 }
 
 one_move simulate( vector < one_move > moves , vector < vector < char > > BOARD, vector < vector < char > > ANIMALS, bool player, int N, map < char, int > animal_val){
@@ -255,31 +259,68 @@ one_move simulate( vector < one_move > moves , vector < vector < char > > BOARD,
         States.pb( New_Animals );
     }
 
-    int act_state = 0;
+    // int act_state = 0;
 
-    while( N > 0 ){
-        act_state %= number_of_moves;
+    // while( N > 0 ){
+    //     act_state %= number_of_moves;
 
-        pi result = play(States[ act_state ], BOARD, animal_val, player^1);
-        N -= result.second;
-        score[ act_state ] += result.first;
+    //     int result = play(States[ act_state ], BOARD, animal_val, player^1);
+    //     N --;
+    //     score[ act_state ] += result;
 
-        act_state ++;
+    //     act_state ++;
+    // }
+
+    // // if few moves have similar score we move random one
+
+    // int best_score = *max_element(score.begin(), score.end());
+    // vi possibilities;
+
+    // for(int i = 0; i < number_of_moves; i ++){
+    //     if(score[ i ] == best_score){
+    //         possibilities.pb( i );
+    //     }
+    // }
+    // srand(time(NULL));
+    // int choice = rand() % possibilities.size();
+
+    // for(int i = 0 ; i < score.size(); i ++) cout << moves[ i ].animal << " ";
+    // cout << endl;
+    // for(int i = 0 ; i < score.size(); i ++) cout << score[ i ] << " ";
+    // cout << endl;
+
+    // cout << "Best move: \n";
+    // cout << moves[ possibilities[ choice ] ].animal << endl;
+    // cout << moves[ possibilities[ choice ] ].x_from << " " << moves[ possibilities[ choice ] ].y_from << endl;
+    // cout << moves[ possibilities[ choice ] ].x_to << " " << moves[ possibilities[ choice ] ].y_to << endl << endl;
+
+
+    //return moves[ possibilities[ choice ] ];
+
+
+    int ans = 0;
+    for(int i = 0; i < (int)States.size(); i ++){
+        score[ i ] = game_over(States[i], animal_val);
     }
-
-    // if few moves have similar score we move random one
-
     int best_score = *max_element(score.begin(), score.end());
     vi possibilities;
 
-    for(int i = 0; i < number_of_moves; i ++){
-        if(score[ i ] == best_score){
-            possibilities.pb( i );
-        }
-    }
-    srand(time(NULL));
-    int choice = rand() % possibilities.size();
+    // for(int i = 0; i < (int)States.size(); i ++) cout << moves[ i ].animal << " ";
+    // cout << endl;
 
-    return moves[ possibilities[ choice ] ];
+    for(int i = 0; i < (int)States.size(); i ++){
+       // cout << score[ i ] << " ";
+        if( score[ i ] == best_score ) possibilities.pb( i );
+    }
+    //cout << endl;
+
+    ans = rand() % possibilities.size();
+
+    // cout << "Best " << best_score << endl;
+    // cout << moves[ ans ].animal << endl;
+    // cout << moves[ ans ].x_from << " " << moves[ ans ].y_from << endl;
+    // cout << moves[ ans ].x_to << " " <<moves[ ans ].y_to << endl << endl;
+
+    return moves[ possibilities[ ans ] ];
 }
 
