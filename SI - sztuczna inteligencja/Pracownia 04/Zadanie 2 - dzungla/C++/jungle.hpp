@@ -96,6 +96,7 @@ bool good_move( int x, int y, int xd, int yd, vector < vector < char > > BOARD, 
 
     // animals collision
     // if destination animal stays in trap it dies
+    // TODO: my trap shouldn't weaken my animals
     if( BOARD[ xd ][ yd ] == '#' ) return true;
 
 
