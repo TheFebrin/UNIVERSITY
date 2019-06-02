@@ -8,6 +8,7 @@ typedef pair <ll, ll> pl;
 typedef tuple <int, int, int> ti;
 typedef vector < pair< int , int> > vpi;
 typedef vector < tuple <int , int, int> > vti;
+typedef vector < vector < char > > vvc;
 
 int dx[ 4 ] = {0, 0, 1, -1};
 int dy[ 4 ] = {1, -1, 0, 0};
@@ -26,7 +27,7 @@ bool my_animal(char a, bool player ){
     }
 }
 
-bool good_move( int x, int y, int xd, int yd, vector < vector < char > > BOARD, vector < vector < char > > ANIMALS, bool player, map < char, int > animal_val){
+bool good_move( int x, int y, int xd, int yd, vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal_val){
     // cave check
 
     if( xd == 0 and yd == 3 and player == 1 ) return false;
@@ -168,35 +169,37 @@ vector < one_move > gen_moves(vector < vector < char > > BOARD, vector < vector 
 }
 
 
-int game_over( vector < vector < char > > ANIMALS, map < char, int > animal_val){
+int game_over( vvc ANIMALS, map < char, int > animal_val){
     // returns -1 if player 0 won, 1 if player 1 won
     int best_0 = 0;
     int best_1 = 0;
-
+    vi A1, A2;
     for(int i = 0; i < 9 ; i ++){
         for(int j = 0; j < 7 ; j ++){
             if( ANIMALS[ i ][ j ] < 96 and ANIMALS[ i ][ j ] > 64 ) // player 1 - big letters
             {
-                //best_1 = max(best_1, animal_val[ ANIMALS[ i ][ j ] ]);
-                best_1 += animal_val[ ANIMALS[ i ][ j ] ];
+              A1.pb( animal_val[ ANIMALS[ i ][ j ] ] );
+              //best_1 += animal_val[ ANIMALS[ i ][ j ] ];
             }
             if( ANIMALS[ i ][ j ] > 96 ) //player 0 has small letters
             {
-                //best_0 = max(best_0, animal_val[ ANIMALS[ i ][ j ] ]);
-                best_0 += animal_val[ ANIMALS[ i ][ j ] ];
+              A2.pb( animal_val[ ANIMALS[ i ][ j ] ] );
+              //best_0 += animal_val[ ANIMALS[ i ][ j ] ];
             }
         }
     }
+    sort( A1.rbegin(), A1.rend() );
+    sort( A2.rbegin(), A2.rend() );
 
-    return best_1 - best_0;
+    for(int i = 0; i < (int)min(A1.size(), A2.size()); i ++){
+      if( A1[ i ] > A2[ i ] ) return 1;
+      if( A2[ i ] > A1[ i ] ) return -1;
+    }
 
-    // if( best_0 == best_1 ) return -1;
-
-    // if( best_0 > best_1 ) return -1;
-    // else return 1;
+    return 1;
 }
 
-pi move_over_lake(vector < vector < char > > BOARD, int x, int y, int x_to, int y_to){
+pi move_over_lake(vvc BOARD, int x, int y, int x_to, int y_to){
 
     int vx = x_to - x;
     int vy = y_to - y;
@@ -211,7 +214,7 @@ pi move_over_lake(vector < vector < char > > BOARD, int x, int y, int x_to, int 
 }
 
 
-int play( vector < vector < char > > ANIMALS, vector < vector < char > > BOARD, map < char, int > animal_val, bool player){
+int play(vvc ANIMALS, vvc BOARD, map < char, int > animal_val, bool player){
     int moves_no = 0;
     int score = 0;
     int moves_without_kill = 0;
@@ -248,10 +251,10 @@ int play( vector < vector < char > > ANIMALS, vector < vector < char > > BOARD, 
     return score;
 }
 
-one_move simulate( vector < one_move > moves , vector < vector < char > > BOARD, vector < vector < char > > ANIMALS, bool player, int N, map < char, int > animal_val){
+one_move simulate(vector < one_move > moves , vvc BOARD, vvc ANIMALS, bool player, int N, map < char, int > animal_val){
     int number_of_moves = (int)moves.size();
     vi score( number_of_moves, 0);
-    vector < vector < vector < char > > > States;
+    vector < vvc > States;
 
     for(auto move: moves){
         auto New_Animals = ANIMALS;
@@ -260,35 +263,35 @@ one_move simulate( vector < one_move > moves , vector < vector < char > > BOARD,
         States.pb( New_Animals );
     }
 
-    // int act_state = 0;
+    int act_state = 0;
 
-    // while( N > 0 ){
-    //     act_state %= number_of_moves;
+    while( N > 0 ){
+        act_state %= number_of_moves;
 
-    //     int result = play(States[ act_state ], BOARD, animal_val, player^1);
-    //     N --;
-    //     score[ act_state ] += result;
+        int result = play(States[ act_state ], BOARD, animal_val, player^1);
+        N --;
+        score[ act_state ] += result;
 
-    //     act_state ++;
-    // }
+        act_state ++;
+    }
 
-    // // if few moves have similar score we move random one
+    // if few moves have similar score we move random one
 
-    // int best_score = *max_element(score.begin(), score.end());
-    // vi possibilities;
+    int best_score = *max_element(score.begin(), score.end());
+    vi possibilities;
 
-    // for(int i = 0; i < number_of_moves; i ++){
-    //     if(score[ i ] == best_score){
-    //         possibilities.pb( i );
-    //     }
-    // }
-    // srand(time(NULL));
-    // int choice = rand() % possibilities.size();
+    for(int i = 0; i < number_of_moves; i ++){
+        if(score[ i ] == best_score){
+            possibilities.pb( i );
+        }
+    }
+    srand(time(NULL));
+    int choice = rand() % possibilities.size();
 
-    // for(int i = 0 ; i < score.size(); i ++) cout << moves[ i ].animal << " ";
-    // cout << endl;
-    // for(int i = 0 ; i < score.size(); i ++) cout << score[ i ] << " ";
-    // cout << endl;
+    for(int i = 0 ; i < score.size(); i ++) cout << moves[ i ].animal << " ";
+    cout << endl;
+    for(int i = 0 ; i < score.size(); i ++) cout << score[ i ] << " ";
+    cout << endl;
 
     // cout << "Best move: \n";
     // cout << moves[ possibilities[ choice ] ].animal << endl;
@@ -296,32 +299,185 @@ one_move simulate( vector < one_move > moves , vector < vector < char > > BOARD,
     // cout << moves[ possibilities[ choice ] ].x_to << " " << moves[ possibilities[ choice ] ].y_to << endl << endl;
 
 
-    //return moves[ possibilities[ choice ] ];
-
-
-    int ans = 0;
-    for(int i = 0; i < (int)States.size(); i ++){
-        score[ i ] = game_over(States[i], animal_val);
-    }
-    int best_score = *max_element(score.begin(), score.end());
-    vi possibilities;
-
-    // for(int i = 0; i < (int)States.size(); i ++) cout << moves[ i ].animal << " ";
-    // cout << endl;
-
-    for(int i = 0; i < (int)States.size(); i ++){
-       // cout << score[ i ] << " ";
-        if( score[ i ] == best_score ) possibilities.pb( i );
-    }
-    //cout << endl;
-
-    ans = rand() % possibilities.size();
-
-    // cout << "Best " << best_score << endl;
-    // cout << moves[ ans ].animal << endl;
-    // cout << moves[ ans ].x_from << " " << moves[ ans ].y_from << endl;
-    // cout << moves[ ans ].x_to << " " <<moves[ ans ].y_to << endl << endl;
-
-    return moves[ possibilities[ ans ] ];
+    return moves[ possibilities[ choice ] ];
 }
 
+/* ---- MCTS ---- */
+
+typedef struct{
+    int node_no;
+    int father;
+
+    vvc ANIMALS;
+
+    bool leaf;
+    int player;
+
+    double games_won;
+    double games_total;
+
+}MCTS;
+
+int rollout(vvc ANIMALS, vvc BOARD, map < char, int > animal_val, bool player){
+    int moves_no = 0;
+    int score = 0;
+    int moves_without_kill = 0;
+
+    while( true ){
+        vector < one_move > moves = gen_moves(BOARD, ANIMALS, player, animal_val);
+
+         if( moves_without_kill == max_games or moves.size() == 0){
+            score = game_over( ANIMALS, animal_val );
+            return score;
+        }
+
+        int random_move = rand() % moves.size();
+        one_move m = moves[ random_move ];
+
+        if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_without_kill ++;
+        else moves_without_kill = 0;
+
+     if( m.animal == 't' or m.animal == 'T' or m.animal == 'l' or m.animal == 'L'){
+            auto np = move_over_lake( BOARD, m.x_from, m.y_from, m.x_to, m.y_to);
+            m.x_to = np.first;
+            m.y_to = np.second;
+        }
+
+        ANIMALS[ m.x_from ][ m.y_from ] = '.';
+        ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+
+        player ^= 1;
+        moves_no ++;
+    }
+    return 0;
+}
+
+void DFS( vi G[], int v, int anc, map < int, MCTS > M ) {
+    cout << "act: " << v << " score:  " << M[ v ].games_won << " / " << M[ v ].games_total << endl;
+    for(auto w: G[ v ]){
+      if( w != anc ) DFS( G, w, v, M);
+    }
+}
+one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal_val, double time_limit){
+    cout << "START MCTS\n";
+    double act_time = clock();
+    int TreeSize = 100000;
+
+    map < int, MCTS > M;
+    vector < int > G[ TreeSize ];
+    bool visited[ TreeSize ];
+    int all_nodes = 1;
+    for(int i = 0; i < TreeSize; i ++ ){
+      visited[ i ] = false;
+      G[ i ].clear();
+    }
+
+    MCTS root;
+    root.node_no = 1;
+    root.father = -1;
+    root.ANIMALS = ANIMALS;
+    root.leaf = true;
+    root.games_won = 0;
+    root.games_total = 0;
+    root.player = player;
+
+    M[ 1 ] = root;
+
+    vector < one_move > moves_from_root = gen_moves(BOARD, ANIMALS, player, animal_val);
+    int no = 0, all_rols = 0;
+
+    while ( (clock() - act_time) / CLOCKS_PER_SEC < time_limit and no < 20) {
+      no ++;
+      cout << endl;
+      cout << "MOVE: " << no << endl;
+
+      int act_node = 1;
+      MCTS vals = M[ act_node ];
+
+      while( !vals.leaf ){
+        // CHOSE BEST SON
+        cout << "Looking for son! " << act_node << endl;
+        int best_son = G[ act_node ][ 0 ];
+        double score = -1;
+        for(auto w: G[ act_node ]){
+          MCTS w_vals = M[ w ];
+          double w_score = w_vals.games_won / w_vals.games_total;
+          if( w_score > score ){
+            score = w_score;
+            best_son = w;
+          }
+        }
+        act_node = best_son;
+        vals = M[ best_son ];
+      }
+
+      // IN LEAF AT THIS POINT
+      cout << " Act node -=-->> " << act_node << "\n";
+      if( visited[ act_node ] ){
+        // GENERATE STATES
+        cout << "GENERATE from -> " << act_node << endl;
+        M[ act_node ].leaf = false;
+        vector < one_move > moves = gen_moves(BOARD, vals.ANIMALS, vals.player, animal_val);
+
+        vector < vvc > States;
+        for(auto move: moves){
+            auto New_Animals = vals.ANIMALS;
+            New_Animals[ move.x_from ][ move.y_from ] = '.';
+            New_Animals[ move.x_to ][ move.y_to ] = move.animal;
+            States.pb( New_Animals );
+        }
+        cout << "Adding: " << States.size() << " states!\n";
+        for(auto s: States){
+          all_nodes ++;
+          G[ act_node ].pb( all_nodes );
+
+          MCTS tmp;
+          tmp.node_no = all_nodes;
+          tmp.ANIMALS = s;
+          tmp.father = act_node;
+          tmp.leaf = true;
+          tmp.games_won = 0;
+          tmp.games_total = 0;
+          tmp.player = !vals.player;
+
+          M[ all_nodes ] = tmp;
+        }
+      }
+      else{
+        all_rols ++;
+        cout << "ROLLOUT from ->> " << act_node << "\n";
+        visited[ act_node ] = true;
+        // ROLLOUT
+        int score = rollout(vals.ANIMALS, BOARD, animal_val, vals.player);
+        if( score == -1 ) score = 0;
+        // BACKTRACK
+
+        while( act_node != -1 ){
+          auto it = M.find( act_node );
+          it->second.games_won += score;
+          it->second.games_total ++;
+          act_node = it->second.father;
+        }
+
+        cout << " Ended: " << act_node << endl;
+      }
+    }
+    cout << "\n\n";
+    cout << "Nodes explored: " << all_nodes << "\n";
+    cout << "MCTS duration: " << (clock() - act_time) / CLOCKS_PER_SEC << " sec\n";
+
+    for(auto w: G[ 1 ]){
+      cout << M[ w ].games_won << " ";
+    } cout << "\n";
+    for(auto w: G[ 1 ]){
+      cout << M[ w ].games_total << " ";
+    } cout << "\n";
+    cout << "Moves: \n";
+    for(auto a: moves_from_root) cout << a.animal << " ";
+    cout << "\n";
+
+    cout << "Explore tree: \n";
+    cout << all_rols << endl;
+    DFS( G, 1, -1, M);
+    return moves_from_root[ 0 ];
+}
