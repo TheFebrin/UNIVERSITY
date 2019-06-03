@@ -106,6 +106,7 @@ bool good_move( int x, int y, int xd, int yd, vvc BOARD, vvc ANIMALS, bool playe
 
     // rat killing elefant
     if( my_power == 0 and opponent_power == 7 ) return true;
+    if( my_power == 7 and opponent_power == 0 ) return false;
 
     return my_power >= opponent_power;
 }

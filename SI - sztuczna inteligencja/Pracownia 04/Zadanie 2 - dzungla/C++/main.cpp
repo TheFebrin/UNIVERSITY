@@ -103,7 +103,7 @@ int main()
         {
             assert( moves.size() > 0 );
             //one_move m = simulate(moves, BOARD, ANIMALS, player, N, animal_val);
-            one_move m = simulate2(BOARD, ANIMALS, player, animal_val, 1);
+            one_move m = simulate2(BOARD, ANIMALS, player, animal_val, 2);
 
             if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_no ++;
             else moves_no = 0;
@@ -173,11 +173,11 @@ void prepare_animals(){
 
     vector < char > row1 = {'L', '.', '.', '.', '.', '.', 'T' };
     vector < char > row2 = {'.', 'D', '.', '.', '.', 'C', '.' };
-    vector < char > row3 = {'R', '.', 'J', '.', 'W', '.', 'E' };
+    vector < char > row3 = {'R', '.', 'J', '.', 'W', '.', '.' };
     vector < char > row4 = {'.', '.', '.', '.', '.', '.', '.' };
     vector < char > row5 = {'.', '.', '.', '.', '.', '.', '.' };
     vector < char > row6 = {'.', '.', '.', '.', '.', '.', '.' };
-    vector < char > row7 = {'e', '.', 'w', '.', 'j', '.', 'r' };
+    vector < char > row7 = {'e', '.', 'w', 'E', 'j', '.', 'r' };
     vector < char > row8 = {'.', 'c', '.', '.', '.', 'd', '.' };
     vector < char > row9 = {'t', '.', '.', '.', '.', '.', 'l' };
 
