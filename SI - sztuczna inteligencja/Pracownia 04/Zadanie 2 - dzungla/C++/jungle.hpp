@@ -171,20 +171,16 @@ vector < one_move > gen_moves(vector < vector < char > > BOARD, vector < vector 
 
 int game_over( vvc ANIMALS, map < char, int > animal_val){
     // returns -1 if player 0 won, 1 if player 1 won
-    int best_0 = 0;
-    int best_1 = 0;
     vi A1, A2;
     for(int i = 0; i < 9 ; i ++){
         for(int j = 0; j < 7 ; j ++){
             if( ANIMALS[ i ][ j ] < 96 and ANIMALS[ i ][ j ] > 64 ) // player 1 - big letters
             {
               A1.pb( animal_val[ ANIMALS[ i ][ j ] ] );
-              //best_1 += animal_val[ ANIMALS[ i ][ j ] ];
             }
             if( ANIMALS[ i ][ j ] > 96 ) //player 0 has small letters
             {
               A2.pb( animal_val[ ANIMALS[ i ][ j ] ] );
-              //best_0 += animal_val[ ANIMALS[ i ][ j ] ];
             }
         }
     }
@@ -318,6 +314,35 @@ typedef struct{
 
 }MCTS;
 
+int end_rollout( vvc ANIMALS, map < char, int > animal_val){
+    // returns -1 if player 0 won, 1 if player 1 won
+    vi A1, A2;
+    int P1 = 0, P2 = 0;
+    for(int i = 0; i < 9 ; i ++){
+        for(int j = 0; j < 7 ; j ++){
+            if( ANIMALS[ i ][ j ] < 96 and ANIMALS[ i ][ j ] > 64 ) // player 1 - big letters
+            {
+              A1.pb( animal_val[ ANIMALS[ i ][ j ] ] );
+              P1 += animal_val[ ANIMALS[ i ][ j ] ];
+            }
+            if( ANIMALS[ i ][ j ] > 96 ) //player 0 has small letters
+            {
+              A2.pb( animal_val[ ANIMALS[ i ][ j ] ] );
+              P2 += animal_val[ ANIMALS[ i ][ j ] ];
+            }
+        }
+    }
+    // sort( A1.rbegin(), A1.rend() );
+    // sort( A2.rbegin(), A2.rend() );
+    //
+    // for(int i = 0; i < (int)min(A1.size(), A2.size()); i ++){
+    //   if( A1[ i ] > A2[ i ] ) return 1;
+    //   if( A2[ i ] > A1[ i ] ) return -1;
+    // }
+
+    return P1 - P2;
+}
+
 int rollout(vvc ANIMALS, vvc BOARD, map < char, int > animal_val, bool player){
     int moves_no = 0;
     int score = 0;
@@ -327,7 +352,7 @@ int rollout(vvc ANIMALS, vvc BOARD, map < char, int > animal_val, bool player){
         vector < one_move > moves = gen_moves(BOARD, ANIMALS, player, animal_val);
 
          if( moves_without_kill == max_games or moves.size() == 0){
-            score = game_over( ANIMALS, animal_val );
+            score = end_rollout( ANIMALS, animal_val );
             return score;
         }
 

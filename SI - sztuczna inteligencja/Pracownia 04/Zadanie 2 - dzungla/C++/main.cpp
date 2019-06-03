@@ -87,6 +87,8 @@ int main()
             ANIMALS[ m.x_from ][ m.y_from ] = '.';
             ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
 
+            cout << "I move: " << m.animal << "\n";
+
             bool b1 = m.x_to == 0 and m.y_to == 3;
             bool b2 = m.x_to == 8 and m.y_to == 3;
             if( b1 or b2 ){
@@ -114,6 +116,8 @@ int main()
 
             ANIMALS[ m.x_from ][ m.y_from ] = '.';
             ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+
+            cout << "I move: " << m.animal << "\n";
 
             bool b1 = m.x_to == 0 and m.y_to == 3;
             bool b2 = m.x_to == 8 and m.y_to == 3;
