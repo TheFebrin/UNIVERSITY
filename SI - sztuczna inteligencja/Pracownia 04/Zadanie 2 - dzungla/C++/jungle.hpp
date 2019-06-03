@@ -358,8 +358,14 @@ void DFS( vi G[], int v, int anc, map < int, MCTS > M ) {
       if( w != anc ) DFS( G, w, v, M);
     }
 }
+
+double UCB(double won, double node_visited, double parent_visited ){
+  double ans = won / node_visited * 2 * sqrt( log( parent_visited ) / node_visited );
+  return ans;
+}
+
 one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal_val, double time_limit){
-    cout << "START MCTS\n";
+    cout << "MCTS:\n";
     double act_time = clock();
     int TreeSize = 100000;
 
@@ -384,38 +390,40 @@ one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal
     M[ 1 ] = root;
 
     vector < one_move > moves_from_root = gen_moves(BOARD, ANIMALS, player, animal_val);
-    int no = 0, all_rols = 0;
 
-    while ( (clock() - act_time) / CLOCKS_PER_SEC < time_limit and no < 20) {
-      no ++;
-      cout << endl;
-      cout << "MOVE: " << no << endl;
-
+    int move = 0;
+    while ( (clock() - act_time) / CLOCKS_PER_SEC < time_limit ) {
       int act_node = 1;
       MCTS vals = M[ act_node ];
+      move ++;
 
       while( !vals.leaf ){
-        // CHOSE BEST SON
-        cout << "Looking for son! " << act_node << endl;
+        bool found = false;
         int best_son = G[ act_node ][ 0 ];
         double score = -1;
         for(auto w: G[ act_node ]){
           MCTS w_vals = M[ w ];
-          double w_score = w_vals.games_won / w_vals.games_total;
+          if( w_vals.games_total == 0 ){
+            best_son = w;
+            break;
+          }
+
+          double w_score = UCB(w_vals.games_won, w_vals.games_total, vals.games_total );
           if( w_score > score ){
             score = w_score;
             best_son = w;
           }
         }
+
         act_node = best_son;
         vals = M[ best_son ];
       }
 
       // IN LEAF AT THIS POINT
-      cout << " Act node -=-->> " << act_node << "\n";
+
       if( visited[ act_node ] ){
         // GENERATE STATES
-        cout << "GENERATE from -> " << act_node << endl;
+
         M[ act_node ].leaf = false;
         vector < one_move > moves = gen_moves(BOARD, vals.ANIMALS, vals.player, animal_val);
 
@@ -426,7 +434,7 @@ one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal
             New_Animals[ move.x_to ][ move.y_to ] = move.animal;
             States.pb( New_Animals );
         }
-        cout << "Adding: " << States.size() << " states!\n";
+
         for(auto s: States){
           all_nodes ++;
           G[ act_node ].pb( all_nodes );
@@ -444,8 +452,7 @@ one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal
         }
       }
       else{
-        all_rols ++;
-        cout << "ROLLOUT from ->> " << act_node << "\n";
+
         visited[ act_node ] = true;
         // ROLLOUT
         int score = rollout(vals.ANIMALS, BOARD, animal_val, vals.player);
@@ -459,25 +466,42 @@ one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal
           act_node = it->second.father;
         }
 
-        cout << " Ended: " << act_node << endl;
+    //    cout << " Ended: " << act_node << endl;
       }
     }
-    cout << "\n\n";
+
     cout << "Nodes explored: " << all_nodes << "\n";
     cout << "MCTS duration: " << (clock() - act_time) / CLOCKS_PER_SEC << " sec\n";
 
+    cout << "States and scors: \n";
+    for(auto w: G[ 1 ]){
+      cout << M[ w ].node_no << " ";
+    } cout << "\n";
     for(auto w: G[ 1 ]){
       cout << M[ w ].games_won << " ";
     } cout << "\n";
     for(auto w: G[ 1 ]){
       cout << M[ w ].games_total << " ";
     } cout << "\n";
-    cout << "Moves: \n";
+    cout << "Possible moves: \n";
     for(auto a: moves_from_root) cout << a.animal << " ";
     cout << "\n";
 
-    cout << "Explore tree: \n";
-    cout << all_rols << endl;
-    DFS( G, 1, -1, M);
-    return moves_from_root[ 0 ];
+    double best_score = 0;
+    int answer = 0;
+    for(int i = 0 ; i < (int)G[ 1 ].size(); i ++){
+      MCTS m = M[ G[ 1 ][ i ] ];
+      if( m.games_total == 0 ) continue;
+      double act_score = double(m.games_won) / double(m.games_total);
+      if( act_score > best_score ){
+        best_score = act_score;
+        answer = i;
+      }
+    }
+
+    // cout << "Explore tree: \n";
+    // cout << all_rols << endl;
+    // DFS( G, 1, -1, M);
+
+    return moves_from_root[ answer ];
 }

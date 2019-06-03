@@ -1,7 +1,7 @@
 import random
-import sys
-from collections import defaultdict as dd
-from turtle import *
+# import sys
+# from collections import defaultdict as dd
+# from turtle import *
 import copy
 
 #####################################################
@@ -223,7 +223,7 @@ class Board:
             new_board = deepcopy(self)
             new_board.do_move(move, player)
 
-            val = alphabeta(new_board, depth, -1e9, 1e9, player)
+            val = alphabeta(new_board, depth, -1e9, 1e9, 1 - player)
             if val > best_score:
                 best_move = move
                 best_score = val

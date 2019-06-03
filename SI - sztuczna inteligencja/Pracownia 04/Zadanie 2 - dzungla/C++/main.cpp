@@ -52,12 +52,11 @@ int main()
 
     // BOT has big letters
 
-    int ile = 2;
-    while( ile-- ){
+    while( true ){
         //if( player == 1 ) std::this_thread::sleep_for(std::chrono::milliseconds(2));
         //std::this_thread::sleep_for(std::chrono::milliseconds(100));
         //system("clear");
-        cout <<"Move: " << move ++ << endl;
+        cout <<"Move: " << move ++ << " Player: " << player << "\n";
         print_animals();
         vector < one_move > moves = gen_moves(BOARD, ANIMALS, player, animal_val);
 
@@ -102,29 +101,29 @@ int main()
         {
             assert( moves.size() > 0 );
             //one_move m = simulate(moves, BOARD, ANIMALS, player, N, animal_val);
-            one_move m = simulate2(BOARD, ANIMALS, player, animal_val, 0.9);
+            one_move m = simulate2(BOARD, ANIMALS, player, animal_val, 1);
 
-            // if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_no ++;
-            // else moves_no = 0;
-            //
-            // if( m.animal == 't' or m.animal == 'T' or m.animal == 'l' or m.animal == 'L'){
-            //     auto np = move_over_lake( BOARD, m.x_from, m.y_from, m.x_to, m.y_to);
-            //     m.x_to = np.first;
-            //     m.y_to = np.second;
-            // }
-            //
-            // ANIMALS[ m.x_from ][ m.y_from ] = '.';
-            // ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
-            //
-            // bool b1 = m.x_to == 0 and m.y_to == 3;
-            // bool b2 = m.x_to == 8 and m.y_to == 3;
-            // if( b1 or b2 ){
-            //     int result = game_over( ANIMALS, animal_val );
-            //     cout << "JAMA! \n";
-            //     if( result > 0 ) cout << "Bot won!\n";
-            //     else cout << "Player won!\n";
-            //     break;
-            // }
+            if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_no ++;
+            else moves_no = 0;
+
+            if( m.animal == 't' or m.animal == 'T' or m.animal == 'l' or m.animal == 'L'){
+                auto np = move_over_lake( BOARD, m.x_from, m.y_from, m.x_to, m.y_to);
+                m.x_to = np.first;
+                m.y_to = np.second;
+            }
+
+            ANIMALS[ m.x_from ][ m.y_from ] = '.';
+            ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
+
+            bool b1 = m.x_to == 0 and m.y_to == 3;
+            bool b2 = m.x_to == 8 and m.y_to == 3;
+            if( b1 or b2 ){
+                int result = game_over( ANIMALS, animal_val );
+                cout << "JAMA! \n";
+                if( result > 0 ) cout << "Bot won!\n";
+                else cout << "Player won!\n";
+                break;
+            }
         }
 
 
