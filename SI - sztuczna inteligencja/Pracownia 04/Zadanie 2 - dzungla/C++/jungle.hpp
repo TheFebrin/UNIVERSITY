@@ -351,31 +351,6 @@ int rollout(vvc ANIMALS, vvc BOARD, map < char, int > animal_val, bool player){
 
     vector < one_move > moves = gen_moves(BOARD, ANIMALS, player, animal_val);
 
-    if( player == 1 ){
-      int best_score = 0;
-      int some_move = 0;
-      for(int i = 0; i < int(moves.size()); i ++){
-        auto m = moves[ i ];
-        if( ANIMALS[ m.x_to ][ m.y_to ] != '.' ){
-          int act_score = animal_val[ ANIMALS[ m.x_to ][ m.y_to ] ];
-          if( act_score > best_score ){
-            best_score = act_score;
-            some_move = i;
-          }
-        }
-      }
-      one_move m = moves[ some_move ];
-      if( m.animal == 't' or m.animal == 'T' or m.animal == 'l' or m.animal == 'L'){
-             auto np = move_over_lake( BOARD, m.x_from, m.y_from, m.x_to, m.y_to);
-             m.x_to = np.first;
-             m.y_to = np.second;
-         }
-
-      ANIMALS[ m.x_from ][ m.y_from ] = '.';
-      ANIMALS[ m.x_to ][ m.y_to ] = m.animal;
-      if( best_score ) return ( end_rollout( ANIMALS, animal_val ));
-    }
-
     while( true ){
         moves = gen_moves(BOARD, ANIMALS, player, animal_val);
 
@@ -385,22 +360,22 @@ int rollout(vvc ANIMALS, vvc BOARD, map < char, int > animal_val, bool player){
         }
 
         int best_move = rand() % moves.size();
-
         int best_score = 0;
-        if( player == 1 ){
-          for(int i = 0; i < int(moves.size()); i ++){
-            auto m = moves[ i ];
-            if( ANIMALS[ m.x_to ][ m.y_to ] != '.' ){
-              int act_score = animal_val[ ANIMALS[ m.x_to ][ m.y_to ] ];
-              if( act_score > best_score ){
-                best_score = act_score;
-                best_move = i;
-              }
+        for(int i = 0; i < int(moves.size()); i ++){
+          auto m = moves[ i ];
+          if( BOARD[ m.x_to ][ m.y_to ] == '*' ){
+            return (player == 1 ? 1 : 0);
+          }
+          if( ANIMALS[ m.x_to ][ m.y_to ] != '.' ){
+            int act_score = animal_val[ ANIMALS[ m.x_to ][ m.y_to ] ];
+            if( act_score > best_score ){
+              best_score = act_score;
+              best_move = i;
             }
           }
         }
 
-        one_move m = moves[ best_move ];
+        auto m = moves[ best_move ];
 
         if( ANIMALS[ m.x_to ][ m.y_to ] == '.' ) moves_without_kill ++;
         else moves_without_kill = 0;
@@ -459,8 +434,23 @@ one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal
     root.player = player;
 
     M[ 1 ] = root;
+    visited[ 1 ] = true;
 
     vector < one_move > moves_from_root = gen_moves(BOARD, ANIMALS, player, animal_val);
+
+    int greedy_first_move = 0, greedy_score = 0;
+    for(int i = 0 ; i < (int)moves_from_root.size(); i ++){
+      auto m = moves_from_root[ i ];
+      if( BOARD[ m.x_to ][ m.y_to ] == '*' ) return m;
+      if( ANIMALS[ m.x_to ][ m.y_to ] != '.' ){
+        int act = animal_val[ ANIMALS[ m.x_to ][ m.y_to ] ];
+        if( act > greedy_score){
+          greedy_score = act;
+          greedy_first_move = i;
+        }
+      }
+    }
+    if( greedy_score ) return moves_from_root[ greedy_first_move ];
 
     int move = 0;
     while ( (clock() - act_time) / CLOCKS_PER_SEC < time_limit ) {
