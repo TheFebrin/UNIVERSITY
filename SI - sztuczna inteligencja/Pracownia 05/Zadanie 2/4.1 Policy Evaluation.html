@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!-- saved from url=(0049)http://incompleteideas.net/book/ebook/node41.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>4.1 Policy Evaluation</title>
+<meta name="description" content="4.1 Policy Evaluation">
+<meta name="keywords" content="book">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta name="Generator" content="LaTeX2HTML v2002-2-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="./4.1 Policy Evaluation_files/book.css">
+
+<link rel="next" href="http://incompleteideas.net/book/ebook/node42.html">
+<link rel="previous" href="http://incompleteideas.net/book/ebook/node40.html">
+<link rel="up" href="http://incompleteideas.net/book/ebook/node40.html">
+<link rel="next" href="http://incompleteideas.net/book/ebook/node42.html">
+</head>
+
+<body>
+<!--Navigation Panel-->
+<a name="tex2html829" href="http://incompleteideas.net/book/ebook/node42.html">
+<img width="37" height="24" align="BOTTOM" border="0" alt="next" src="./4.1 Policy Evaluation_files/next.png"></a> 
+<a name="tex2html825" href="http://incompleteideas.net/book/ebook/node40.html">
+<img width="26" height="24" align="BOTTOM" border="0" alt="up" src="./4.1 Policy Evaluation_files/up.png"></a> 
+<a name="tex2html819" href="http://incompleteideas.net/book/ebook/node40.html">
+<img width="63" height="24" align="BOTTOM" border="0" alt="previous" src="./4.1 Policy Evaluation_files/prev.png"></a> 
+<a name="tex2html827" href="http://incompleteideas.net/book/ebook/node1.html">
+<img width="65" height="24" align="BOTTOM" border="0" alt="contents" src="./4.1 Policy Evaluation_files/contents.png"></a>  
+<br>
+<b> Next:</b> <a name="tex2html830" href="http://incompleteideas.net/book/ebook/node42.html">4.2 Policy Improvement</a>
+<b> Up:</b> <a name="tex2html826" href="http://incompleteideas.net/book/ebook/node40.html">4. Dynamic Programming</a>
+<b> Previous:</b> <a name="tex2html820" href="http://incompleteideas.net/book/ebook/node40.html">4. Dynamic Programming</a>
+ &nbsp; <b>  <a name="tex2html828" href="http://incompleteideas.net/book/ebook/node1.html">Contents</a></b> 
+<br>
+<br>
+<!--End of Navigation Panel-->
+
+<h1><a name="SECTION03110000000000000000">
+4.1 Policy Evaluation</a>
+</h1>
+
+<p>
+First we consider how to compute the state-value function <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp606.png" width="19" height="12"> for an
+arbitrary policy <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp607.png" width="9" height="7">.  This is called <i>policy evaluation</i> in the DP
+literature.   We also refer to it as the <i>prediction problem</i>. Recall from
+Chapter 3 that, for all
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp608.png" width="38" height="12">,
+ <br><br></p><div align="left">
+<table width="70%" cellpadding="30"><tbody><tr><td width="60%"><table cellpadding="5">  <tbody><tr><td align="left"><a name="eq:Vpi2">&nbsp;</a><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-0-0.png" width="49" height="21">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-0-1.png" width="14" height="5">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-0-2.png" width="334" height="25">
+</td><td align="right">   </td></tr>  <tr><td align="left"><a name="eq:Vpi2">&nbsp;</a> </td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-1-1.png" width="14" height="5">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-1-2.png" width="242" height="21">
+</td><td align="right">(4.3)</td></tr>  <tr><td align="left"><a name="eq:VpiP">&nbsp;</a> </td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-2-1.png" width="14" height="5">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp7-2-2.png" width="314" height="49">
+</td><td align="right">(4.4)</td></tr>  </tbody></table></td></tr></tbody></table></div><br> 
+where <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp609.png" width="44" height="17"> is the probability of taking action <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp610.png" width="7" height="8"> in state <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp611.png" width="6" height="8"> under
+policy <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp612.png" width="9" height="7">, and the expectations are subscripted by 
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp613.png" width="9" height="7"> to indicate that they are conditional on <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp614.png" width="9" height="7"> being followed.  The
+existence and uniqueness of <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp615.png" width="19" height="12"> are guaranteed as long as either
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp616.png" width="38" height="15"> or eventual termination is guaranteed from all states under the
+policy <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp617.png" width="9" height="7">.
+
+<p>
+If the environment's dynamics are
+completely known, then <a href="http://incompleteideas.net/book/ebook/node41.html#eq:VpiP">(4.4)</a> is a system of <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp618.png" width="17" height="17"> simultaneous
+linear equations in
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp619.png" width="17" height="17"> unknowns (the <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp620.png" width="39" height="17">, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp621.png" width="38" height="12">).  In principle, its solution is a
+straightforward, if tedious, computation.  For our purposes, iterative solution
+methods are most suitable.   Consider a sequence of approximate value functions
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp622.png" width="87" height="15">, each mapping <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp623.png" width="19" height="13"> to <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp624.png" width="11" height="12">.  The initial
+approximation,
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp625.png" width="14" height="14">, is chosen arbitrarily (except that the terminal state, if any, must be
+given value 0), and each successive approximation is obtained by using the
+Bellman equation for <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp626.png" width="19" height="12"> (3.10) as an update rule:
+ <br><br></p><div align="left">
+<table width="70%" cellpadding="30"><tbody><tr><td width="60%"><table cellpadding="5">  <tbody><tr><td align="left"><a name="eq:Vk">&nbsp;</a><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp8-0-0.png" width="62" height="21">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp8-0-1.png" width="14" height="5">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp8-0-2.png" width="237" height="21">
+</td><td align="right">   </td></tr>  <tr><td align="left"><a name="eq:Vk">&nbsp;</a> </td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp8-1-1.png" width="14" height="5">
+</td><td><img border="0" src="./4.1 Policy Evaluation_files/numeqnarraytmp8-1-2.png" width="308" height="49">
+</td><td align="right">(4.5)</td></tr>  </tbody></table></td></tr></tbody></table></div><br> 
+for all <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp627.png" width="38" height="12">. 
+Clearly, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp628.png" width="58" height="14"> is a fixed point for this update
+rule because the Bellman equation for <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp629.png" width="19" height="12"> assures us of equality in this
+case.  Indeed, the sequence <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp630.png" width="31" height="17"> can be shown in general to converge to
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp631.png" width="19" height="12"> as <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp632.png" width="50" height="12"> under the same conditions that guarantee the
+existence of <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp633.png" width="19" height="12">. This algorithm is called <i>iterative policy evaluation</i>.
+
+<p>
+To produce each successive approximation, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp634.png" width="29" height="15"> from <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp635.png" width="15" height="14">, iterative policy
+evaluation applies the same operation to each state <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp636.png" width="6" height="8">: it replaces the old value
+of <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp637.png" width="6" height="8"> with a new value obtained from the old values of the successor states of
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp638.png" width="6" height="8">, and the expected immediate rewards, along all the one-step transitions
+possible under the policy being evaluated.  We call this kind of operation a <em>full backup</em>.   Each iteration of iterative policy evaluation <em>backs
+up</em> the value of every state once to produce the new approximate value function
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp639.png" width="29" height="15">.  There are several different kinds of full backups, depending on whether
+a state (as here) or a state-action pair is being backed up, and depending on the
+precise way the estimated values of the successor states are combined.  All the
+backups done in DP algorithms are called <i>full</i> backups because they are
+based on all possible next states rather than on a sample next state.  The nature
+of a backup can be expressed in an equation, as above, or in a backup diagram like
+those introduced in Chapter 3.  For example, Figure&nbsp;3.4a is the
+backup diagram corresponding to the full backup used in iterative policy
+evaluation.
+
+</p><p>
+To write a sequential computer program to implement iterative policy evaluation, as
+given by <a href="http://incompleteideas.net/book/ebook/node41.html#eq:Vk">(4.5)</a>, you would have to use two arrays, one for
+the old values, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp640.png" width="35" height="17">, and one for the new values, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp641.png" width="50" height="17">. This way, the
+new values can be computed one by one from the old values without the
+old values being changed.  Of course it is easier to use one array and
+update the values "in place," that is, with each new backed-up value immediately
+overwriting the old one.  Then, depending on the order in which the states
+are backed up, sometimes new values are used instead of old ones on the
+right-hand side of <a href="http://incompleteideas.net/book/ebook/node41.html#eq:Vk">(4.5)</a>.  This slightly different algorithm also
+converges to <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp642.png" width="19" height="12">; in fact, it usually converges faster than the two-array
+version, as you might expect, since it uses new data as soon as they are available. 
+We think of the backups as being done in a <i>sweep</i> through the state space. 
+For the in-place algorithm, the order in which states are backed up during the
+sweep has a significant influence on the rate of convergence. We usually have the
+in-place version in mind when we think of DP algorithms.
+
+</p><p>
+Another implementation point concerns the termination of the algorithm. 
+Formally, iterative policy evaluation converges only in the limit, but in practice
+it must be halted short of this.  A typical stopping condition for 
+iterative policy evaluation is to test the quantity <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp643.png" width="171" height="17"> after each sweep and stop when it is sufficiently small. 
+Figure&nbsp;<a href="http://incompleteideas.net/book/ebook/node41.html#fig:policy-evaluation"> 
+
+4.1</a> gives a complete algorithm for
+iterative policy evaluation with this stopping criterion.
+
+</p><p>
+</p><div align="CENTER">
+<table width="100%">
+<caption align="BOTTOM"><strong>Figure  
+
+4.1:</strong>
+ Iterative policy evaluation. </caption>
+<tbody><tr><td><a name="fig:policy-evaluation">&nbsp;</a><img border="0" src="./4.1 Policy Evaluation_files/pseudotmp0.png" width="462" height="258">
+</td></tr>
+</tbody></table>
+</div> 
+
+<p>
+
+</p><p></p>
+  
+  <b>Example 4.1</b>&nbsp;&nbsp;
+Consider the <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp644.png" width="30" height="11"> gridworld shown below.
+
+<p>
+<br><br></p><div align="left"><table width="70%" cellpadding="30"><tbody><tr><td><img border="0" src="./4.1 Policy Evaluation_files/imgtmp4.png" width="440" height="145">
+</td></tr></tbody></table></div><br> 
+The nonterminal states are <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp645.png" width="125" height="17">.
+There are four actions possible in each state, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp646.png" width="208" height="17">, which deterministically cause the corresponding state
+transitions, except that actions that would take the agent off the grid in
+fact leave the state unchanged.  Thus, for instance, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp647.png" width="72" height="21">, 
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp648.png" width="72" height="21">, and <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp649.png" width="72" height="21">.
+This is an undiscounted, episodic task.  The reward
+is <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp650.png" width="18" height="11"> on all transitions until the terminal state is reached.  The terminal
+state is shaded in the figure (although it is shown in two places, it
+is formally one state).  The expected reward
+function is thus <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp651.png" width="71" height="16"> for all states <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp652.png" width="25" height="15"> and actions <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp653.png" width="7" height="8">.
+Suppose the agent follows the equiprobable random policy (all actions equally
+likely). The left side of Figure <a href="http://incompleteideas.net/book/ebook/node41.html#fig:4gridconv"> 
+
+4.2</a> shows the sequence of value
+functions <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp654.png" width="31" height="17"> computed by iterative policy evaluation.  The
+final estimate is in fact <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp655.png" width="19" height="12">, which in this case gives for each state the
+negation of the expected number of steps from that state until termination.
+<div align="RIGHT"><img src="./4.1 Policy Evaluation_files/QED.png"></div>
+
+<p>
+<br> </p><div align="LEFT">
+<table width="100%" cellpadding="10%">
+<caption align="BOTTOM"><strong>Figure  
+
+4.2:</strong>
+ Convergence of iterative policy evaluation on a small gridworld.  The
+left column is the sequence of approximations of the state-value function for the
+random policy (all actions equal).  The right column is the
+sequence of greedy policies corresponding to the value function estimates
+(arrows are shown for all actions achieving the maximum). 
+The last policy is guaranteed only to be an improvement over the random
+policy, but in this case it, and all policies after the
+third iteration, are optimal. </caption>
+<tbody><tr><td><a name="fig:4gridconv">&nbsp;</a><img border="0" src="./4.1 Policy Evaluation_files/figtmp15.png" width="469" height="722">
+</td></tr>
+</tbody></table>
+</div><br> 
+
+<p>
+
+</p><p></p>
+  
+  <i><b>Exercise 4.1</b></i>&nbsp;&nbsp;
+If <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp656.png" width="9" height="7"> is the equiprobable random policy, what is <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp657.png" width="89" height="17">?
+What is <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp658.png" width="81" height="17">? 
+
+<p>
+
+</p><p></p>
+  
+  <i><b>Exercise 4.2</b></i>&nbsp;&nbsp;
+Suppose a new state 15 is added to the gridworld just below state 13, and its
+actions, <tt>left</tt>, <tt>up</tt>, <tt>right</tt>, and <tt>down</tt>, take the agent to
+states 12, 13, 14, and 15, respectively.  Assume that the transitions <i>from</i>
+the original states are unchanged. What, then, is <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp659.png" width="48" height="17"> for the equiprobable
+random policy?  Now suppose the dynamics of state 13 are also changed, such that
+action <tt>down</tt> from state 13 takes the agent to the new state 15.  What is
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp660.png" width="48" height="17"> for the equiprobable random policy in this case?
+
+<p>
+
+</p><p></p>
+  
+  <i><b>Exercise 4.3</b></i>&nbsp;&nbsp;
+What are the equations analogous to <a href="http://incompleteideas.net/book/ebook/node41.html#eq:Vpi2">(4.3)</a>, <a href="http://incompleteideas.net/book/ebook/node41.html#eq:VpiP">(4.4)</a>, and
+<a href="http://incompleteideas.net/book/ebook/node41.html#eq:Vk">(4.5)</a> for the action-value function
+<img border="0" src="./4.1 Policy Evaluation_files/inimgtmp661.png" width="19" height="15"> and its successive approximation by a sequence of functions <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp662.png" width="97" height="15"> ?
+
+<p>
+
+</p><p></p>
+  
+  <i><b>Exercise 4.3.5</b></i>&nbsp;&nbsp;
+In some undiscounted episodic tasks there may be policies for which
+eventual termination is not guaranteed.  For example, in the grid problem above
+it is possible to go back and forth between two states forever.  In a task that
+is otherwise perfectly sensible, <img border="0" src="./4.1 Policy Evaluation_files/inimgtmp663.png" width="39" height="17"> may be negative infinity for some
+policies and states, in which case the algorithm for iterative policy evaluation
+given in Figure&nbsp;<a href="http://incompleteideas.net/book/ebook/node41.html#fig:policy-evaluation"> 
+
+4.1</a> will not terminate.  As a purely
+practical matter, how might we amend this algorithm to assure termination even in
+this case?  Assume that eventual termination <i>is</i> guaranteed under the
+optimal policy.
+
+<p>
+</p><hr>
+<!--Navigation Panel-->
+<a name="tex2html829" href="http://incompleteideas.net/book/ebook/node42.html">
+<img width="37" height="24" align="BOTTOM" border="0" alt="next" src="./4.1 Policy Evaluation_files/next.png"></a> 
+<a name="tex2html825" href="http://incompleteideas.net/book/ebook/node40.html">
+<img width="26" height="24" align="BOTTOM" border="0" alt="up" src="./4.1 Policy Evaluation_files/up.png"></a> 
+<a name="tex2html819" href="http://incompleteideas.net/book/ebook/node40.html">
+<img width="63" height="24" align="BOTTOM" border="0" alt="previous" src="./4.1 Policy Evaluation_files/prev.png"></a> 
+<a name="tex2html827" href="http://incompleteideas.net/book/ebook/node1.html">
+<img width="65" height="24" align="BOTTOM" border="0" alt="contents" src="./4.1 Policy Evaluation_files/contents.png"></a>  
+<br>
+<b> Next:</b> <a name="tex2html830" href="http://incompleteideas.net/book/ebook/node42.html">4.2 Policy Improvement</a>
+<b> Up:</b> <a name="tex2html826" href="http://incompleteideas.net/book/ebook/node40.html">4. Dynamic Programming</a>
+<b> Previous:</b> <a name="tex2html820" href="http://incompleteideas.net/book/ebook/node40.html">4. Dynamic Programming</a>
+ &nbsp; <b>  <a name="tex2html828" href="http://incompleteideas.net/book/ebook/node1.html">Contents</a></b> 
+<!--End of Navigation Panel-->
+<address>
+Mark Lee
+2005-01-04
+</address>
+
+
+</body></html>
