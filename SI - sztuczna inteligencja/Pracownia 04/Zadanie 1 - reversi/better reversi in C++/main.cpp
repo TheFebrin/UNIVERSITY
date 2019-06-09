@@ -20,8 +20,8 @@ void print_board(int p);
 int main()
 {
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+    // cin.tie(0);
+    // cout.tie(0);
 
     srand(time(NULL));
     int white_score = 0;
@@ -68,14 +68,6 @@ int main()
             if( debug ) print_board(player);
             map < pi, vpi > moves = find_moves(BOARD,player);
 
-            // for(auto m : moves) {
-            //     cout << m.first.first << " " << m.first.second << endl;
-            //     cout << "FROM: \n";
-            //     for(auto a: m.second) cout << a.first << " " << a.second << endl;
-            //     cout << endl;
-            // }
-            // cout << endl;
-
             // skip if player has no move to make
             if( moves.size() == 0 ){
                 end_game ++;
@@ -86,10 +78,15 @@ int main()
 
             if( player == 0 ) // random player
             {
+                // random player
                 int random_move = rand() % moves.size();
                 auto iter = moves.begin();
                 advance(iter, random_move);
                 make_move(BOARD, iter->second, iter->first, player);
+
+                //min max player
+                // pair < pi, vpi > best_move = use_minimax(BOARD, moves, player, depth);
+                // make_move(BOARD, best_move.second, best_move.first, player);
             }
             else // bot
             {

@@ -193,46 +193,10 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
         return heuristic(BOARD);
     }
     map < pi, vpi > moves = find_moves( BOARD, player );
-    
+
     if( moves.size() == 0 ){
         return heuristic( BOARD );
     }
-
-    // vector <  vector < vector < char > > > Next_States;
-    // for(auto m: moves){
-    //     auto New_Board = BOARD;
-    //     make_move( New_Board, m.second, m.first, player);
-    //     Next_States.pb( New_Board );
-    // }
-
-    // sort( Next_States.begin(), Next_States.end(), foo );
-
-    // if(moves.size() == 0){
-    //     return heuristic(BOARD);
-    // }
-
-    // if(player == 0){
-    //     int maxEval = -1e9;
-    //     for(auto state: Next_States){
-    //         int eval_child = minimax(state, depth - 1, alpha, beta, 1);
-    //         maxEval = max(maxEval, eval_child);
-    //         alpha = max(alpha, eval_child);
-
-    //         if(beta <= alpha) break;
-    //     }
-    //     return maxEval;
-    // }
-    // else{
-    //     int minEval = +1e9;
-    //     for(auto state: Next_States){
-    //         int eval_child = minimax(state, depth - 1, alpha, beta, 0);
-    //         minEval = min(minEval, eval_child);
-    //         beta = min(beta, eval_child);
-
-    //         if(beta <= alpha) break;
-    //     }
-    //     return minEval;
-    // }
 
     if(player == 0){
         int maxEval = -1e9;
@@ -264,16 +228,25 @@ int minimax( vector < vector < char > >  BOARD, int depth, int alpha, int beta, 
 
 pair < pi, vpi > use_minimax(vector < vector < char > >  BOARD, map < pi, vpi > moves, int player, int depth){
     int best_score = -1e9;
+    if( player == 0 ) best_score = 1e9;
     pair < pi, vpi > ans;
 
     for(auto m: moves){
         auto New_Board = BOARD;
         make_move( New_Board, m.second, m.first, player);
-        int act = minimax(New_Board, depth, -1e9, 1e9, player^1 );
+        int act = minimax(New_Board, depth, -1e9, 1e9, 1 - player );
 
-        if( act > best_score ){
-            best_score = act;
-            ans = { m.first, m.second };
+        if( player == 0 ){
+          if( act < best_score ){
+              best_score = act;
+              ans = { m.first, m.second };
+          }
+        }
+        else{
+          if( act > best_score ){
+              best_score = act;
+              ans = { m.first, m.second };
+          }
         }
     }
     return ans;
