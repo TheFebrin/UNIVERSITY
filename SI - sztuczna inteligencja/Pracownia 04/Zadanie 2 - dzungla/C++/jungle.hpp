@@ -554,8 +554,8 @@ one_move simulate2(vvc BOARD, vvc ANIMALS, bool player, map < char, int > animal
     for(int i = 0 ; i < (int)G[ 1 ].size(); i ++){
       MCTS m = M[ G[ 1 ][ i ] ];
       if( m.games_total == 0 ) continue;
-      double act_score = UCB(m.games_won, m.games_total, root.games_total, player);
-      if( act_score > best_score ){
+        double act_score = m.games_total;
+      if( act_score >= best_score ){
         best_score = act_score;
         answer = i;
       }

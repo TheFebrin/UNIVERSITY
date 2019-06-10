@@ -4,7 +4,7 @@ Reward = 100
 Board = []
 
 Moves = [(0, 0), (1, 0), (-1, 0), (0, 1), (0, -1),
-         (1, 1), (1, -1), (1, 1), (-1, 1), (-1, -1)]
+         (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
 '''
 My policy { x, y, dx, dy } = {reward, (action) }
@@ -49,7 +49,7 @@ def reward(state):
         return Reward
     if Board[x][y] == '.':
         return -Reward
-    return -1
+    return 0
 
 
 def readPolicyValue(state):
@@ -65,7 +65,7 @@ def readPolicyValue(state):
 
 def nextStates(state, action):
     x, y, vx, vy = state
-    res = set()
+    res = []
     '''
     If our car is on oil it can make every possible move,
     otherwise it's (0, 0) additional vector
@@ -86,7 +86,7 @@ def nextStates(state, action):
         new_vx = max(new_vx, -3)
         new_vy = max(new_vy, -3)
 
-        res.add((x + new_vx, y + new_vy, new_vx, new_vy))
+        res.append((x + new_vx, y + new_vy, new_vx, new_vy))
     return res
 
 
@@ -114,7 +114,7 @@ if __name__ == '__main__':
         print("Wrong input!")
         exit()
 
-    readData(sys.argv[1])
+    readData('tasks/' + sys.argv[1])
     print_board()
 
     '''

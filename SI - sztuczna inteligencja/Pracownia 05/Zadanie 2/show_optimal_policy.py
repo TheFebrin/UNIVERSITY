@@ -18,7 +18,7 @@ MOVE_COST = 1.0
 
 
 def sgoto(x, y):
-    goto(SX+BOK*x + BOK/2, SY+BOK*y + BOK/2)
+    goto(SX + BOK * x + BOK / 2, SY + BOK * y + BOK / 2)
 
 
 def kwadrat(x, y, kolor):
@@ -41,10 +41,10 @@ def kwadrat(x, y, kolor):
 def kolko(x, y, kolor):
     fillcolor(kolor)
     pu()
-    goto(SX + x * BOK + BOK/2, SY + y * BOK + BOK/2)
+    goto(SX + x * BOK + BOK / 2, SY + y * BOK + BOK / 2)
     pd()
     begin_fill()
-    circle(BOK/4)
+    circle(BOK / 4)
     end_fill()
 
 
