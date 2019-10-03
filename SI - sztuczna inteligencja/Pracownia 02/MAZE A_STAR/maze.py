@@ -20,9 +20,9 @@ def print_maze():
         out = ''.join(m)
         for c in out:
             if c != '#':
-                print(crayons.red(c, bold=True), end='')
+                print(crayons.black(c, bold=True), end='')
             else:
-                print(crayons.blue('#'), end='')
+                print(crayons.white('#'), end='')
         print()
 
     sleep(0.015)
