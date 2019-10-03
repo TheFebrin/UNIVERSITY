@@ -35,10 +35,23 @@
 
 <h3>Semestr 4</h3>
 <ul>
-    <li>Algorytmy i struktury danych (wyk: Krzysztof Loryś, ćw: Szymon Dudycz)</li>
+    <li>Algorytmy i struktury danych M (wyk: Krzysztof Loryś, ćw: Szymon Dudycz)</li>
     <li>Sztuczna inteligencja (wyk: Paweł Rychlikowski, ćw: Paweł Rychlikowski)</li>
     <li>Rachunek prawdopodobieństwa i statystyka (wyk: Witold Karczewski, ćw: Pratik Ghosal)</li>
     <li>Kurs języka C++ (wyk: Paweł Rzechonek, prac: Przemysław Uznański)</li>
     <li>O ekonomii i gospodarce inaczej (wyk: Witold Kwaśnicki) </li>
 </ul>
 
+<br>
+
+<h3>Semestr 5</h3>
+<ul>
+    <li>Machine Learning (wyk: Jan Chorowski, ćw: Piotr Wieczorek)</li>
+    <li>Eksploracja danych (wyk: Piotr Wnuk-Lipiński, ćw: Piotr Wnuk-Lipiński)</li>
+    <li>Wybrane elementy praktyki projektowania oprogramowania (wyk: Wiktor Zychla, ćw: Piotr Wieczorek</li>
+    <li>Kurs: zaawansowane techniki w C++ i STL (wyk: Paweł Rzechonek, prac: Paweł Rzechonek)</li>
+    <li>Kurs rozszerzony języka Python (wyk: Marcin Młotkowski, prac: Adam Kaczmarek)</li>
+    <li>Komunikacja człowiek-komputer (wyk: Zdzisław Płoski, prac: Leszek Grocholski)</li>
+    <li>Metody implementacji algorytmów</li>
+    <li>Praktyka zawodowa</li>
+</ul>
