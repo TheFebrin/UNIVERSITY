@@ -13,7 +13,7 @@ void Zadanie1(){
   cout << "3. ??(\n";
 
   pair< int, int > p = ??<1,2??>;
-  cout << p.first << " " << p.second << endl;
+  cout << p.first << " " << p.second << "\n";
   cout << "---------------------------\n\n";
 }
 
@@ -67,8 +67,8 @@ void Zadanie4(){
 
 
 auto Lucas(int n){
-  if( n == 0 ) return 2*1LL;
-  if( n == 1 ) return 1*1LL;
+  if( n == 0 ) return 2LL;
+  if( n == 1 ) return 1LL;
   return(Lucas(n - 1) + Lucas(n - 2));
 }
 
