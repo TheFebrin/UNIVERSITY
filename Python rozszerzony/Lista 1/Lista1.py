@@ -43,13 +43,16 @@ if __name__ == '__main__':
         Zadanie 2
         print(wydaj(123))
     '''
+    print(wydaj(123))
 
     '''
         Zadanie 3
         romb(4)
     '''
+    romb(4)
 
     '''
         Zadanie 5
         print(rozklad(756))
     '''
+    print(rozklad(756))
