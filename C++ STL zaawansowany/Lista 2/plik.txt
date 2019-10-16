@@ -1,0 +1,6 @@
+abc
+def
+ghi
+wkaznik1
+wkaznik2
+wkaznik3
