@@ -3,65 +3,61 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class ProstaKlasa{
+class Licznik{
     private:
-        uint64_t count = 1;
-        unique_ptr<uint64_t[]> arr;
-        vector < int > Primes;
-        int n;
 
     public:
-        void gen_primes()
-        {
-          const int size = 1000000;
-          vector < bool > p(size, true);
-          for(int i = 2; i * i <= size; i ++)
-          { 
-            if(p[i])
-            {
-              for(int j = i * i; j <= size; j += i)
-              {
-                p[j] = false;
-              }
-              Primes.push_back(i);
-            }
-          }
-        }
-        ProstaKlasa(int n)
-        {
-            gen_primes();
+        uint64_t count = 1;
 
-            this->n = n;
-            arr = make_unique<uint64_t[]> (n);
-            
-            for(int i = 0; i < n; i ++)
-            {
-              arr[ i ] = count;
-            }
-        }
-
-        void foo(int i, int m)
+        Licznik()
         {
-          if(i >= m) return;
-          int rand_int = rand() % n;
           
-          while(rand_int --)
-          {
-            arr[rand() % n] *= Primes[i];
-          }
-
-          foo(i + 1, m);
-        }
-
-        void print_all()
-        {
-          for(int i = 0; i < n; i ++)
-          {
-            cout << arr[ i ] << " ";
-          }
-          cout << endl;
         }
 };
+
+vector < int > Primes;
+void gen_primes()
+{
+  const int size = 1000000;
+  vector < bool > p(size, true);
+  for(int i = 2; i * i <= size; i ++)
+  { 
+    if(p[i])
+    {
+      for(int j = i * i; j <= size; j += i)
+      {
+        p[j] = false;
+      }
+      Primes.push_back(i);
+    }
+  }
+}
+
+void foo(int i, int m, unique_ptr<Licznik[]> &arr, int n)
+{
+  if(i >= m) return;
+  int rand_int = rand() % n;
+  
+  while(rand_int --)
+  {
+    arr[rand() % n].count *= Primes[i];
+  }
+
+  foo(i + 1, m, arr, n);
+}
+
+unique_ptr<Licznik[]>  write(unique_ptr<Licznik[]> arr, int n)
+{
+  for(int i = 0; i < n; i ++)
+  {
+    cout << arr[ i ].count << " ";
+  }
+  cout << endl;
+  return arr;
+}
+
+// --------------------------------------------
+
 
 class LineWriter
 {
@@ -78,6 +74,7 @@ class LineWriter
     ~LineWriter()
     {
       o->close();
+      free(o);
     }
 
     void write_to_file(vector < string > s)
@@ -107,17 +104,24 @@ class LineWriter
     }
 };
 
+
+
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+    srand(time(NULL));
 
-    ProstaKlasa P = ProstaKlasa(5);
-    P.foo(1, 10);
-    P.print_all();
+    gen_primes();
+    int n = 5;
+    int m = 3;
+    
+    unique_ptr<Licznik[]> ptr_L {new Licznik[n]};
+    foo(1, m, ptr_L, n);
+    write(move(ptr_L), n);
 
-
+   
 
     LineWriter l = LineWriter();
     vector < string > S = {"abc", "def", "ghi"};
@@ -125,32 +129,18 @@ int main()
     l.test_file_list();
 
 
-
-    // OLD, problem with dangling pointer
-    // PROBLEM: ref will point to undefined data!
-
-    int* ptr = new int(10);
-    int* ref = ptr;
-    delete ptr;
-
-    // NEW
-    // SOLUTION: check expired() or lock() to determine if pointer is valid
-
-    // empty definition
+    
+  
     shared_ptr< int > sptr;
 
-    // takes ownership of pointer
     sptr.reset(new int);
     *sptr = 10;
 
-    // get pointer to data without taking ownership
-    std::weak_ptr< int > weak1 = sptr;
+    weak_ptr< int > weak1 = sptr;
 
-    // deletes managed object, acquires new pointer
     sptr.reset(new int);
     *sptr = 5;
 
-    // get pointer to new data without taking ownership
     weak_ptr< int > weak2 = sptr;
 
     // weak1 is expired!
@@ -164,6 +154,8 @@ int main()
         cout << *tmp << '\n';
     else
         cout << "weak2 is expired\n";
+
+
 
 
     return 0;
