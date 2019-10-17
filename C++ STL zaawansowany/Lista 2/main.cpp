@@ -68,7 +68,7 @@ class LineWriter
   public:
     LineWriter()
     {
-      o = new ofstream("plik.txt");
+      o = new ofstream("plik.txt", ios::app);
     }
 
     ~LineWriter()
@@ -84,9 +84,9 @@ class LineWriter
         // o->write (a.c_str(), sizeof(char)*a.size());
         *o << a << endl;
       }
-      o->close();
     }
 
+  /*
     void test_file_list()
     {
       string filename = "plik.txt";
@@ -102,6 +102,7 @@ class LineWriter
         w->close();
       }
     }
+    */
 };
 
 
@@ -124,13 +125,28 @@ int main()
    
 
     LineWriter l = LineWriter();
-    vector < string > S = {"abc", "def", "ghi"};
+    vector < string > S = {"Hey", "ABC"};
     l.write_to_file(S);
-    l.test_file_list();
+    //l.test_file_list();
+
+    auto liner1 = shared_ptr<LineWriter>(new LineWriter());
+    auto liner2 = liner1;
+    auto liner3 = liner1;
+    auto liner4 = liner1;
 
 
-    
-  
+    S[0] = "Liner 1";
+    liner1->write_to_file(S);
+    S[0] = "Liner 2";
+    liner2->write_to_file(S);
+    S[0] = "Liner 3";
+    liner3->write_to_file(S);
+    S[0] = "Liner 4";
+    liner4->write_to_file(S);
+
+
+
+
     shared_ptr< int > sptr;
 
     sptr.reset(new int);
