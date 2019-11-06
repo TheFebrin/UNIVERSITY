@@ -7,17 +7,13 @@ function *fib() {
     }
 }
 
-function* take(it, top) {
-    for (var i = 0; i < top; i++) {
+function* take(it, MAX) {
+    for (var i = 0; i < MAX; i++) {
         yield it.next().value
     }
 }
 
 
-
-
-// zwróć dokładnie 10 wartości z potencjalnie
-// "nieskończonego" iteratora/generatora
-for (let num of take( fib(), 10 ) ) {
+for (let num of take( fib(), 5 ) ) {
     console.log(num);
 }

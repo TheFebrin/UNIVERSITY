@@ -1,16 +1,17 @@
-// function fib() {
-//     var data = [0,1]
-//     return {
-//         next : function() {
-//             var newRes = data[0] + data[1];
-//             data = [data[1], newRes];
-//             return {
-//                 value : data[1],
-//                 done  : false
-//             }
-//         }
-//     }
-// }
+function fib_iterator() {
+    var data = [0,1]
+    return {
+        next : function() {
+            var newRes = data[0] + data[1];
+            data = [data[1], newRes];
+            return {
+                value : data[1],
+                done  : false
+            }
+        }
+    }
+}
+
 function *fib() {
     var data = [1,1];
     while (true) {
@@ -29,7 +30,7 @@ function *fib() {
 // }
 
 for ( var i of fib() ) {
-    if(i > 100)
+    if(i > 50)
             break;
     console.log( i );
 }

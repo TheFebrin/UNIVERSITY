@@ -1,24 +1,30 @@
-obj = {
+my_object = {
     data: [],
-    get first() {
+
+    get get_data() {
         return this.data == [] ? undefined : this.data[0];
     },
-    set push(item) {
+
+    set push_data(item) {
         this.data.push(item);
     }
 }
 
+// Use get and set methods from our object
+console.log(my_object.get_data)
+my_object.push_data = 'item'
+console.log(my_object.get_data)
 
-console.log(obj.first)
-obj.push = 'Pierwszy'
-console.log(obj.first)
-obj.data2 = [1,2];
-obj.funData2 = () => {
-    return 'taka oto fucnkacja';
+// Add a new field
+my_object.data2 = [];
+
+// Add a new method
+my_object.foo = () => {
+    return 'foo from my_object';
 }
-console.log(obj.funData2())
 
-Object.defineProperty(obj, 'my', {
+// Add property
+Object.defineProperty(my_object, 'my', {
     get: function() { return bValue; },
     set: function(newValue) { bValue = newValue; },
     enumerable: true,

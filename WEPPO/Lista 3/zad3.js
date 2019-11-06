@@ -5,13 +5,13 @@ function forEach(array, f) {
 }
 
 function filter(arr, f) {
-    var resArr = []
+    var ans = []
     for (var i = 0; i < arr.length; i++) {
-        if (f(arr[i]))
-            resArr.push(arr[i]);
-        
+        if (f(arr[i])) {
+            ans.push(arr[i]);
+        }
     }
-    return resArr;
+    return ans;
 }
 
 function map(arr, f) {
@@ -21,10 +21,10 @@ function map(arr, f) {
     return arr;
 }
 
-console.log('Zad2')
-var list = [1,2,3]
-map(list, (a) => 1 + a);
-forEach(list, (item) => console.log(`${item};`))
-console.log(filter(list, (i) => i < 4));
+
+var list = [1, 2, 3, 4, 5]
+map(list, (a) => a * a);
+forEach(list, (elem) => console.log(`${elem}`))
+console.log('Even: ', filter(list, (i) => i % 2 == 0));
 
 

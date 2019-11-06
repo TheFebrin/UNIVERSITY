@@ -1,20 +1,31 @@
 function fib(n) {
-    var memo = {0: 1, 1: 1};
-    function aux(_n) {
-        if (!memo._n) {
-            memo._n = aux(_n-1) + _aux(_n-2);
+    let memo = {0: 0, 1: 1};
+    function aux(m) {
+        if (typeof memo[m] == 'undefined') {
+            memo[m] = aux(m-1) + aux(m-2);
         }
-        return memo._n
-    } 
+        return memo[m]
+    }
+    return aux(n) 
 }
 
-function countTime(f) {
-    const start = new Date()
-    f();
-    const end = new Date()
-    return end.getTime() - start.getTime()
+function bad_fib(n) {
+    if(n == 0) return 0;
+    if(n == 1) return 1;
+    return bad_fib(n - 1) + bad_fib(n - 2);
 }
 
-list = [1, 10, 20, 30, 32, 35]
-odp1 = list.slice().map(i => countTime(() =>fib(i)))
-console.log(odp1)
+function countTime(n) {
+    console.time("count");
+    console.log('Bad fib: ')
+    console.log(n, ' -> ', bad_fib(n))
+    console.timeEnd("count");
+
+    console.log()
+    console.time("count");
+    console.log('Better fib: ')
+    console.log(n, ' -> ', fib(n))
+    console.timeEnd("count");
+}
+
+countTime(35)
