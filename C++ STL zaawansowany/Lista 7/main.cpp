@@ -39,6 +39,17 @@ complex<long double> Riemann_zeta(complex <long double> z, int n)
    return ans;
 }
 
+complex <long double> Riemann_alaytic(complex<long double> z, int n)
+{
+    complex<long double> ans(0, 0);
+    for (long double i = 1; i <= n; i ++)
+    {
+        ans += pow(-1.0, i + 1.0) / pow(i, z);
+    }
+    return ans / ((long double)1 - (long double)2 / pow(2.0, z));
+}
+
+
 
 int main()
 {
@@ -51,6 +62,19 @@ int main()
     cout << egi * eg << endl;
 
     complex <long double> z2(2, 0);
-    cout << Riemann_zeta(z2, 1000) << endl;
+    cout << Riemann_zeta(z2, 10000) << endl;
+    cout << Riemann_alaytic(z2, 10000) << endl;
+
+
+    fstream f;
+    f.open("data.txt", ios::out);
+    for(int i = 0; i < 10000; i ++)
+    {
+        complex<long double > c(0.5, i);
+        auto val = Riemann_alaytic(c, 1000);
+        f << val << "\n";
+    }
+    f.close();
+    
     return 0;
 }

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Gotowa deklaracja</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+
+        .label {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="post">
+        <div style="width: 50%; margin: 0 auto;">
+            <table>
+                <tr>
+                    <td class="label" colspan="2">Przedmiot:</td>
+                    <td colspan="2">
+                        <%= Subject%>
+                    </td>
+                    <td class="label" colspan="4">Imię i nazwisko:</td>
+                    <td colspan="5">
+                        <%= NameSurname%>
+                    </td>
+                    <td class="label">Grupa:</td>
+                    <td>
+                        <%= Group%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width: 5%;">Zadanie:</td>
+                    <% 
+                        for(let i = 0; i < 10; i++) { %>
+                    <td style="width: 4%;"><%= i+1 %></td>
+                    <%}
+                    %>
+                    <td class="label" id="date">Data:</td>
+                    <td>
+                        <%= Date%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Punkty:</td>
+                    <%
+                        for(let i = 0; i < 10; i++) { %>
+                    <td style="width: 4%;"><%= Exercise[i] %></td>
+                    <%}
+                    %>
+                    <td class="label">Suma:</td>
+                    <td>
+                        <%= Sum%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+
+</html>

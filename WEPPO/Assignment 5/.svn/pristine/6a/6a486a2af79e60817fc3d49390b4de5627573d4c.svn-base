@@ -1,0 +1,15 @@
+{
+  "name": "zad4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "zad4.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
+}
