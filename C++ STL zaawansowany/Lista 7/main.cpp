@@ -68,7 +68,7 @@ int main()
 
     fstream f;
     f.open("data.txt", ios::out);
-    for(int i = 0; i < 10000; i ++)
+    for(long double i = -30; i <= 30; i += 0.01)
     {
         complex<long double > c(0.5, i);
         auto val = Riemann_alaytic(c, 1000);
