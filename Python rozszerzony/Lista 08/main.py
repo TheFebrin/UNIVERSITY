@@ -1,58 +1,50 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import random
 import os
 import time
+import copy
 
+N, M = 15, 30
+PLANSZA = [[random.randint(0, 1) \
+           for i in range(M)]
+           for j in range(N)]
 
-def play(width = 2, height = 2, steps=100):
-    BOARD = np.random.choice([0, 1], width * height)
-    BOARD = BOARD.reshape(height, width)
+def wypisz():
+    os.system('clear')
+    for row in PLANSZA:
+        for x in row:
+            print(['.', '#'][x],end=' ')
+        print()
 
-    dx = [1, -1, 0, 0, 1, 1, -1, -1]
-    dy = [0, 0, 1, -1, 1, -1, 1, -1]
+def ewolucja():
+    global PLANSZA
+    dx = [1, -1, 0, 0, 1, -1, -1, 1]
+    dy = [0, 0, 1, -1, 1, 1, -1, -1]
+    PLANSZA2 = copy.deepcopy(PLANSZA)
+    for x in range(N):
+        for y in range(M):
+            alive = 0
+            for k in range(len(dx)): # patrzymy na 8 sasiadow
+                new_x = x + dx[k]
+                new_y = y + dy[k]
+                if 0 <= new_x < N and 0 <= new_y < M: # jak jest w planszy
+                    if PLANSZA[new_x][new_y] == 1: # i jest zywy
+                        alive += 1
 
-    def print_board(step):
-        os.system('clear')
-        print(step)
-        for i in range(height):
-            for j in range(width):
-                # print(BOARD[i][j], end=' ')
-                if BOARD[i][j]:
-                    print('#', end=' ')
-                else:
-                    print('.', end=' ')
-            print()
+            if PLANSZA[x][y] == 0: # martwa
+                if alive == 3: # jesli ma 3 zywych sasiadow
+                    PLANSZA2[x][y] = 1
+            else: # zywa
+                if alive not in [2, 3]: # liczba zywych inna niz 2 lub 3
+                    PLANSZA2[x][y] = 0
+
+    PLANSZA = PLANSZA2
+
+if __name__ == '__main__':
+    '''
+    GLOWNA FUNKCJA
+    '''
+
+    for _ in range(1000):
+        wypisz()
+        ewolucja()
         time.sleep(0.5)
-
-        # plt.imshow(BOARD)
-        # plt.show()
-
-    for no in range(steps):
-        for i in range(height):
-            for j in range(width):
-                alive_n = 0
-                for x in range(len(dx)):
-                    new_x = i + dx[x]
-                    new_y = j + dy[x]
-
-                    if 0 <= new_x < height \
-                        and 0 <= new_y < width \
-                            and BOARD[new_x][new_y] == 1:
-                        alive_n += 1
-
-
-                if alive_n == 3 and BOARD[i][j] == 0:
-                    BOARD[i][j] = 1
-
-                if BOARD[i][j] == 1:
-                    if alive_n != 2 and alive_n != 3:
-                        BOARD[i][j] = 0
-        print_board(no)
-        
-
-
-
-
-if __name__ == "__main__":
-    # Better to use matplotlib.animation in print_board()
-    play(10, 10, 100)

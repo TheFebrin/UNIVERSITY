@@ -80,8 +80,21 @@ def query(**kwargs):
     session.close()
 
 
+def wrong_command_message():
+    args = ' '.join(sys.argv[1:])
+    print(f'Unknown option: "{args}"')
+    print('Usage: python db.py [option]')
+    print('[--add title year director producer]\t: NO SPACES BETWEEN TITLE AND NAMES')
+    print('[--delete title year director producer]\t: some suffix of params can be missing')
+    print('[--find criterion:name]\t\t\t: find movies satisfying criterion')
+    print('[--all]\t\t\t\t\t: print whole database')
+
+
 if __name__ == '__main__':
-    if sys.argv[1] == '--add':
+    if len(sys.argv) == 1:
+        wrong_command_message()
+
+    elif sys.argv[1] == '--add':
         query(flag='--add', title=sys.argv[2],
                             year=sys.argv[3],
                             director=sys.argv[4],
@@ -94,10 +107,4 @@ if __name__ == '__main__':
     elif sys.argv[1] == '--all':
         query(flag='--all')
     else:
-        args = ' '.join(sys.argv[1:])
-        print(f'Unknown option: {args}')
-        print('Usage: python db.py [option]')
-        print('[--add title year director producer]\t: NO SPACES BETWEEN TITLE AND NAMES')
-        print('[--delete title year director producer]\t\t\t: some suffix of params can be missing')
-        print('[--find criterion:name]\t\t\t: find movies satisfying criterion')
-        print('[--all]\t\t\t\t\t: print whole database')
+        wrong_command_message()
