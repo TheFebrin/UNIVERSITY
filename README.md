@@ -3,59 +3,83 @@
 
 ## Term 1
 
-    * Mathematical Analysis (lecture: Maciej Paluszyński, class: Yuriy Kryakin)
+  * Mathematical Analysis (lecture: Maciej Paluszyński, class: Yuriy Kryakin)
 
-    * Logic for Computer Science (lecture: Witold Charatonik, class: Antoni Kościelski)
+  * Logic for Computer Science (lecture: Witold Charatonik, class: Antoni Kościelski)
 
-    * Introduction to Programming in C (lecture: Marek Piotrów, prac: Krystian Bacławski)
+  * Introduction to Programming in C (lecture: Marek Piotrów, workshop: Krystian Bacławski)
 
-    * Introduction to Computer Science (lecture: Tomasz Jurdziński, class: Artur Kraska)
+  * Introduction to Computer Science (lecture: Tomasz Jurdziński, class: Artur Kraska)
 
-    * Java course (lecture: Paweł Rzechonek, prac: Przemysław Gospodarczyk)
+  * Java course (lecture: Paweł Rzechonek, workshop: Przemysław Gospodarczyk)
 
 
-<br>
+## Term 2
 
-<h3>Term 2</h3>
-<ul>
-    <li>Algebra (lecture: Artur Jeż, class: Witold Karczewski)</li>
-    <li>Programming Methodology (lecture: Filip Sieczkowski, Maciej Piróg class: Dariusz Biernacki)</li>
-    <li>Object-Oriented Programming (lecture: Marcin Młotkowski, class: Robert Kraus)</li>
-    <li>English B2-II</li>
-</ul>
+  * Algebra (lecture: Artur Jeż, class: Witold Karczewski)
 
-<br>
+  * Programming Methodology (lecture: Filip Sieczkowski, Maciej Piróg class: Dariusz Biernacki)
 
-<h3>Term 3</h3>
-<ul>
-    <li>Numerical Analysis (B) (lecture: Paweł Woźny, class: Witold Karczewski)</li>
-    <li>Discrete Mathematics (B) (lecture: Katarzyna Paluch, class: Szymon Dudycz)</li>
-    <li>Efficient Implementation of Algorithms</li>
-    <li>Protection of Intelectual Property (lecture: Julian Jezioro)</li>
-    <li>Rozwój Systemu Zapisów (projekt: Jan Marcinkowski)</li>
-</ul>
+  * Object-Oriented Programming (lecture: Marcin Młotkowski, workshop: Robert Kraus)
 
-<br>
+  * English B2-II
 
-<h3>Term 4</h3>
-<ul>
-    <li>Algorytmy i struktury danych M (lecture: Krzysztof Loryś, class: Szymon Dudycz)</li>
-    <li>Sztuczna inteligencja (lecture: Paweł Rychlikowski, class: Paweł Rychlikowski)</li>
-    <li>Rachunek prawdopodobieństwa i statystyka (lecture: Witold Karczewski, class: Pratik Ghosal)</li>
-    <li>Kurs języka C++ (lecture: Paweł Rzechonek, prac: Przemysław Uznański)</li>
-    <li>O ekonomii i gospodarce inaczej (lecture: Witold Kwaśnicki) </li>
-</ul>
 
-<br>
+## Term 3
 
-<h3>Term 5</h3>
-<ul>
-    <li>Machine Learning (lecture: Jan Chorowski, class: Piotr Wieczorek)</li>
-    <li>Eksploracja danych (lecture: Piotr Wnuk-Lipiński, class: Piotr Wnuk-Lipiński)</li>
-    <li>Wybrane elementy praktyki projektowania oprogramowania (lecture: Wiktor Zychla, class: Piotr Wieczorek</li>
-    <li>Kurs: zaawansowane techniki w C++ i STL (lecture: Paweł Rzechonek, prac: Paweł Rzechonek)</li>
-    <li>Kurs rozszerzony języka Python (lecture: Marcin Młotkowski, prac: Adam Kaczmarek)</li>
-    <li>Komunikacja człowiek-komputer (lecture: Zdzisław Płoski, prac: Leszek Grocholski)</li>
-    <li>Metody implementacji algorytmów</li>
-    <li>Praktyka zawodowa</li>
-</ul>
+  * Numerical Analysis (B) (lecture: Paweł Woźny, class: Witold Karczewski)
+
+  * Discrete Mathematics (B) (lecture: Katarzyna Paluch, class: Szymon Dudycz)
+
+  * Efficient Implementation of Algorithms
+
+  * Protection of Intelectual Property (lecture: Julian Jezioro)
+
+  * Development of the Enrollment System (workshop: Jan Marcinkowski)
+
+
+## Term 4
+
+  * Algorithms and Data Structures (M) (lecture: Krzysztof Loryś, class: Szymon Dudycz)
+
+  * Artificial Intelligence (lecture: Paweł Rychlikowski, class: Paweł Rychlikowski)
+
+  * Probability and Statistics (lecture: Witold Karczewski, class: Pratik Ghosal)
+
+  * Programming in C++ (lecture: Paweł Rzechonek, workshop: Przemysław Uznański)
+
+  * Another View of Economy (lecture: Witold Kwaśnicki)
+
+  * Sport Programming in Practice
+
+
+## Term 5
+
+  * Machine Learning (lecture: Jan Chorowski, workshop: Piotr Wieczorek)
+
+  * Data Mining (lecture: Piotr Wnuk-Lipiński, class: Piotr Wnuk-Lipiński)
+
+  * Selected Areas of Practical Software Development (lecture: Wiktor Zychla, class: Piotr Wieczorek)
+
+  * Advanced techniques in C++ and STL  (lecture: Paweł Rzechonek, workshop: Paweł Rzechonek)
+
+  * Advanced Python Programming  (lecture: Marcin Młotkowski, workshop: Adam Kaczmarek)
+
+  * Human-Computer Interaction (lecture: Zdzisław Płoski, workshop: Leszek Grocholski)
+
+  * Efficient Implementation of Algorithms 2
+
+
+## Term 6
+
+  * Neural Networks and Deep Learning (lecture: Jan Chorowski, class: Paweł Laskoś-Grabowski)
+
+  * Evolutionary Algorithms (lecture: Piotr Wnuk-Lipiński, class: Piotr Wnuk-Lipiński)
+
+  * Computer Networks (lecture: Marcin Bieńkowski, workshop: Szymon Dudycz)
+
+  * Computer Systems (lecture: Piotr Witkowski, workshop: Piotr Polesiuk)
+
+  * Data Bases (lecture: Piotr Wieczorek, class: Robert Ferens)
+
+  * Workshops: Deep Learning (companies: AlphaMoon, EY, MicroscopeIT, NeuroSys and Tooploox)
