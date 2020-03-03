@@ -1,0 +1,6 @@
+C:\Users\Szymon\Desktop\semestr 2\PO\lista4\zadanie2\zadanie2\bin\Debug\zadanie2.exe.config
+C:\Users\Szymon\Desktop\semestr 2\PO\lista4\zadanie2\zadanie2\bin\Debug\zadanie2.exe
+C:\Users\Szymon\Desktop\semestr 2\PO\lista4\zadanie2\zadanie2\bin\Debug\zadanie2.pdb
+C:\Users\Szymon\Desktop\semestr 2\PO\lista4\zadanie2\zadanie2\obj\Debug\zadanie2.csprojResolveAssemblyReference.cache
+C:\Users\Szymon\Desktop\semestr 2\PO\lista4\zadanie2\zadanie2\obj\Debug\zadanie2.exe
+C:\Users\Szymon\Desktop\semestr 2\PO\lista4\zadanie2\zadanie2\obj\Debug\zadanie2.pdb
