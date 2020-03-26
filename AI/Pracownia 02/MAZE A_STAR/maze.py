@@ -15,17 +15,17 @@ N, M = len(MAZE), len(MAZE[0])
 
 
 def print_maze():
-    system('clear')
+    system('cls')
     for m in MAZE:
         out = ''.join(m)
         for c in out:
             if c != '#':
-                print(crayons.black(c, bold=True), end='')
+                print(crayons.red(c, bold=True), end='')
             else:
                 print(crayons.white('#'), end='')
         print()
 
-    sleep(0.015)
+    # sleep(0.015)
 
 
 start, goal = (0, 0), (0, 0)
@@ -47,14 +47,16 @@ def heuristic(x, y, act):
 Q = []
 counter = 0
 visited = set()
-heapq.heappush(Q, (0, start, 0))
+heapq.heappush(Q, (0, start, 0)) # dodaje do kolejki Q (0, start, 0)
+'''
+Teraz zamiast par (x, y)
+Trzymamy tupla (odl_od_mety, (x,y), liczba_krokow)
+'''
 while len(Q) > 0:
     counter += 1
-    act = heapq.heappop(Q)
+    act = heapq.heappop(Q) # <-- zwraca tupla o minimalnej odl od mety
     cords = act[1]
     steps = act[2]
-
-    MAZE[cords[0]][cords[1]] = '0'
 
     print_maze()
 
@@ -68,7 +70,7 @@ while len(Q) > 0:
         if (new_x, new_y) in visited:
             continue
 
-        if MAZE[new_x][new_y] == ' ' or MAZE[new_x][new_y] == 'G':
+        if MAZE[new_x][new_y] in [' ', 'G']:
             heapq.heappush(Q, (heuristic(new_x, new_y, steps), (new_x, new_y), steps + 1))
             visited.add((new_x, new_y))
-            MAZE[new_x][new_y] = '0'
+            MAZE[new_x][new_y] = str(steps % 10)
