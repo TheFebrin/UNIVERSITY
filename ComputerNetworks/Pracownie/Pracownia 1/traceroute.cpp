@@ -16,22 +16,16 @@ Dieu
 #include "functions.hpp"
 using namespace std;
 
-/* STRUCTS */
-struct icmp header;
-struct sockaddr_in sender;
-struct sockaddr_in dest;
 
 /* VARIABLES */
 const int max_ttl = 30;
 int ttl = 1;
 
 int sockfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
-u_int8_t buffer[IP_MAXPACKET];
 char *ip; // ip that we send packages to
 
 /* CONNECT FUNCTION */
 void connect();
-bool check_if_good_ip();
 
 
 int main(int argc, char* argv[])
@@ -79,12 +73,15 @@ void connect()
     bool reached = false;
     while (!reached and ttl <= max_ttl)
     {
-        set < string > IPs;
+        set < tuple < string, int, int > > IPs;
+        set < string > valid_IPs;
         vector < int > times;
-        send_packages(sockfd, ip, dest, ttl, header);
-        receive_response(sockfd, dest, reached, IPs, times, buffer, sender, ip);
-        show_response(ttl, IPs, times);
+        vector < pair < int, int > > sent_ids;
 
+        send_packages(sockfd, ip, ttl, sent_ids);
+        receive_response(sockfd, IPs, times);
+        delete_bad_packages(IPs, sent_ids, valid_IPs);
+        show_response(ttl, valid_IPs, times, reached, ip);
         ttl++;
     }
 }

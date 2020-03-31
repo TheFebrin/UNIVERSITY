@@ -25,24 +25,35 @@ u_int16_t compute_icmp_checksum (const u_int16_t *buff, int length)
 }
 
 
-void send_packages(int &sockfd, char *ip, sockaddr_in &dest, int &ttl, icmp &header)
+void fill_header(struct icmphdr *h, int ttl, int i)
 {
+    h->type = ICMP_ECHO;
+    h->code = 0;
+    h->un.echo.id = (uint16_t)getpid();
+    h->un.echo.sequence = (uint16_t) 3 * ttl + i;
+    h->checksum = 0;
+    h->checksum = compute_icmp_checksum ((u_int16_t*)h, sizeof(*h));
+}
+
+
+void send_packages(int &sockfd, char *ip, int &ttl, vector < pair < int, int > > &sent_ids)
+{
+	sockaddr_in dest;
 	socklen_t sender_len = sizeof(dest);
 	bzero(&dest, sizeof(dest));
 	dest.sin_family = AF_INET;
 	dest.sin_port = htons(0);
-    inet_pton(AF_INET, ip, &dest.sin_addr);
+	inet_pton(AF_INET, ip, &dest.sin_addr);
 
-    header.icmp_type = ICMP_ECHO;
-    header.icmp_code = 0;
-    header.icmp_hun.ih_idseq.icd_id = getpid();
-    header.icmp_hun.ih_idseq.icd_seq = 0;
-    header.icmp_cksum = 0;
-    header.icmp_cksum = compute_icmp_checksum ((u_int16_t*)&header, sizeof(header));
     setsockopt (sockfd, IPPROTO_IP, IP_TTL, (char *)&ttl, sizeof(ttl));
 
     for(int i = 0; i < 3; i ++)
     {
+		struct icmphdr header;
+		fill_header(&header, ttl, i);
+
+		sent_ids.push_back({header.un.echo.id, header.un.echo.sequence});
+
         ssize_t bytes_sent = sendto (
             sockfd,
             &header,

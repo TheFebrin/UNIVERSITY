@@ -23,5 +23,6 @@ clean:
 
 distclean:
 	sudo rm -f traceroute
+	sudo rm -f *.o
 
 all : traceroute

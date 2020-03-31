@@ -16,9 +16,14 @@ Dieu
 using namespace std;
 
 
-void receive_response(int &sockfd, sockaddr_in &dest, bool &reached,
-    set < string > &IPs, vector < int > &times, u_int8_t buffer[], sockaddr_in &sender, char *ip);
-void show_response(int ttl, set < string > IPs, vector < int > times);
+void receive_response(int &sockfd, set < tuple < string, int, int > > &IPs,
+    vector < int > &times);
+
+void delete_bad_packages( set < tuple < string, int, int > > &IPs,
+	vector < pair < int, int > > sent_ids, set < string > &valid_IPs);
+
+void show_response(int ttl, set < string > valid_IPss,
+    vector < int > times, bool &reached, string ip);
 
 
 
