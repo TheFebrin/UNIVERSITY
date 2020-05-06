@@ -1,7 +1,7 @@
 # -ALL-COURSES-
 
 
-## Term 1
+## Semester 1
 
   * Mathematical Analysis (lecture: Maciej Paluszyński, class: Yuriy Kryakin)
 
@@ -14,7 +14,7 @@
   * Java course (lecture: Paweł Rzechonek, workshop: Przemysław Gospodarczyk)
 
 
-## Term 2
+## Semester 2
 
   * Algebra (lecture: Artur Jeż, class: Witold Karczewski)
 
@@ -25,7 +25,7 @@
   * English B2-II
 
 
-## Term 3
+## Semester 3
 
   * Numerical Analysis (B) (lecture: Paweł Woźny, class: Witold Karczewski)
 
@@ -38,7 +38,7 @@
   * Development of the Enrollment System (workshop: Jan Marcinkowski)
 
 
-## Term 4
+## Semester 4
 
   * Algorithms and Data Structures (M) (lecture: Krzysztof Loryś, class: Szymon Dudycz)
 
@@ -53,7 +53,7 @@
   * Sport Programming in Practice
 
 
-## Term 5
+## Semester 5
 
   * Machine Learning (lecture: Jan Chorowski, workshop: Piotr Wieczorek)
 
@@ -70,7 +70,7 @@
   * Efficient Implementation of Algorithms 2
 
 
-## Term 6
+## Semester 6
 
   * Neural Networks and Deep Learning (lecture: Jan Chorowski, class: Paweł Laskoś-Grabowski)
 
