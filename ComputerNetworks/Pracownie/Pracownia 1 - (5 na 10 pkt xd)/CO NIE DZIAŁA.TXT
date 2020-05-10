@@ -1,0 +1,2 @@
+	
+Działa ping i ./traceroute, ./traceroute i traceroute -I, oraz 2 ./traceroute wciąż nie działają.
