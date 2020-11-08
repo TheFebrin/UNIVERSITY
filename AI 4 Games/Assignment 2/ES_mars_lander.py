@@ -57,12 +57,17 @@ class ES:
 
         self.population = np.stack((self.population_angles, self.population_thrust), axis=2)
 
-        # sigmas are only for angles
-        self.sigmas = np.random.uniform(
+        self.sigmas_angles = np.random.uniform(
+            low=0,
+            high=8,
+            size=(self.population_size, self.d)
+        )
+        self.sigmas_thrust = np.random.uniform(
             low=0,
             high=1,
             size=(self.population_size, self.d)
         )
+        self.sigmas = np.stack((self.sigmas_angles, self.sigmas_thrust), axis=2)
 
         self.cost = self.eval_f(self.population)
 
@@ -110,12 +115,14 @@ class ES:
         self.sigmas = self.sigmas.clip(-15, 15)
 
         # muatation for angles
-        self.population[:, :, 0] += np.random.normal(0, 1, size=self.sigmas.shape) * self.sigmas
+        self.population += np.random.normal(0, 1, size=self.sigmas.shape) * self.sigmas
         self.population[:, :, 0] = self.population[:, :, 0].clip(-15, 15)
+        self.population[:, :, 1] = self.population[:, :, 1].clip(-1, 1)
 
+        self.population[:, :, 1] = np.round(self.population[:, :, 1]).astype(np.int)
         # mutation for power
-        random_indices = np.random.randint(0, self.d, size=(self.n_mutations, self.population_size))
-        self.population[:, :, 1][np.arange(self.population_size), random_indices] = np.random.randint(-1, 2, size=self.population_size)
+        # random_indices = np.random.randint(0, self.d, size=(self.n_mutations, self.population_size))
+        # self.population[:, :, 1][np.arange(self.population_size), random_indices] = np.random.randint(-1, 2, size=self.population_size)
 
 
     def run(self, timeout, start_time) -> None:
@@ -269,9 +276,9 @@ def simmulate(
         horizontal_score = -(h_speed - 20)
 
 
-    score = dist_score * 10 + angle_score * 2 + vertical_score ** 3 + horizontal_score * 2
+    score = dist_score * 10 + angle_score + vertical_score * 5 + horizontal_score
 
-    if broke or abs(y_start - h) > 100:
+    if broke or abs(angle) >= 0.49:
         score -= 100000
 
     return score, cords
@@ -340,7 +347,7 @@ if __name__ == '__main__':
             fuel_start=fuel_start, angle_start=angle_start, power_start=power_start,
         ),
         population_size=30, chromosome_len=CHROMOSOME_LEN, K=2, n_mutations=5
-    )
+    ) 
 
     model.run(timeout=0.98, start_time=start_time)
 
@@ -369,10 +376,6 @@ if __name__ == '__main__':
 
         angle_start = max(-90, angle_start)
         angle_start = min(90, angle_start)
-
-        if abs(y - h_start) <= 500:
-            angle_start = 0
-            power_start = 4
 
         print(f'Angle: {angle_start} | power: {power_start}', file=sys.stderr)
         print(int(round(angle_start)), int(round(power_start)))
