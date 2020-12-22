@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" xml:lang="en">
+<head>
+    <title>NLP20</title>
+    <link rel="shortcut icon" href="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/theme/1570042091/favicon" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="moodle, NLP20" />
+<link rel="stylesheet" type="text/css" href="https://skos.ii.uni.wroc.pl/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://skos.ii.uni.wroc.pl/theme/styles.php/elegance/1570042091_1569167444/all" />
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/skos.ii.uni.wroc.pl","sesskey":"CqOO5Cy088","themerev":"1570042091","slasharguments":1,"theme":"elegance","iconsystemmodule":"core\/icon_system_standard","jsrev":"1570042091","admin":"admin","svgicons":true,"usertimezone":"Europe\/Warsaw","contextid":36690};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''}
+if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else{me.path=component+'/'+component+'.'+me.type}};
+YUI_config = {"debug":false,"base":"https:\/\/skos.ii.uni.wroc.pl\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/skos.ii.uni.wroc.pl\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/skos.ii.uni.wroc.pl\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/skos.ii.uni.wroc.pl\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/skos.ii.uni.wroc.pl\/theme\/yui_combo.php?m\/1570042091\/","combine":true,"comboBase":"https:\/\/skos.ii.uni.wroc.pl\/theme\/yui_combo.php?","ext":false,"root":"m\/1570042091\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader","moodle-core-event"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-checknet":{"requires":["base-base","moodle-core-notification-alert","io-base"]},"moodle-core_availability-form":{"requires":["base","node","event","event-delegate","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-modchooser":{"requires":["moodle-core-chooserdialogue","moodle-course-coursebase"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-form-showadvanced":{"requires":["node","base","selector-css3"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-passwordunmask":{"requires":[]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-question-qbankmanager":{"requires":["node","selector-css3"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_dialogue-userpreference":{"requires":["base","node","json-parse","userpreference","userpreference-filters","userpreference-highlighters","event","event-key"]},"moodle-mod_dialogue-clickredirector":{"requires":["base","node","json-parse","clickredirector","clickredirector-filters","clickredirector-highlighters","event","event-key"]},"moodle-mod_dialogue-autocomplete":{"requires":["base","node","json-parse","autocomplete","autocomplete-filters","autocomplete-highlighters","event","event-key"]},"moodle-mod_forum-subscriptiontoggle":{"requires":["base-base","io-base"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-util":{"requires":["node","moodle-core-actionmenu"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-alert","moodle-core-notification-warning","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_fullscreen-button":{"requires":["event-resize","moodle-editor_atto-plugin"]},"moodle-atto_html-button":{"requires":["promise","moodle-editor_atto-plugin","moodle-atto_html-beautify","moodle-atto_html-codemirror","event-valuechange"]},"moodle-atto_html-beautify":{},"moodle-atto_html-codemirror":{"requires":["moodle-atto_html-codemirror-skin"]},"moodle-atto_htmlplus-button":{"requires":["moodle-editor_atto-plugin","moodle-atto_htmlplus-beautify","moodle-atto_htmlplus-codemirror","event-valuechange"]},"moodle-atto_htmlplus-beautify":{},"moodle-atto_htmlplus-codemirror":{"requires":["moodle-atto_htmlplus-codemirror-skin"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin","moodle-form-shortforms"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_recordrtc-button":{"requires":["moodle-editor_atto-plugin","moodle-atto_recordrtc-recording"]},"moodle-atto_recordrtc-recording":{"requires":["moodle-atto_recordrtc-button"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]}}},"gallery":{"name":"gallery","base":"https:\/\/skos.ii.uni.wroc.pl\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/skos.ii.uni.wroc.pl\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1570042091\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/skos.ii.uni.wroc.pl\/lib\/javascript.php\/1570042091\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker","moodle-core-notification-dialogue"]},"core_comment":{"name":"core_comment","fullpath":"https:\/\/skos.ii.uni.wroc.pl\/lib\/javascript.php\/1570042091\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay","escape"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/mathjax\/2.7.2\/MathJax.js?delayStartupUntil=configured"}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body  id="page-enrol-index" class="format-weeks  path-enrol chrome dir-ltr lang-en yui-skin-sam yui3-skin-sam skos-ii-uni-wroc-pl pagelayout-incourse course-353 context-36690 category-13 has-region-side-post used-region-side-post side-post-only">
+
+<div class="skiplinks">
+    <a href="#maincontent" class="skip">Skip to main content</a>
+</div><script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js"></script><script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/jquery.php/core/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/jquery.php/theme_elegance/fitvids-1.1.0.js"></script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/jquery.php/theme_elegance/eventswipe_0.5.js"></script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/jquery.php/theme_elegance/nprogress.js"></script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/jquery.php/theme_elegance/backstretch_2.0.6.js"></script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/jquery.php/theme_elegance/elegance.js"></script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/lib/javascript.php/1570042091/lib/javascript-static.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+<div id="page-content-wrapper">
+    <nav role="navigation" class="navbar navbar-default eboxshadow">
+
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="https://skos.ii.uni.wroc.pl"><div id="logo"></div></a>
+        </div>
+
+        <div class="navbar-header pull-right">
+            <ul class="nav navbar-nav hidden-xs hidden-sm">
+            
+            </ul>
+            
+            <div class="usermenu"><span class="login from-guest-login">You are currently using guest access (<a href="https://skos.ii.uni.wroc.pl/login/index.php">Log in</a>)</span></div>
+            
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moodle-navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="moodle-navbar" class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav pull-right">
+            <li class="dropdown langmenu"><a href="#cm_submenu_1" class="dropdown-toggle" data-toggle="dropdown" title="Language">English ‎(en)‎<b class="caret"></b></a><ul class="dropdown-menu"><li><a title="English ‎(en)‎" href="https://skos.ii.uni.wroc.pl/enrol/index.php?id=353&amp;lang=en">English ‎(en)‎</a></li><li><a title="Polski ‎(pl)‎" href="https://skos.ii.uni.wroc.pl/enrol/index.php?id=353&amp;lang=pl">Polski ‎(pl)‎</a></li></ul>
+            </ul>
+            
+            <ul class="nav pull-right">
+                <li></li>
+            </ul>
+            
+        </div>
+    </div>
+
+</nav>
+    
+    
+    
+    <div class="container-fluid">
+                <header id="moodleheader" class="clearfix">
+            <div id="course-header" class="p-l-15 p-r-15 p-b-10 p-t-10">
+                <h1>Przetwarzanie języka naturalnego</h1>                                <span class="notifications" id="user-notifications"></span>            </div>
+        </header>
+        
+    </div>
+
+    <div id="page-navbar" >
+    <div class="container-fluid">
+        <div class="breadcrumbcontainer  m-t-5">
+            <nav class="breadcrumb-nav elegancewidth" role="navigation" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                        <li class=><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://skos.ii.uni.wroc.pl/"><span itemprop="title">Home</span></a></span></li>
+                        <li class=><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://skos.ii.uni.wroc.pl/course/index.php"><span itemprop="title">Courses</span></a></span></li>
+                        <li class=><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://skos.ii.uni.wroc.pl/course/index.php?categoryid=13"><span itemprop="title">Semestr zimowy 2020/2021</span></a></span></li>
+                        <li class=><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" title="Przetwarzanie języka naturalnego" href="https://skos.ii.uni.wroc.pl/course/view.php?id=353"><span itemprop="title">NLP20</span></a></span></li>
+                        <li class=active><span tabindex="0">Enrolment options</span></li>
+                </ol>
+            </nav>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+    <div class="container-fluid">
+    <section id="page" >
+        <div id="page-content" class="row">
+            <div id="region-main" class="col-sm-9">
+                <div class="eboxshadow elegance-bg-white p-20">
+                <span class="notifications" id="user-notifications"></span><div role="main"><span id="maincontent"></span><h2>Enrolment options</h2><div class="box generalbox info"><div class="coursebox clearfix" data-courseid="353" data-type="1"><div class="info"><h3 class="coursename"><a class="" href="https://skos.ii.uni.wroc.pl/course/view.php?id=353">Przetwarzanie języka naturalnego</a></h3><div class="moreinfo"></div></div><div class="content"><ul class="teachers"><li>Teacher: <a href="https://skos.ii.uni.wroc.pl/user/view.php?id=5&amp;course=1">Jakub Michaliszyn</a></li><li>Teacher: <a href="https://skos.ii.uni.wroc.pl/user/view.php?id=316&amp;course=1">Paweł Rychlikowski</a></li></ul></div></div></div><div id="notice" class="box generalbox">Guests cannot access this course. Please log in.</div><div class="continuebutton"><form method="get" action="https://skos.ii.uni.wroc.pl/login/index.php"><div><input type="submit" value="Continue" /></div></form></div></div>                </div>
+            </div>
+
+                        <aside id="block-region-side-post" class="col-sm-3 block-region" data-blockregion="side-post" data-droptarget="1"><a class="skip skip-block" id="fsb-1" href="#sb-1">Skip Navigation</a><div id="inst4" class="block_navigation block" role="navigation" data-block="navigation" data-instanceid="4" aria-labelledby="instance-4-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-4-header">Navigation</h2><hr class="star-primary" /></div></div><div class="content"><ul class="block_tree list" role="tree" data-ajax-loader="block_navigation/nav_loader"><li class="type_unknown depth_1 contains_branch" aria-labelledby="label_1_1"><p class="tree_item branch navigation_node" role="treeitem" aria-expanded="true" aria-owns="random5fdbcb3bc92301_group" data-collapsible="false"><a tabindex="-1" id="label_1_1" href="https://skos.ii.uni.wroc.pl/">Home</a></p><ul id="random5fdbcb3bc92301_group" role="group"><li class="type_course depth_2 contains_branch" aria-labelledby="label_2_2"><p class="tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5fdbcb3bc92302_group"><span tabindex="-1" id="label_2_2" title="System komunikacji na odległość ze studentami IIUWr">Site pages</span></p><ul id="random5fdbcb3bc92302_group" role="group" aria-hidden="true"><li class="type_setting depth_3 item_with_icon" aria-labelledby="label_3_4"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_4" href="https://skos.ii.uni.wroc.pl/tag/search.php"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/navigationitem" /><span class="item-content-wrap">Tags</span></a></p></li><li class="type_custom depth_3 item_with_icon" aria-labelledby="label_3_5"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_5" href="https://skos.ii.uni.wroc.pl/calendar/view.php?view=month&amp;course=353"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/calendar" /><span class="item-content-wrap">Calendar</span></a></p></li><li class="type_activity depth_3 item_with_icon" aria-labelledby="label_3_6"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_6" title="Forum" href="https://skos.ii.uni.wroc.pl/mod/forum/view.php?id=5198"><img class="icon navicon" alt="Forum" title="Forum" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/forum/1570042091/icon" /><span class="item-content-wrap">Aktualności</span></a></p></li></ul></li><li class="type_system depth_2 contains_branch" aria-labelledby="label_2_8"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="true" aria-owns="random5fdbcb3bc92306_group"><a tabindex="-1" id="label_2_8" href="https://skos.ii.uni.wroc.pl/course/index.php">Courses</a></p><ul id="random5fdbcb3bc92306_group" role="group"><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_9"><p class="tree_item branch" role="treeitem" aria-expanded="true" aria-owns="random5fdbcb3bc92307_group"><span tabindex="-1" id="label_3_9">Semestr zimowy 2020/2021</span></p><ul id="random5fdbcb3bc92307_group" role="group"><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_10"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_10" title="Algorytmy ewolucyjne" href="https://skos.ii.uni.wroc.pl/course/view.php?id=346"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">AE2021</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_11"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_11" title="Algorytmy tekstowe 2020" href="https://skos.ii.uni.wroc.pl/course/view.php?id=342"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">TXT20</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_12"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_12" title="Analiza matematyczna 2020/21" href="https://skos.ii.uni.wroc.pl/course/view.php?id=324"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">analiza20</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_13"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_13" title="Analiza numeryczna (L) 2020/21" href="https://skos.ii.uni.wroc.pl/course/view.php?id=318"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">AN(L) 2020/21</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_14"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_14" title="Analiza numeryczna (M) 2020/21" href="https://skos.ii.uni.wroc.pl/course/view.php?id=325"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">AN-M-20</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_15"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_15" title="Artificial Intelligence for Games 20" href="https://skos.ii.uni.wroc.pl/course/view.php?id=319"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">AI4Games20</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_16"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_16" title="Innovative Projects by Nokia 2020" href="https://skos.ii.uni.wroc.pl/course/view.php?id=350"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">InnoNokia20</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_17"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_17" title="Introduction to CS for Data Science" href="https://skos.ii.uni.wroc.pl/course/view.php?id=333"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">IntroCSforDS</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_18"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_18" title="Inżynieria oprogramowania" href="https://skos.ii.uni.wroc.pl/course/view.php?id=337"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">IO2020</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_19"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_19" title="Języki programowania 2020/21" href="https://skos.ii.uni.wroc.pl/course/view.php?id=315"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">JP20</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_20"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_20" title="Kombinatoryka" href="https://skos.ii.uni.wroc.pl/course/view.php?id=356"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">Kombinatoryka</span></a></p></li><li class="type_course depth_4 item_with_icon current_branch" aria-labelledby="label_4_21"><p class="tree_item hasicon active_tree_node" role="treeitem"><a tabindex="-1" id="label_4_21" title="Przetwarzanie języka naturalnego" href="https://skos.ii.uni.wroc.pl/course/view.php?id=353"><img class="icon navicon" alt="" aria-hidden="true" src="https://skos.ii.uni.wroc.pl/theme/image.php/elegance/core/1570042091/i/course" /><span class="item-content-wrap">NLP20</span></a></p></li></ul></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_22"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_12" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_12" data-node-key="12" data-node-type="10"><span tabindex="-1" id="label_3_22">Semestr letni 2019/2020</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_23"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_11" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_11" data-node-key="11" data-node-type="10"><span tabindex="-1" id="label_3_23">Semestr zimowy 2019/2020</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_24"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_10" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_10" data-node-key="10" data-node-type="10"><span tabindex="-1" id="label_3_24">Semestr letni 2018/2019</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_25"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_9" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_9" data-node-key="9" data-node-type="10"><span tabindex="-1" id="label_3_25">Semestr zimowy 2018/2019</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_26"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_8" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_8" data-node-key="8" data-node-type="10"><span tabindex="-1" id="label_3_26">Semestr letni 2017/2018</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_27"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_7" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_7" data-node-key="7" data-node-type="10"><span tabindex="-1" id="label_3_27">Semestr zimowy 2017/2018</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_28"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_6" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_6" data-node-key="6" data-node-type="10"><span tabindex="-1" id="label_3_28">Semestr letni 2016/2017</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_29"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_2" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_2" data-node-key="2" data-node-type="10"><span tabindex="-1" id="label_3_29">Semestr zimowy 2016/2017</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_30"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_4" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_4" data-node-key="4" data-node-type="10"><span tabindex="-1" id="label_3_30">Sprawy administracyjne</span></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_31"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_5" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_5" data-node-key="5" data-node-type="10"><span tabindex="-1" id="label_3_31">Kursy wieloletnie</span></p></li></ul></li></ul></li></ul></div></div><span class="skip-block-to" id="sb-1"></span></aside>        </div>
+    </section>
+    </div>
+</div>
+
+
+<footer id="page-footer" >
+    <div class="page-footer-inner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="footnote">Serwer SKOS:<br>
+
+<a href="https://michalis.ii.uni.wroc.pl/~michalis/skos_news.php">Nowości i zmiany</a><br>
+
+<a href="https://michalis.ii.uni.wroc.pl/~michalis/skos_docs.php">Dokumentacja</a><br>
+
+<a href="mailto:michalis.kambi%20AT%20gmail.com">Kontakt do admina</a></div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-right m-b-10">
+                                                <div class="logininfo">You are currently using guest access (<a href="https://skos.ii.uni.wroc.pl/login/index.php">Log in</a> | <a href="/login/index.php?authCASattras=NOCAS">Local login</a>)</div>                    </div>
+                                    </div>
+                <script type="text/javascript">
+//<![CDATA[
+var require = {
+    baseUrl : 'https://skos.ii.uni.wroc.pl/lib/requirejs.php/1570042091/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'https://skos.ii.uni.wroc.pl/lib/javascript.php/1570042091/lib/jquery/jquery-3.2.1.min',
+        jqueryui: 'https://skos.ii.uni.wroc.pl/lib/javascript.php/1570042091/lib/jquery/ui-1.12.1/jquery-ui.min',
+        jqueryprivate: 'https://skos.ii.uni.wroc.pl/lib/javascript.php/1570042091/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+      // Stub module for 'process'. This is a workaround for a bug in MathJax (see MDL-60458).
+      '*': { process: 'core/first' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/lib/javascript.php/1570042091/lib/requirejs/require.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.util.js_pending("core/first");require(['core/first'], function() {
+;
+require(["media_videojs/loader"], function(loader) {
+    loader.setUp(function(videojs) {
+        videojs.options.flash.swf = "https://skos.ii.uni.wroc.pl/media/player/videojs/videojs/video-js.swf";
+videojs.addLanguage("en",{
+ "Audio Player": "Audio Player",
+ "Video Player": "Video Player",
+ "Play": "Play",
+ "Pause": "Pause",
+ "Replay": "Replay",
+ "Current Time": "Current Time",
+ "Duration Time": "Duration Time",
+ "Remaining Time": "Remaining Time",
+ "Stream Type": "Stream Type",
+ "LIVE": "LIVE",
+ "Loaded": "Loaded",
+ "Progress": "Progress",
+ "Progress Bar": "Progress Bar",
+ "progress bar timing: currentTime={1} duration={2}": "{1} of {2}",
+ "Fullscreen": "Fullscreen",
+ "Non-Fullscreen": "Non-Fullscreen",
+ "Mute": "Mute",
+ "Unmute": "Unmute",
+ "Playback Rate": "Playback Rate",
+ "Subtitles": "Subtitles",
+ "subtitles off": "subtitles off",
+ "Captions": "Captions",
+ "captions off": "captions off",
+ "Chapters": "Chapters",
+ "Descriptions": "Descriptions",
+ "descriptions off": "descriptions off",
+ "Audio Track": "Audio Track",
+ "Volume Level": "Volume Level",
+ "You aborted the media playback": "You aborted the media playback",
+ "A network error caused the media download to fail part-way.": "A network error caused the media download to fail part-way.",
+ "The media could not be loaded, either because the server or network failed or because the format is not supported.": "The media could not be loaded, either because the server or network failed or because the format is not supported.",
+ "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.",
+ "No compatible source was found for this media.": "No compatible source was found for this media.",
+ "The media is encrypted and we do not have the keys to decrypt it.": "The media is encrypted and we do not have the keys to decrypt it.",
+ "Play Video": "Play Video",
+ "Close": "Close",
+ "Close Modal Dialog": "Close Modal Dialog",
+ "Modal Window": "Modal Window",
+ "This is a modal window": "This is a modal window",
+ "This modal can be closed by pressing the Escape key or activating the close button.": "This modal can be closed by pressing the Escape key or activating the close button.",
+ ", opens captions settings dialog": ", opens captions settings dialog",
+ ", opens subtitles settings dialog": ", opens subtitles settings dialog",
+ ", opens descriptions settings dialog": ", opens descriptions settings dialog",
+ ", selected": ", selected",
+ "captions settings": "captions settings",
+ "subtitles settings": "subititles settings",
+ "descriptions settings": "descriptions settings",
+ "Text": "Text",
+ "White": "White",
+ "Black": "Black",
+ "Red": "Red",
+ "Green": "Green",
+ "Blue": "Blue",
+ "Yellow": "Yellow",
+ "Magenta": "Magenta",
+ "Cyan": "Cyan",
+ "Background": "Background",
+ "Window": "Window",
+ "Transparent": "Transparent",
+ "Semi-Transparent": "Semi-Transparent",
+ "Opaque": "Opaque",
+ "Font Size": "Font Size",
+ "Text Edge Style": "Text Edge Style",
+ "None": "None",
+ "Raised": "Raised",
+ "Depressed": "Depressed",
+ "Uniform": "Uniform",
+ "Dropshadow": "Dropshadow",
+ "Font Family": "Font Family",
+ "Proportional Sans-Serif": "Proportional Sans-Serif",
+ "Monospace Sans-Serif": "Monospace Sans-Serif",
+ "Proportional Serif": "Proportional Serif",
+ "Monospace Serif": "Monospace Serif",
+ "Casual": "Casual",
+ "Script": "Script",
+ "Small Caps": "Small Caps",
+ "Reset": "Reset",
+ "restore all settings to the default values": "restore all settings to the default values",
+ "Done": "Done",
+ "Caption Settings Dialog": "Caption Settings Dialog",
+ "Beginning of dialog window. Escape will cancel and close the window.": "Beginning of dialog window. Escape will cancel and close the window.",
+ "End of dialog window.": "End of dialog window."
+});
+
+    });
+});;
+M.util.js_pending('block_navigation/navblock');
+require(['block_navigation/navblock'], function(amd) {
+    amd.init("4");
+    M.util.js_complete('block_navigation/navblock');
+});;
+M.util.js_pending('block_settings/settingsblock');
+require(['block_settings/settingsblock'], function(amd) {
+    amd.init("5", null);
+    M.util.js_complete('block_settings/settingsblock');
+});;
+
+require(['core/yui'], function(Y) {
+    M.util.init_skiplink(Y);
+});
+;
+
+require(['jquery'], function($) {
+    $('#single_select5fdbcb3bc923022').change(function() {
+        var ignore = $(this).find(':selected').attr('data-ignore');
+        if (typeof ignore === typeof undefined) {
+            $('#single_select_f5fdbcb3bc923021').submit();
+        }
+    });
+});
+;
+M.util.js_pending('core/notification');
+require(['core/notification'], function(amd) {
+    amd.init(36690, []);
+    M.util.js_complete('core/notification');
+});;
+M.util.js_pending('core/log');
+require(['core/log'], function(amd) {
+    amd.setConfig({"level":"warn"});
+    M.util.js_complete('core/log');
+});;
+M.util.js_pending('core/page_global');
+require(['core/page_global'], function(amd) {
+    amd.init();
+    M.util.js_complete('core/page_global');
+});M.util.js_complete("core/first");
+});
+//]]>
+</script>
+<script type="text/javascript" src="https://skos.ii.uni.wroc.pl/theme/javascript.php/elegance/1570042091/footer"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","yes":"Yes","no":"No","viewallcourses":"View all courses","cancel":"Cancel","morehelp":"More help","loadinghelp":"Loading...","confirm":"Confirm","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"admin":{"confirmdeletecomments":"You are about to delete comments, are you sure?","confirmation":"Confirmation"},"block":{"addtodock":"Move this to the dock","undockitem":"Undock this item","dockblock":"Dock {$a} block","undockblock":"Undock {$a} block","undockall":"Undock all","hidedockpanel":"Hide the dock panel","hidepanel":"Hide panel"},"langconfig":{"thisdirectionvertical":"btt"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+(function() {Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
+});
+Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n","lang":"en"});
+});
+M.util.help_popups.setup(Y);
+Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+});
+M.util.init_block_hider(Y, {"id":"inst4","title":"Navigation","preference":"block4hidden","tooltipVisible":"Hide Navigation block","tooltipHidden":"Show Navigation block"});
+ M.util.js_pending('random5fdbcb3bc923024'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5fdbcb3bc923024'); });
+})();
+//]]>
+</script>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="tool_dataprivacy"><a href="https://skos.ii.uni.wroc.pl/admin/tool/dataprivacy/summary.php">Data retention summary</a></div><a href="https://download.moodle.org/mobile?version=2018120306.03&amp;lang=en&amp;iosappid=633359593&amp;androidappid=com.moodle.moodlemobile">Get the mobile app</a>    </div>
+
+</footer>
+
+<script>
+
+</script>
+
+
+ <a href="#top" class="back-to-top"><i class="fa fa-angle-up "></i></a>
+</body>
+</html>
