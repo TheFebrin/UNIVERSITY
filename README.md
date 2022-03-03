@@ -1,5 +1,6 @@
 # -ALL-COURSES-
 
+---
 
 ## Semester 1
 
@@ -83,3 +84,37 @@
   * Data Bases (lecture: Piotr Wieczorek, class: Robert Ferens)
 
   * Workshops: Deep Learning (companies: AlphaMoon, EY, MicroscopeIT, NeuroSys and Tooploox)
+
+## Semester 7
+
+* Artificial Intelligence for Games
+
+* Natural Language Processing
+
+* Seminar: Data Mining
+
+
+## Semester 8
+
+* Project: Deep Learning
+
+* Thesis
+
+
+---
+
+# Data Science
+
+## Semester 1
+
+* Algorithmic Trading
+
+* Numerical Optimization
+
+* Design and Implementation of Systems in the Cloud
+
+* Intelligence Services in State Security System and International Relations
+
+## Semester 2
+
+TODO
