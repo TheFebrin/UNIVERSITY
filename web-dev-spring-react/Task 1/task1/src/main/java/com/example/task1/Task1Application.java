@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 @RestController
@@ -18,7 +19,7 @@ public class Task1Application {
 	}
 
 	@GetMapping("/stats")
-	public HashMap<String, Integer> stats(@RequestParam(value = "mode", defaultValue = StatsMode.TOP_THREE) String mode) {
+	public LinkedHashMap<String, Integer> stats(@RequestParam(value = "mode", defaultValue = StatsMode.TOP_THREE) String mode) {
 		return registerService.getStats(mode);
 	}
 
