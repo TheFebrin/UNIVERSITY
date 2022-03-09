@@ -1,9 +1,9 @@
 package com.example.task1;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 import static java.lang.Math.min;
@@ -23,7 +23,7 @@ public class Register {
         return currentCount == null ? 0 : currentCount;
     }
 
-    public LinkedHashMap<String, Integer> getRegisteredUsersIgnoreCase() {
+    public Map<String, Integer> getRegisteredUsersIgnoreCase() {
         List<Map.Entry<String, Integer>> registeredUsersList = new ArrayList<Map.Entry<String, Integer>>(
                 this.registeredUsers.entrySet()
         );
@@ -38,7 +38,7 @@ public class Register {
         return result;
     }
 
-    public LinkedHashMap<String, Integer> getRegisteredUsersTopThree() {
+    public Map<String, Integer> getRegisteredUsersTopThree() {
         List<Map.Entry<String, Integer>> registeredUsersList = new ArrayList<Map.Entry<String, Integer>>(
                 this.registeredUsers.entrySet()
         );
@@ -52,7 +52,7 @@ public class Register {
         return result;
     }
 
-    public LinkedHashMap<String, Integer> getStats(String mode) {
+    public Map<String, Integer> getStats(String mode) {
         if (Objects.equals(mode, StatsMode.ALL)) {
             return this.registeredUsers;
         }
