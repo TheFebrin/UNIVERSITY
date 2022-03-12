@@ -1,0 +1,23 @@
+# Diagram generowany na stronie
+# https://mermaid.live/
+
+stateDiagram-v2
+    state Urządzenie {
+        Oczekiwanie : Oczekiwanie  
+        Bilet : Wyświetlenie ceny biletu
+        Finalizacja: Finalizacja
+    }
+    state Użytkownik {
+        Płatność : Wybór płatności
+        Bilety: Wybór biletów
+        Karta: Płatność kartą
+        state ma_pieniadze <<choice>>
+    }
+    [*] --> Oczekiwanie
+    Oczekiwanie --> Bilety : Użytkownik dotyka ekranu
+    Bilety --> Bilet : Użytkownik wybiera bilet
+    Bilet --> Płatność
+    Płatność --> Karta
+    Karta --> ma_pieniadze 
+    ma_pieniadze --> Finalizacja: Użytkownika stać na bilet
+    ma_pieniadze --> Płatność : Użytkownika nie stać na bilet

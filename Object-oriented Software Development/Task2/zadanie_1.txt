@@ -1,0 +1,31 @@
+# Diagram generowany na stronie
+# https://mermaid.live/
+
+classDiagram
+    Icommand <|.. AbstractCommand
+    AbstractCommand <|-- ConcreteCommand
+
+    class Icommand{
+        <<interface>>
+        +Execute(string CommandName) void
+    }
+    
+    class AbstractCommand{
+        <<abstract>>
+        - int commandCount
+        # string commandState
+        + string commandName
+        -commandBuilder() void
+        +Execute( string CommandName ) void
+    }
+
+    class ConcreteCommand{
+        # CommandStepBuilder commandBuilder
+        +Execute( string CommandName ) void
+    }
+
+    class CommandStepBuilder{
+        + int MAXSTEPS = 10
+        + int StepCount
+    }
+            

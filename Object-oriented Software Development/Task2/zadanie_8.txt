@@ -1,0 +1,34 @@
+stateDiagram-v2
+    state Wymagania: Zbieranie-wymagań {
+        Modelowanie: Modelowanie biznesowe
+    }
+    state Projektowanie {
+        Analiza
+        Projekt
+    }
+    state Wytwarzanie {
+       Implementacja 
+    }
+    state Testowanie {
+        Test
+        Debugowanie
+    }
+    state Wdrożenie {
+        Deployment
+        Monitorowanie
+        Konserwacja
+    }
+    [*] --> Modelowanie
+
+    Modelowanie --> Analiza
+    Analiza --> Projekt
+
+    Projekt --> Implementacja
+
+    Implementacja --> Test
+    Test --> Debugowanie
+
+    Debugowanie --> Deployment
+    Deployment --> Monitorowanie
+    Monitorowanie --> Konserwacja
+

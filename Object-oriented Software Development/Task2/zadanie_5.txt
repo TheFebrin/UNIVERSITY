@@ -1,0 +1,27 @@
+# Diagram generowany na stronie
+# https://mermaid.live/
+
+sequenceDiagram
+    actor U as Użytkownik
+    participant I as Interfejs
+    participant R as Repozytorium Danych
+
+    U ->> I: Naciśnij guzik zarejestruj
+    activate I
+    I ->> R: Podaj formularz rejestracyjny
+    activate R
+    R ->> I: Zwraca formularz
+    deactivate R
+    I ->> U: Wyświetla formularz rejestracji
+    deactivate I
+    U ->> I: Wprowadź swoje dane
+    activate I
+    I ->> R: Sprawdź dane
+    activate R
+    R ->> I: Rezultat walidacji danych
+    deactivate R
+    I ->> U: Zaakceptuj rejestrację lub zgłoś błędy
+    deactivate I
+
+            
+            

@@ -1,0 +1,32 @@
+
+
+
+public class Student {
+  UsosWebPage usos;
+
+  public void show() {
+    usos.show(this);
+  }
+}
+
+public class UsosWebPage {
+  GradeController grade;
+
+  public void show(Student student) {
+    pageLayout = grade.getStudentGradeInfo(student);
+  }
+}
+
+public class GradeController {
+  public GetStudentGradeInfo(Student student) {
+    for (course in student.getCourses()){
+      mark = course.getMark(student);
+    }
+  }
+}
+
+public class course {
+  public int getMark(Student student){
+    return getValue(student);
+  }
+}

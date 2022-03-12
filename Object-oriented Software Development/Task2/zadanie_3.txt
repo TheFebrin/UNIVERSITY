@@ -1,0 +1,17 @@
+# Diagram generowany na stronie
+# https://mermaid.live/
+
+stateDiagram-v2
+    Oczekiwanie : Oczekiwanie  
+    Bilety: Wybór biletów
+    Bilet : Wyświetlenie ceny biletu
+    Karta: Płatność kartą
+    Finalizacja: Finalizacja
+
+    [*] --> Oczekiwanie
+    Oczekiwanie --> Bilety
+    Bilety --> Bilet
+    Bilet --> Karta
+    Karta --> Finalizacja
+            
+            

@@ -1,0 +1,38 @@
+# Diagram generowany na stronie
+# https://mermaid.live/
+
+sequenceDiagram
+    participant Z as Zadanie 1
+    participant A
+    participant B
+    participant C
+
+    activate Z
+    Z ->> A: Wykonaj( v )
+    activate A
+    alt x < 10
+        A ->> B: Oblicz( x )
+        activate B
+            B ->> B: Oblicz ( x )
+    deactivate B
+    else x >= 10
+        A ->> C: Oblicz( x )
+        activate C
+        C ->> C: Oblicz( x )
+        deactivate C
+    end
+    deactivate A
+    
+    deactivate Z
+
+
+
+Czy na podstawie kodu można narysować jednoznaczny i precyzyjny diagram?
+
+- Nie zawsze, ale w tym wypadku wydaje mi się że tak. 
+Aczkolwiek jest to trudniejsze niż napisanie kodu na podstawie precyzyjnego diagramu.
+
+            
+
+            
+            
