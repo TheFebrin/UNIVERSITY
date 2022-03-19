@@ -1,0 +1,48 @@
+.AddIncomeOrExpense {
+    text-align: center;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px; /* rounded corners */
+    height: 85%;
+    font-size: small;
+}
+
+.AddIncomeOrExpense:hover {
+    box-shadow: 0 4px 8px 0 rgb(161, 230, 32);
+}
+
+.CardContent {
+    padding: 5%;
+}
+
+.Input {
+    width: 90%;
+    padding: 5% 5%;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+.Input:focus {
+    background-color: lightblue;
+}
+
+.Button {
+    margin-top: 5%;
+    background-color: #282c34;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.Button:hover {
+    background-color: #00000000;
+    color: white;
+  }

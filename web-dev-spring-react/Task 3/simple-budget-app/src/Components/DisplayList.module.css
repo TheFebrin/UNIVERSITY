@@ -1,0 +1,22 @@
+.DisplayList {
+    margin-top: 5%;
+    align-items: center;
+}
+
+.Paragraph {
+    white-space: pre-line;
+}
+
+.Container {
+    margin: 2%;
+    display: inline-block;
+    background: rgb(20, 191, 134);
+    color: rgb(0, 0, 0);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+.Container:hover {
+    box-shadow: 0 4px 8px 0 rgb(161, 230, 32);
+}

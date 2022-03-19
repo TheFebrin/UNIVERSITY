@@ -1,0 +1,26 @@
+.BudgetCard {
+    display: inline-block;
+    /* background: white; */
+    color: rgb(255, 255, 255);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px; /* rounded corners */
+}
+
+.BudgetCard:hover {
+    box-shadow: 0 4px 8px 0 rgb(161, 230, 32);
+}
+
+.CardContent {
+    padding: 5%;
+}
+
+.BottomContainer {
+    padding-left: 5%;
+    padding-right: 5%;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-auto-flow: row;
+    column-gap: 10%;
+    align-items: center;
+}
