@@ -1,0 +1,8 @@
+SRP:
+Mówi, że klasa lub moduł powinna mieć pojedyńczą funkcję
+Skierowane raczej do inżyniera oprogramowania.
+
+ISP:
+Nie powinniśmy dostarczać klientowi Interfejsu, który ma zbędne metody.
+Interfejsy powinny być minimalistyczne.
+Można też powiedzieć, że ISP jest bardziej skoncentrowane na punkcie widzenia klienta.
