@@ -1,0 +1,178 @@
+---
+title: "List 1"
+author: "Dawid Dieu"
+date: '2022-03-11'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Generate data
+```{r}
+set.seed(2022)
+generate_data <- function() {
+  X = matrix(
+    data=rnorm(n=1000 * 950, mean=0, sd = 1 / sqrt(1000)), 
+    nrow=1000, 
+    ncol=950,
+  )
+  
+  Beta = rep(x=0, times=950)
+  Beta[0: 5] = 3
+  
+  eps = rnorm(n=1000, mean=0, sd=1)
+  
+  Y = X %*% Beta + eps
+  
+  return (list(X, Y))
+}
+
+```
+
+### Perform the following analysis using reduced models
+```{r}
+set.seed(2022)
+print_fdr_info <- function(tp, fp, prefix) {
+  cat(prefix, 'True Positives: ', tp , '\n')
+  cat(prefix, 'False Positives: ', fp , '\n')
+  fdr = fp / (fp + tp + 10^-9) * 100
+  cat(prefix, 'False discovery rate (FDR): ', fdr, '%\n')
+}
+
+
+run_test <- function(show_debug=TRUE) {
+  n_features = c(10, 100, 500, 950)
+  new_data = generate_data()
+  X = new_data[[1]]
+  Y = new_data[[2]]
+  
+  for (n in n_features) {
+    if(show_debug) cat('\n📊Test for', n, 'columns\n')
+    if(show_debug) cat('Shape of X:', dim(X[, 1:n]), '\n')
+    
+    model = lm(formula=Y ~ X[, 1:n])
+    Beta_hat = model $ coefficients  # least squares estimator of Beta from lm
+    p_values = summary(model) $ coefficients[, 4]
+    
+    # add vector of 1s which are coefficients of the intercept
+    new_X = cbind(rep(x=1, times=1000), X[, 1:n])
+    
+    # least squares estimator of Beta from closed form solution
+    myBeta = solve(a = t(new_X) %*% new_X) %*% t(new_X) %*% Y
+    
+    diff = sum((Beta_hat - myBeta) ^ 2)
+    cat('Beta (my manual calculation) vs Beta from lm SSE difference: ', diff, '\n')
+    
+    #  a) tests for significance of individual regression coefficients
+    alpha = 0.1
+    discoveries = p_values < alpha
+    cat('🔸a) Number of significant Beta_hat: ', sum(discoveries), '\n')
+  
+    # b) average standard deviation of the estimators of individual regression coefficients
+    Y_hat = new_X %*% Beta_hat
+    SSE = t((Y - Y_hat)) %*% (Y - Y_hat)
+    dfe = 1000 -  n # degrees of freedom
+    MSE = (SSE / dfe)[1]
+    cov_matrix = MSE * solve(t(new_X) %*% new_X)
+    sigmas = sqrt(diag(cov_matrix))
+    cat('🔹b) Average standard deviation (my manual calculation): ', mean(sigmas), '\n')
+    
+    sigmas_from_summary = summary(model) $ coefficients[, 2]
+    cat('🔹b) Average standard deviation (from model summary): ', mean(sigmas), '\n')
+    
+    # average length of the 90% confidence intervals (theoretical estimate)
+    t = qt(p = 1 - alpha / 2, df = 1000 - n)
+    interval = t * sigmas * 2
+    cat('🔹b) Average length of the 90% confidence intervals: ', mean(interval), '\n')
+    
+    # True and False discoveries
+    true_positives = sum(discoveries[2:6])
+    # we add discoveries[1] because we don't use intercept in our model
+    false_positives = as.integer(discoveries[1])  + sum(discoveries[7:length(discoveries)])
+    cat('🔸c) i) Without adjusting for multiple testing\n')
+    print_fdr_info(tp=true_positives, fp=false_positives, prefix='🔸c) i)')
+    
+    # sort p values
+    sorted_indices = order(p_values)
+    
+    # Bonferroni correction; reject i-th coefficient if p < alpha / n
+    cat('🔸c) ii) Bonferroni correction\n')
+    bonferroni_rejected_indices = sorted_indices[p_values[sorted_indices] < (alpha / n)]
+    true_positives = sum(bonferroni_rejected_indices >= 2 & bonferroni_rejected_indices <= 6)
+    false_positives = sum(bonferroni_rejected_indices == 1 & bonferroni_rejected_indices >= 7)
+    print_fdr_info(tp=true_positives, fp=false_positives, prefix='🔸c) ii) [Bonferroni]')
+  
+    # Benjamini-Hochberg correction; reject i-th coefficient if p_i < i * alpha / n
+    cat('🔸c) iii) Benjamini-Hochberg correction\n')
+    bh_rejected_indices = sorted_indices[
+      p_values[sorted_indices] < (alpha / n) * seq(from=1, to=n + 1, by=1)
+    ]
+    true_positives = sum(bh_rejected_indices >= 2 & bh_rejected_indices <= 6)
+    false_positives = sum(bh_rejected_indices == 1 & bh_rejected_indices >= 7)
+    print_fdr_info(tp=true_positives, fp=false_positives, prefix='🔸c) iii) [Benjamini-Hochberg]')
+  }
+}
+
+run_test()
+```
+## Problem 1
+
+### a)
+#### Number of significant coefficients for each model with $\alpha=0.1$
+
+| number of columns | number of significant coefficients |
+|:-----------------:|:-------------------------------:|
+|         10        |                4                |
+|        100        |                11               |
+|        500        |                45               |
+|        950        |               105               |
+
+### b)
+#### Average standard deviation of the estimators of individual regression coefficients and the average length of the respective 90% confidence intervals
+
+| number of columns | average standard deviation | average length of 90% confidence intervals |
+|:-----------------:|:--------------------------:|:------------------------------------------:|
+|         10        |          0.9087013         |                  2.992161                  |
+|        100        |          1.038993          |                  3.421506                  |
+|        500        |           1.39654          |                  4.602734                  |
+|        950        |          4.366425          |                  14.63543                  |
+
+### c)
+#### False Discoveries Correction
+##### i) Without adjusting for multiple testing
+
+| number of columns | True Positives | False Positives |   FDR  |
+|:-----------------:|:--------------:|:---------------:|:------:|
+|         10        |        4       |        0        |   0%   |
+|        100        |        5       |        6        | 54.54% |
+|        500        |        2       |        43       | 95.55% |
+|        950        |        1       |       104       | 99.04% |
+
+
+##### ii) using Bonferroni correction
+
+| number of columns | True Positives | False Positives | FDR |
+|:-----------------:|:--------------:|:---------------:|:---:|
+|         10        |        2       |        0        |  0% |
+|        100        |        1       |        0        |  0% |
+|        500        |        0       |        0        |  0% |
+|        950        |        0       |        0        |  0% |
+
+
+##### ii) using Benjamini-Hochberg correction
+
+| number of columns | True Positives | False Positives | FDR |
+|:-----------------:|:--------------:|:---------------:|:---:|
+|         10        |        2       |        0        |  0% |
+|        100        |        1       |        0        |  0% |
+|        500        |        0       |        0        |  0% |
+|        950        |        0       |        0        |  0% |
+
+
+
+## Problem 2
+
+
+

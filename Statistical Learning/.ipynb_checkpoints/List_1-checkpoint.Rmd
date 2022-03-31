@@ -1,0 +1,92 @@
+---
+title: "List_1"
+author: "Dawid Dieu"
+date: '2022-03-11'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Task 1
+```{r}
+X = matrix(
+  data=rnorm(n=1000 * 950, mean=0, sd = 1 / sqrt(1000)), 
+  nrow=1000, 
+  ncol=950,
+)
+
+Beta = rep(x=0, times=950)
+Beta[0: 5] = 3
+
+eps = rnorm(n=1000, mean=0, sd=1)
+
+Y = X %*% Beta + eps
+```
+
+#### Perform the following analysis using reduced models
+```{r}
+n_features = c(10, 100, 500, 950)
+
+for (n in n_features) {
+  cat('\nTest for', n, ' columns\n')
+  cat('Shape of X:', dim(X[, 1:n]), '\n')
+  
+  model = lm(formula=Y ~ X[, 1:n])
+  # print(names(summary(model)))
+  coeffs = model $ coefficients  # least squares estimator of Beta from lm
+  p_values = summary(model) $ coefficients[, 4]
+  
+  # add vector of 1s which are coefficients of the intercept
+  new_X = cbind(rep(x=1, times=1000), X[, 1:n])
+  
+  # least squares estimator of Beta from closed form solution
+  Theta = solve(a = t(new_X) %*% new_X) %*% t(new_X) %*% Y
+  
+  diff = sum((coeffs - Theta) ^ 2)
+  cat('Theta vs lm coeffs SSE difference: ', diff, '\n')
+  
+  #  tests for significance of individual regression coefficients
+  alpha = 0.1
+  discoveries = p_values < alpha
+  cat('Number of significant coeffs: ', sum(discoveries), '\n')
+
+  # True and False discoveries
+  # first element corresponds to the intercept
+  true_positives = sum(discoveries[2:6])
+  # we add discoveries[1] because we don't use intercept in our model
+  false_positives = as.integer(discoveries[1])  + sum(discoveries[7:length(discoveries)])
+  cat('True Positives: ', true_positives , '\n')
+  cat('False Positives: ', false_positives , '\n')
+  cat('False discovery rate (FDR): ',
+      false_positives / (false_positives + true_positives) * 100, '%\n')
+  
+  # Bonferroni correction
+  # TODO
+  
+  # Benjamini-Hochberg correction
+  # TODO
+  
+  # average standard deviation of the estimators of individual regression coefficients
+  Y_hat = new_X %*% Theta
+  SSE = t((Y - Y_hat)) %*% (Y - Y_hat)
+  dfe = 1000 -  n # degrees of freedom
+  MSE = (SSE / dfe)[1]
+  cov_matrix = MSE * solve(t(new_X) %*% new_X)
+  sigmas = sqrt(diag(cov_matrix))
+  cat('My sigma mean: ', mean(sigmas), '\n')
+  
+  sigmas_from_summary = summary(model) $ coefficients[, 2]
+  cat('Sigmas from summary mean: ', mean(sigmas), '\n')
+  cat('My sigma vs sigmas from summary SSE diff:', sum(sigmas - sigmas_from_summary) ^ 2, '\n')
+  
+  # average length of the 90% confidence intervals (theoretical estimate)
+  t = qt(p = 1 - alpha / 2, df = 1000 - n)
+  interval = t * sigmas * 2
+  cat('Mean interval: ', mean(interval), '\n')
+}
+
+```
+ 
+
