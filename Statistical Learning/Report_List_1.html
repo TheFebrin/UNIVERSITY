@@ -370,20 +370,24 @@ pre code {
 </div>
 
 
+<div id="problem-1" class="section level2">
+<h2>Problem 1</h2>
 <div id="generate-data" class="section level3">
 <h3>Generate data</h3>
 <pre class="r"><code>set.seed(2022)
+N = 1000
+m = 950
 generate_data &lt;- function() {
   X = matrix(
-    data=rnorm(n=1000 * 950, mean=0, sd = 1 / sqrt(1000)), 
-    nrow=1000, 
-    ncol=950,
+    data=rnorm(n=N * m, mean=0, sd = 1 / sqrt(N)), 
+    nrow=N, 
+    ncol=m,
   )
   
-  Beta = rep(x=0, times=950)
+  Beta = rep(x=0, times=m)
   Beta[0: 5] = 3
   
-  eps = rnorm(n=1000, mean=0, sd=1)
+  eps = rnorm(n=N, mean=0, sd=1)
   
   Y = X %*% Beta + eps
   
@@ -401,33 +405,33 @@ print_fdr_info &lt;- function(tp, fp, prefix) {
 }
 
 
-run_test &lt;- function(show_debug=TRUE) {
+run_test &lt;- function(show_info=TRUE) {
   n_features = c(10, 100, 500, 950)
   new_data = generate_data()
   X = new_data[[1]]
   Y = new_data[[2]]
   
   for (n in n_features) {
-    if(show_debug) cat(&#39;\n📊Test for&#39;, n, &#39;columns\n&#39;)
-    if(show_debug) cat(&#39;Shape of X:&#39;, dim(X[, 1:n]), &#39;\n&#39;)
+    if(show_info) cat(&#39;\n📊Test for&#39;, n, &#39;columns\n&#39;)
+    if(show_info) cat(&#39;Shape of X:&#39;, dim(X[, 1:n]), &#39;\n&#39;)
     
     model = lm(formula=Y ~ X[, 1:n])
     Beta_hat = model $ coefficients  # least squares estimator of Beta from lm
     p_values = summary(model) $ coefficients[, 4]
     
     # add vector of 1s which are coefficients of the intercept
-    new_X = cbind(rep(x=1, times=1000), X[, 1:n])
+    new_X = cbind(rep(x=1, times=N), X[, 1:n])
     
     # least squares estimator of Beta from closed form solution
     myBeta = solve(a = t(new_X) %*% new_X) %*% t(new_X) %*% Y
     
     diff = sum((Beta_hat - myBeta) ^ 2)
-    cat(&#39;Beta (my manual calculation) vs Beta from lm SSE difference: &#39;, diff, &#39;\n&#39;)
+    if(show_info) cat(&#39;Beta (my manual calculation) vs Beta from lm SSE difference: &#39;, diff, &#39;\n&#39;)
     
     #  a) tests for significance of individual regression coefficients
     alpha = 0.1
     discoveries = p_values &lt; alpha
-    cat(&#39;🔸a) Number of significant Beta_hat: &#39;, sum(discoveries), &#39;\n&#39;)
+    if(show_info) cat(&#39;🔸a) Number of significant Beta_hat: &#39;, sum(discoveries), &#39;\n&#39;)
   
     # b) average standard deviation of the estimators of individual regression coefficients
     Y_hat = new_X %*% Beta_hat
@@ -435,46 +439,51 @@ run_test &lt;- function(show_debug=TRUE) {
     dfe = 1000 -  n # degrees of freedom
     MSE = (SSE / dfe)[1]
     cov_matrix = MSE * solve(t(new_X) %*% new_X)
-    sigmas = sqrt(diag(cov_matrix))
-    cat(&#39;🔹b) Average standard deviation (my manual calculation): &#39;, mean(sigmas), &#39;\n&#39;)
+    variances = diag(cov_matrix)
+    sigmas = sqrt(variances)
+    if(show_info) cat(&#39;🔹b) Average standard deviation (my manual calculation): &#39;, mean(sigmas), &#39;\n&#39;)
     
     sigmas_from_summary = summary(model) $ coefficients[, 2]
-    cat(&#39;🔹b) Average standard deviation (from model summary): &#39;, mean(sigmas), &#39;\n&#39;)
+    if(show_info) cat(&#39;🔹b) Average standard deviation (from model summary): &#39;, mean(sigmas), &#39;\n&#39;)
     
-    # average length of the 90% confidence intervals (theoretical estimate)
+    # average length of the 90% confidence intervals
     t = qt(p = 1 - alpha / 2, df = 1000 - n)
     interval = t * sigmas * 2
-    cat(&#39;🔹b) Average length of the 90% confidence intervals: &#39;, mean(interval), &#39;\n&#39;)
+    if(show_info) cat(&#39;🔹b) Average length of the 90% confidence intervals: &#39;, mean(interval), &#39;\n&#39;)
     
-    # True and False discoveries
+    # True and False discoveries without adjusting for multiple testing
     true_positives = sum(discoveries[2:6])
     # we add discoveries[1] because we don&#39;t use intercept in our model
     false_positives = as.integer(discoveries[1])  + sum(discoveries[7:length(discoveries)])
-    cat(&#39;🔸c) i) Without adjusting for multiple testing\n&#39;)
-    print_fdr_info(tp=true_positives, fp=false_positives, prefix=&#39;🔸c) i)&#39;)
+    if(show_info) cat(&#39;🔸c) i) Without adjusting for multiple testing\n&#39;)
+    if(show_info) print_fdr_info(tp=true_positives, fp=false_positives, prefix=&#39;🔸c) i)&#39;)
     
     # sort p values
     sorted_indices = order(p_values)
     
     # Bonferroni correction; reject i-th coefficient if p &lt; alpha / n
-    cat(&#39;🔸c) ii) Bonferroni correction\n&#39;)
+    if(show_info) cat(&#39;🔸c) ii) Bonferroni correction\n&#39;)
     bonferroni_rejected_indices = sorted_indices[p_values[sorted_indices] &lt; (alpha / n)]
     true_positives = sum(bonferroni_rejected_indices &gt;= 2 &amp; bonferroni_rejected_indices &lt;= 6)
-    false_positives = sum(bonferroni_rejected_indices == 1 &amp; bonferroni_rejected_indices &gt;= 7)
-    print_fdr_info(tp=true_positives, fp=false_positives, prefix=&#39;🔸c) ii) [Bonferroni]&#39;)
+    false_positives = sum(bonferroni_rejected_indices == 1 | bonferroni_rejected_indices &gt;= 7)
+    if(show_info) print_fdr_info(tp=true_positives, fp=false_positives, prefix=&#39;🔸c) ii) [Bonferroni]&#39;)
   
     # Benjamini-Hochberg correction; reject i-th coefficient if p_i &lt; i * alpha / n
-    cat(&#39;🔸c) iii) Benjamini-Hochberg correction\n&#39;)
+    if(show_info) cat(&#39;🔸c) iii) Benjamini-Hochberg correction\n&#39;)
     bh_rejected_indices = sorted_indices[
       p_values[sorted_indices] &lt; (alpha / n) * seq(from=1, to=n + 1, by=1)
     ]
     true_positives = sum(bh_rejected_indices &gt;= 2 &amp; bh_rejected_indices &lt;= 6)
-    false_positives = sum(bh_rejected_indices == 1 &amp; bh_rejected_indices &gt;= 7)
-    print_fdr_info(tp=true_positives, fp=false_positives, prefix=&#39;🔸c) iii) [Benjamini-Hochberg]&#39;)
+    false_positives = sum(bh_rejected_indices == 1 | bh_rejected_indices &gt;= 7)
+    if(show_info) print_fdr_info(
+      tp=true_positives, 
+      fp=false_positives, 
+      prefix=&#39;🔸c) iii) [Benjamini-Hochberg]&#39;
+    )
   }
 }
 
-run_test()</code></pre>
+run_test(show_info=TRUE)</code></pre>
 <pre><code>## 
 ## 📊Test for 10 columns
 ## Shape of X: 1000 10 
@@ -556,7 +565,8 @@ run_test()</code></pre>
 ## 🔸c) iii) [Benjamini-Hochberg] False Positives:  0 
 ## 🔸c) iii) [Benjamini-Hochberg] False discovery rate (FDR):  0 %</code></pre>
 </div>
-<div id="problem-1" class="section level2">
+</div>
+<div id="problem-1-1" class="section level2">
 <h2>Problem 1</h2>
 <div id="a" class="section level3">
 <h3>a)</h3>
@@ -730,7 +740,7 @@ confidence intervals</h4>
 <tbody>
 <tr class="odd">
 <td align="center">10</td>
-<td align="center">2</td>
+<td align="center">3</td>
 <td align="center">0</td>
 <td align="center">0%</td>
 </tr>
@@ -760,6 +770,513 @@ confidence intervals</h4>
 </div>
 <div id="problem-2" class="section level2">
 <h2>Problem 2</h2>
+<div id="repeat-the-above-experiments-500-times" class="section level3">
+<h3>Repeat the above experiments 500 times</h3>
+<pre class="r"><code>run_multiple_tests &lt;- function() {
+  n_features = c(10, 100, 500, 950)
+  
+  for (n in n_features) {
+    N_TESTS = 500
+    cat(&#39;\n📊Performing &#39;, N_TESTS, &#39;tests for&#39;, n, &#39;columns\n&#39;)
+       
+    alpha = 0.1
+    
+    experimental_variances = c()
+    experimental_length_of_interval = c()
+    
+    true_positives_no_adjusting = 0
+    false_positives_no_adjusting = 0
+    fdr_no_adjusting = 0
+    fwer_no_adjusting = 0
+    
+    true_positives_bonferroni = 0
+    false_positives_bonferroni = 0
+    fdr_bonferroni = 0
+    fwer_bonferroni = 0
+    
+    true_positives_bh = 0
+    false_positives_bh = 0
+    fdr_bh = 0
+    fwer_bh = 0
+    
+    start_time &lt;- Sys.time()
+    
+    for (t in 1:N_TESTS) {
+      new_data = generate_data()
+      X = new_data[[1]]
+      Y = new_data[[2]]
+    
+      new_X = cbind(rep(x=1, times=N), X[, 1:n])
+      model = lm(formula=Y ~ X[, 1:n])
+ 
+      Beta_hat = model $ coefficients  # least squares estimator of Beta from lm
+      p_values = summary(model) $ coefficients[, 4]
+      discoveries = p_values &lt; alpha
+    
+      # a)  average variance of the estimators of individual regression coefficients
+      Y_hat = new_X %*% Beta_hat
+      SSE = t((Y - Y_hat)) %*% (Y - Y_hat)
+      dfe = N -  n # degrees of freedom
+      MSE = (SSE / dfe)[1]
+      cov_matrix = MSE * solve(t(new_X) %*% new_X)
+      variances = diag(cov_matrix)
+      sigmas = sqrt(variances)
+      experimental_variances = c(experimental_variances, mean(variances))
+      
+      sigmas_from_summary = summary(model) $ coefficients[, 2]
+      
+      # b) average length of the 90% confidence intervals
+      t = qt(p = 1 - alpha / 2, df = N - n)
+      interval = t * sigmas * 2
+      experimental_length_of_interval = c(experimental_length_of_interval, mean(interval))
+      
+      # c) True and False discoveries without adjusting for multiple testing
+      true_positives = sum(discoveries[2:6])
+      # we add discoveries[1] because we don&#39;t use intercept in our model
+      false_positives = as.integer(discoveries[1])  + sum(discoveries[7:length(discoveries)])
+      true_positives_no_adjusting = true_positives_no_adjusting + true_positives
+      false_positives_no_adjusting = false_positives_no_adjusting + false_positives
+      fdr = false_positives / (false_positives + true_positives + 10^-9)
+      fdr_no_adjusting = fdr_no_adjusting + fdr
+      if (false_positives &gt; 0) {
+        fwer_no_adjusting = fwer_no_adjusting + 1
+      }
+      
+      # sort p values
+      sorted_indices = order(p_values)
+      
+      # Bonferroni correction; reject i-th coefficient if p &lt; alpha / n
+      bonferroni_rejected_indices = sorted_indices[p_values[sorted_indices] &lt; (alpha / n)]
+      true_positives = sum(bonferroni_rejected_indices &gt;= 2 &amp; bonferroni_rejected_indices &lt;= 6)
+      false_positives = sum(bonferroni_rejected_indices == 1 | bonferroni_rejected_indices &gt;= 7)
+      true_positives_bonferroni = true_positives_bonferroni + true_positives
+      false_positives_bonferroni = false_positives_bonferroni + false_positives
+      fdr = false_positives / (false_positives + true_positives + 10^-9)
+      fdr_bonferroni = fdr_bonferroni + fdr
+      if (false_positives &gt; 0) {
+        fwer_bonferroni = fwer_bonferroni + 1
+      }
+    
+      # Benjamini-Hochberg correction; reject i-th coefficient if p_i &lt; i * alpha / n
+      bh_rejected_indices = sorted_indices[
+        p_values[sorted_indices] &lt; (alpha / n) * seq(from=1, to=n + 1, by=1)
+      ]
+      true_positives = sum(bh_rejected_indices &gt;= 2 &amp; bh_rejected_indices &lt;= 6)
+      false_positives = sum(bh_rejected_indices == 1 | bh_rejected_indices &gt;= 7)
+      true_positives_bh = true_positives_bh + true_positives
+      false_positives_bh = false_positives_bh + false_positives
+      fdr = false_positives / (false_positives + true_positives + 10^-9)
+      fdr_bh = fdr_bh + fdr
+      if (false_positives &gt; 0) {
+        fwer_bh = fwer_bh + 1
+      }
+    }
+    theoretical_variance = (N / (N - n - 1))
+    cat(&#39;🔹a) Theoretical average variance: &#39;, theoretical_variance, &#39;\n&#39;)
+    cat(&#39;🔹a) Experimental average variance: &#39;, mean(experimental_variances), &#39;\n&#39;)
+  
+    t = qt(p = 1 - alpha / 2, df = N - n)
+    theoretical_lenght = t * sqrt(theoretical_variance) * 2
+    cat(&#39;🔸b) Theoretical average length of 90% CI: &#39;, theoretical_lenght, &#39;\n&#39;)
+    cat(&#39;🔸b) Experimental average length of 90% CI: &#39;, mean(experimental_length_of_interval), &#39;\n&#39;)
+    cat(&#39;=====\n&#39;)
+    cat(&#39;🔹c) True positives without adjusting for multiple testing: &#39;, true_positives_no_adjusting / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) False positives without adjusting for multiple testing: &#39;, false_positives_no_adjusting / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) FDR without adjusting for multiple testing: &#39;, fdr_no_adjusting / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) FWER without adjusting for multiple testing: &#39;, fwer_no_adjusting / N_TESTS, &#39;\n&#39;)
+    theoretical_fwer_no_adjusting = 1 - (1 - alpha) ^ (n - 5)
+    cat(&#39;🔹c) Theoretical FWER without adjusting for multiple testing: &#39;, theoretical_fwer_no_adjusting, &#39;\n&#39;)
+    cat(&#39;=====\n&#39;)
+    cat(&#39;🔹c) True positives using Bonferroni correction (all): &#39;, true_positives_bonferroni, &#39;\n&#39;)
+    cat(&#39;🔹c) True positives using Bonferroni correction (mean): &#39;, true_positives_bonferroni / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) False positives using Bonferroni correction (all): &#39;, false_positives_bonferroni, &#39;\n&#39;)
+    cat(&#39;🔹c) False positives using Bonferroni correction (mean): &#39;, false_positives_bonferroni / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) FDR using Bonferroni correction: &#39;, fdr_bonferroni / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) FWER using Bonferroni correction: &#39;, fwer_bonferroni / N_TESTS, &#39;\n&#39;)
+    theoretical_fwer_bonferroni = alpha * (n - 5) / n
+    cat(&#39;🔹c) Theoretical FWER using Bonferroni correction: &#39;, theoretical_fwer_bonferroni, &#39;\n&#39;)
+    cat(&#39;=====\n&#39;)
+    cat(&#39;🔹c) True positives using Benjamini-Hochberg correction (all): &#39;, true_positives_bh, &#39;\n&#39;)
+    cat(&#39;🔹c) True positives using Benjamini-Hochberg correction (mean): &#39;, true_positives_bh / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) False positives using Benjamini-Hochberg correction (all): &#39;, false_positives_bh, &#39;\n&#39;)
+    cat(&#39;🔹c) False positives using Benjamini-Hochberg correction (mean): &#39;, false_positives_bh / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) FDR using Benjamini-Hochberg correction: &#39;, fdr_bh / N_TESTS, &#39;\n&#39;)
+    cat(&#39;🔹c) FWER using Benjamini-Hochberg correction: &#39;, fwer_bh / N_TESTS, &#39;\n&#39;)
+    
+    cat(&#39;🏁 Finished in: &#39;, Sys.time() - start_time, &#39;seconds 🏁\n\n&#39;)
+  }
+}
+
+run_multiple_tests()</code></pre>
+<pre><code>## 
+## 📊Performing  500 tests for 10 columns
+## 🔹a) Theoretical average variance:  1.011122 
+## 🔹a) Experimental average variance:  0.9178028 
+## 🔸b) Theoretical average length of 90% CI:  3.31105 
+## 🔸b) Experimental average length of 90% CI:  3.015567 
+## =====
+## 🔹c) True positives without adjusting for multiple testing:  4.622 
+## 🔹c) False positives without adjusting for multiple testing:  0.584 
+## 🔹c) FDR without adjusting for multiple testing:  0.09747937 
+## 🔹c) FWER without adjusting for multiple testing:  0.458 
+## 🔹c) Theoretical FWER without adjusting for multiple testing:  0.40951 
+## =====
+## 🔹c) True positives using Bonferroni correction (all):  1666 
+## 🔹c) True positives using Bonferroni correction (mean):  3.332 
+## 🔹c) False positives using Bonferroni correction (all):  34 
+## 🔹c) False positives using Bonferroni correction (mean):  0.068 
+## 🔹c) FDR using Bonferroni correction:  0.0164 
+## 🔹c) FWER using Bonferroni correction:  0.066 
+## 🔹c) Theoretical FWER using Bonferroni correction:  0.05 
+## =====
+## 🔹c) True positives using Benjamini-Hochberg correction (all):  2122 
+## 🔹c) True positives using Benjamini-Hochberg correction (mean):  4.244 
+## 🔹c) False positives using Benjamini-Hochberg correction (all):  166 
+## 🔹c) False positives using Benjamini-Hochberg correction (mean):  0.332 
+## 🔹c) FDR using Benjamini-Hochberg correction:  0.05827381 
+## 🔹c) FWER using Benjamini-Hochberg correction:  0.274 
+## 🏁 Finished in:  13.06646 seconds 🏁
+## 
+## 
+## 📊Performing  500 tests for 100 columns
+## 🔹a) Theoretical average variance:  1.112347 
+## 🔹a) Experimental average variance:  1.098469 
+## 🔸b) Theoretical average length of 90% CI:  3.473159 
+## 🔸b) Experimental average length of 90% CI:  3.433505 
+## =====
+## 🔹c) True positives without adjusting for multiple testing:  4.392 
+## 🔹c) False positives without adjusting for multiple testing:  9.78 
+## 🔹c) FDR without adjusting for multiple testing:  0.6748338 
+## 🔹c) FWER without adjusting for multiple testing:  1 
+## 🔹c) Theoretical FWER without adjusting for multiple testing:  0.999955 
+## =====
+## 🔹c) True positives using Bonferroni correction (all):  860 
+## 🔹c) True positives using Bonferroni correction (mean):  1.72 
+## 🔹c) False positives using Bonferroni correction (all):  58 
+## 🔹c) False positives using Bonferroni correction (mean):  0.116 
+## 🔹c) FDR using Bonferroni correction:  0.04596667 
+## 🔹c) FWER using Bonferroni correction:  0.114 
+## 🔹c) Theoretical FWER using Bonferroni correction:  0.095 
+## =====
+## 🔹c) True positives using Benjamini-Hochberg correction (all):  1142 
+## 🔹c) True positives using Benjamini-Hochberg correction (mean):  2.284 
+## 🔹c) False positives using Benjamini-Hochberg correction (all):  169 
+## 🔹c) False positives using Benjamini-Hochberg correction (mean):  0.338 
+## 🔹c) FDR using Benjamini-Hochberg correction:  0.08530476 
+## 🔹c) FWER using Benjamini-Hochberg correction:  0.256 
+## 🏁 Finished in:  21.96477 seconds 🏁
+## 
+## 
+## 📊Performing  500 tests for 500 columns
+## 🔹a) Theoretical average variance:  2.004008 
+## 🔹a) Experimental average variance:  2.007009 
+## 🔸b) Theoretical average length of 90% CI:  4.665652 
+## 🔸b) Experimental average length of 90% CI:  4.660063 
+## =====
+## 🔹c) True positives without adjusting for multiple testing:  3.442 
+## 🔹c) False positives without adjusting for multiple testing:  49.132 
+## 🔹c) FDR without adjusting for multiple testing:  0.932118 
+## 🔹c) FWER without adjusting for multiple testing:  1 
+## 🔹c) Theoretical FWER without adjusting for multiple testing:  1 
+## =====
+## 🔹c) True positives using Bonferroni correction (all):  136 
+## 🔹c) True positives using Bonferroni correction (mean):  0.272 
+## 🔹c) False positives using Bonferroni correction (all):  44 
+## 🔹c) False positives using Bonferroni correction (mean):  0.088 
+## 🔹c) FDR using Bonferroni correction:  0.069 
+## 🔹c) FWER using Bonferroni correction:  0.084 
+## 🔹c) Theoretical FWER using Bonferroni correction:  0.099 
+## =====
+## 🔹c) True positives using Benjamini-Hochberg correction (all):  163 
+## 🔹c) True positives using Benjamini-Hochberg correction (mean):  0.326 
+## 🔹c) False positives using Benjamini-Hochberg correction (all):  78 
+## 🔹c) False positives using Benjamini-Hochberg correction (mean):  0.156 
+## 🔹c) FDR using Benjamini-Hochberg correction:  0.09113333 
+## 🔹c) FWER using Benjamini-Hochberg correction:  0.122 
+## 🏁 Finished in:  1.628463 seconds 🏁
+## 
+## 
+## 📊Performing  500 tests for 950 columns
+## 🔹a) Theoretical average variance:  20.40816 
+## 🔹a) Experimental average variance:  20.31165 
+## 🔸b) Theoretical average length of 90% CI:  15.14193 
+## 🔸b) Experimental average length of 90% CI:  14.94527 
+## =====
+## 🔹c) True positives without adjusting for multiple testing:  0.894 
+## 🔹c) False positives without adjusting for multiple testing:  95.934 
+## 🔹c) FDR without adjusting for multiple testing:  0.9898393 
+## 🔹c) FWER without adjusting for multiple testing:  1 
+## 🔹c) Theoretical FWER without adjusting for multiple testing:  1 
+## =====
+## 🔹c) True positives using Bonferroni correction (all):  3 
+## 🔹c) True positives using Bonferroni correction (mean):  0.006 
+## 🔹c) False positives using Bonferroni correction (all):  48 
+## 🔹c) False positives using Bonferroni correction (mean):  0.096 
+## 🔹c) FDR using Bonferroni correction:  0.06775 
+## 🔹c) FWER using Bonferroni correction:  0.068 
+## 🔹c) Theoretical FWER using Bonferroni correction:  0.09947368 
+## =====
+## 🔹c) True positives using Benjamini-Hochberg correction (all):  8 
+## 🔹c) True positives using Benjamini-Hochberg correction (mean):  0.016 
+## 🔹c) False positives using Benjamini-Hochberg correction (all):  349 
+## 🔹c) False positives using Benjamini-Hochberg correction (mean):  0.698 
+## 🔹c) FDR using Benjamini-Hochberg correction:  0.07878019 
+## 🔹c) FWER using Benjamini-Hochberg correction:  0.08 
+## 🏁 Finished in:  3.742007 seconds 🏁</code></pre>
+</div>
+<div id="a-1" class="section level3">
+<h3>a)</h3>
+<div id="compare-average-variance-of-the-estimators-of-individual-regression-coefficients-with-the-theoretical-values-using-the-inverse-wishart-distribution" class="section level4">
+<h4>Compare average variance of the estimators of individual regression
+coefficients with the theoretical values (using the inverse Wishart
+distribution)</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="center">number of columns</th>
+<th align="center">variance of the estimators</th>
+<th align="center">theoretical values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">0.917</td>
+<td align="center">1.011</td>
+</tr>
+<tr class="even">
+<td align="center">100</td>
+<td align="center">1.098</td>
+<td align="center">1.112</td>
+</tr>
+<tr class="odd">
+<td align="center">500</td>
+<td align="center">2.007</td>
+<td align="center">2.004</td>
+</tr>
+<tr class="even">
+<td align="center">950</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="b-1" class="section level3">
+<h3>b)</h3>
+<div id="average-length-of-the-90-confidence-interval" class="section level4">
+<h4>Average length of the 90% confidence interval</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="center">number of columns</th>
+<th align="center">average length of 90% CI</th>
+<th align="center">theoretical values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">3.015</td>
+<td align="center">3.311</td>
+</tr>
+<tr class="even">
+<td align="center">100</td>
+<td align="center">3.433</td>
+<td align="center">3.473</td>
+</tr>
+<tr class="odd">
+<td align="center">500</td>
+<td align="center">4.66</td>
+<td align="center">4.66</td>
+</tr>
+<tr class="even">
+<td align="center">950</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="c-1" class="section level3">
+<h3>c)</h3>
+<div id="the-average-number-of-true-and-false-discoveries-and-the-estimators-of-the-false-discovery-rate-fdr-and-the-family-wise-error-rate-fwer" class="section level4">
+<h4>The average number of true and false discoveries and the estimators
+of the False Discovery Rate (FDR) and the Family Wise Error Rate
+(FWER)</h4>
+</div>
+<div id="for-the-procedures-without-the-correction-and-with-the-bonferroni-i-also-provide-theoretical-fwer" class="section level4">
+<h4>For the procedures without the correction and with the Bonferroni I
+also provide theoretical FWER</h4>
+<div id="i-without-adjusting-for-multiple-testing-1" class="section level5">
+<h5>i) without adjusting for multiple testing</h5>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="22%" />
+<col width="23%" />
+<col width="7%" />
+<col width="7%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">number of columns</th>
+<th align="center">True positives rate</th>
+<th align="center">False Positives rate</th>
+<th align="center">FDR</th>
+<th align="center">FWER</th>
+<th align="center">Theoretical FWER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">4.622</td>
+<td align="center">0.584</td>
+<td align="center">0.097</td>
+<td align="center">0.458</td>
+<td align="center">0.409</td>
+</tr>
+<tr class="even">
+<td align="center">100</td>
+<td align="center">4.392</td>
+<td align="center">9.78</td>
+<td align="center">0.674</td>
+<td align="center">1</td>
+<td align="center">0.999</td>
+</tr>
+<tr class="odd">
+<td align="center">500</td>
+<td align="center">3.442</td>
+<td align="center">49.132</td>
+<td align="center">0.932</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">950</td>
+<td align="center">0.894</td>
+<td align="center">95.934</td>
+<td align="center">0.989</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="ii-using-bonferroni-correction-1" class="section level5">
+<h5>ii) using Bonferroni correction</h5>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="22%" />
+<col width="23%" />
+<col width="8%" />
+<col width="7%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">number of columns</th>
+<th align="center">True positives rate</th>
+<th align="center">False Positives rate</th>
+<th align="center">FDR</th>
+<th align="center">FWER</th>
+<th align="center">Theoretical FWER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">3.332</td>
+<td align="center">0.068</td>
+<td align="center">0.164</td>
+<td align="center">0.066</td>
+<td align="center">0.05</td>
+</tr>
+<tr class="even">
+<td align="center">100</td>
+<td align="center">1.72</td>
+<td align="center">0.116</td>
+<td align="center">0.046</td>
+<td align="center">0.114</td>
+<td align="center">0.995</td>
+</tr>
+<tr class="odd">
+<td align="center">500</td>
+<td align="center">0.272</td>
+<td align="center">0.088</td>
+<td align="center">0.069</td>
+<td align="center">0.084</td>
+<td align="center">0.099</td>
+</tr>
+<tr class="even">
+<td align="center">950</td>
+<td align="center">0.006</td>
+<td align="center">0.096</td>
+<td align="center">0.0677</td>
+<td align="center">0.068</td>
+<td align="center">0.0994</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="iii-using-benjamini-hochberg-correction" class="section level5">
+<h5>iii) using Benjamini-Hochberg correction</h5>
+<table>
+<colgroup>
+<col width="24%" />
+<col width="27%" />
+<col width="28%" />
+<col width="10%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">number of columns</th>
+<th align="center">True positives rate</th>
+<th align="center">False Positives rate</th>
+<th align="center">FDR</th>
+<th align="center">FWER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">4.244</td>
+<td align="center">0.332</td>
+<td align="center">0.058</td>
+<td align="center">0.274</td>
+</tr>
+<tr class="even">
+<td align="center">100</td>
+<td align="center">2.284</td>
+<td align="center">0.338</td>
+<td align="center">0.0853</td>
+<td align="center">0.256</td>
+</tr>
+<tr class="odd">
+<td align="center">500</td>
+<td align="center">0.326</td>
+<td align="center">0.156</td>
+<td align="center">0.0911</td>
+<td align="center">0.122</td>
+</tr>
+<tr class="even">
+<td align="center">950</td>
+<td align="center">0.016</td>
+<td align="center">0.698</td>
+<td align="center">0.0787</td>
+<td align="center">0.08</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 
