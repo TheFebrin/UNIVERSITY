@@ -1,0 +1,115 @@
+---
+title: "List_2"
+author: "Febrin"
+date: '2022-03-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(bigstep)
+library(ggplot2)
+library(glue)
+```
+
+### Task 3
+
+```{r}
+N = 210
+P = 3221
+TEST_DATASET_SIZE = 30
+
+TEST_IDS = sample(
+  x=c(1: N), 
+  size=TEST_DATASET_SIZE, 
+  replace=FALSE
+)
+
+TRAIN_IDS = setdiff(x=c(1: N), y=TEST_IDS)
+
+X_train = matrix(Realdata[TRAIN_IDS, 2: P], ncol=P - 1, byrow=FALSE)
+Y_train = matrix(Realdata[TRAIN_IDS, 1])
+  
+X_test = matrix(Realdata[TEST_IDS, 2: P], ncol=P - 1, byrow=FALSE)
+Y_test = matrix(Realdata[TEST_IDS, 1])
+
+training_dataset = prepare_data(y=Y_train, X=X_train)
+```
+
+```{r}
+fit_and_predict <- function(chosen_model) {
+  chosen_features = as.integer(chosen_model $ model)
+  model = lm(Y_train ~ X_train[, chosen_features])
+
+  Beta_hat = model $ coefficients
+  
+  # Without intercept
+  Y_hat = cbind(rep(x=1, times=TEST_DATASET_SIZE), X_test[, chosen_features]) %*% Beta_hat
+ Y_hat = X_test[, chosen_features] %*% Beta_hat[1: length(chosen_features) + 1]
+  
+  MSE = sum((Y_hat - Y_test) ^ 2) / TEST_DATASET_SIZE
+  cat('MSE model without intercept = ', MSE, '\n')
+  
+  # With intercept
+  Y_hat = cbind(rep(x=1, times=TEST_DATASET_SIZE), X_test[, chosen_features]) %*% Beta_hat
+  
+  MSE = sum((Y_hat - Y_test) ^ 2) / TEST_DATASET_SIZE
+  cat('MSE model with intercept = ', MSE, '\n')
+}
+```
+
+
+```{r}
+cat('[Fit and predict] Using criterion AIC')
+chosen_model = fast_forward(training_dataset, crit=aic)
+fit_and_predict(chosen_model)
+
+cat('[Fit and predict] Using criterion BIC')
+chosen_model = fast_forward(training_dataset, crit=bic)
+fit_and_predict(chosen_model)
+
+cat('[Fit and predict] Using criterion mBIC')
+chosen_model = fast_forward(training_dataset, crit=mbic)
+fit_and_predict(chosen_model)
+
+cat('[Fit and predict] Using criterion mBIC2')
+chosen_model = fast_forward(training_dataset, crit=mbic2)
+fit_and_predict(chosen_model)
+```
+
+
+```{r}
+
+
+print("AIC")
+res = fast_forward(data, crit = aic)
+selected_cols = as.integer(res$model)
+B_hat = c(t(coef(lm(y_train ~ x_train[, selected_cols]))))[-1]
+MSE = sum((x_test[, selected_cols] %*% B_hat - y_test)**2) / TEST_N
+MSE
+
+print("BIC")
+res = fast_forward(data, crit = bic)
+selected_cols = as.integer(res$model)
+B_hat = c(t(coef(lm(y_train ~ x_train[, selected_cols]))))[-1]
+MSE = sum((x_test[, selected_cols] %*% B_hat - y_test)**2) / TEST_N
+MSE
+
+print("mBIC")
+res = fast_forward(data, crit = mbic)
+selected_cols = as.integer(res$model)
+B_hat = c(t(coef(lm(y_train ~ x_train[, selected_cols]))))[-1]
+MSE = sum((x_test[, selected_cols] %*% B_hat - y_test)**2) / TEST_N
+MSE
+
+print("mBIC2")
+res = fast_forward(data, crit = mbic2)
+selected_cols = as.integer(res$model)
+B_hat = c(t(coef(lm(y_train ~ x_train[, selected_cols]))))[-1]
+MSE = sum((x_test[, selected_cols] %*% B_hat - y_test)**2) / TEST_N
+MSE
+```
+

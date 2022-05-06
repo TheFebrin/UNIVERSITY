@@ -1,0 +1,382 @@
+---
+title: "List_2"
+author: "Febrin"
+date: '2022-03-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(bigstep)
+library(ggplot2)
+library(glue)
+```
+
+### Task 1
+```{r}
+set.seed(2022)
+
+N = 1000
+m = 950
+Sigma = 1 / sqrt(N)
+
+generate_data <- function() {
+  X = matrix(
+    data=rnorm(n=N * m, mean=0, sd=Sigma), 
+    nrow=N, 
+    ncol=m,
+  )
+  
+  Beta = rep(x=0, times=m)
+  Beta[0: 5] = 3
+  
+  eps = rnorm(n=N, mean=0, sd=1)
+  
+  Y = X %*% Beta + eps
+  return (list(X, Y))
+}
+```
+
+
+```{r}
+AIC_unknown_sigma <- function(loglik, k) {
+  return (-2 * loglik + 2 * k)
+}
+
+AIC_known_sigma <- function(loglik, k, n) {
+  sigma_from_epsilon = 1
+  return (n * exp(-2 * loglik / n) + 2 * k * sigma_from_epsilon)
+}
+
+ric = function(loglik, k, p){
+  return (2 * k * log(p) - 2 * loglik)
+}
+```
+
+```{r}
+get_false_positives_and_negatives <- function(chosen_model) {
+  chosen_features = chosen_model $ model
+  FP = 0
+  TP = 0
+  for(feature in chosen_features){
+    coeff_integer = as.integer(gsub("`", "", feature))
+    if(coeff_integer >= 1 & coeff_integer <= 5){
+      # True positive
+      TP = TP + 1
+    }
+    else{
+      # False positive
+      FP = FP + 1
+    }
+  }
+  FN = 5 - TP
+  return(list(FP, FN))
+}
+
+get_RSS <- function(chosen_model, new_X, Y) {
+  chosen_features <- as.integer(chosen_model $ model)
+  if(length(chosen_features) == 0){
+    model = lm(Y ~ new_X)
+  }
+  else{
+    model = lm(Y ~ new_X[, chosen_features])
+  }
+  return (sum(model $ residuals ^ 2))
+}
+```
+
+#### Perform the following analysis using reduced models
+```{r}
+run_multiple_tests <- function(
+    N_TESTS, 
+    debug=FALSE, 
+    n_features = c(2, 5, 10, 100, 500, 950)
+) {
+
+  for (n in n_features) {
+    
+    cat('\n📊Performing ', N_TESTS, 'tests for', n, 'columns\n')
+    
+    PE_true = c()
+    PE_real_sigma = c()
+    PE_estimated_sigma = c()
+    PE_CV = c()
+    
+    false_positives_known_sigma = c()
+    false_positives_unknown_sigma = c()
+    false_negatives_known_sigma = c()
+    false_negatives_unknown_sigma = c()
+    
+    bic_FP = c()
+    bic_TP = c()
+    bic_RSS = c()
+    
+    aic_FP = c()
+    aic_TP = c()
+    aic_RSS = c()
+    
+    ric_FP = c()
+    ric_TP = c()
+    ric_RSS = c()
+    
+    mbic_FP = c()
+    mbic_TP = c()
+    mbic_RSS = c()
+    
+    mbic2_FP = c()
+    mbic2_TP = c()
+    mbic2_RSS = c()
+    
+    for (t in 1:N_TESTS) {
+      new_data = generate_data()
+      X = new_data[[1]]
+      Y = new_data[[2]]
+    
+      for (n in n_features) {
+        if(debug) {
+          cat('\nTest for', n, ' columns\n')
+          cat('Shape of X:', dim(X[, 1:n]), '\n')
+        }
+          
+        model = lm(formula=Y ~ X[, 1:n])
+        Theta = model $ coefficients  # least squares estimator of Beta from lm
+        
+        new_X = cbind(rep(x=1, times=N), X[, 1:n])
+        Y_hat = new_X %*% Theta
+        
+        # a) Estimate β with the Least Squares method 
+        #     and calculate residual sum of squares 
+        #     and the true expected value of the prediction error
+        
+        RSS = sum((Y - Y_hat) ^ 2)
+        if(debug) {
+          cat('RSS = ', RSS, '\n')
+        }
+        
+        # true expected value of the prediction error
+        PE_0 = (1 / N) * (N - n) + N
+        if(debug) {
+          cat('PE = sigma^2(N - n) + N =', PE_0, '\n')
+        }
+        PE_true = c(PE_true, PE_0)
+        
+        # b) Use the residual sum of squares to estimate PE assuming that σ is known 
+        #     and replacing σ with its regular unbiased estimator.
+        
+        MSE = RSS / (N - n)  # = estimated sigma ^ 2
+        
+        PE_1 = RSS + 2 * Sigma^2 * n
+        PE_real_sigma = c(PE_real_sigma, PE_1)
+        
+        PE_2 = RSS + 2 * MSE * n
+        PE_estimated_sigma = c(PE_estimated_sigma, PE_2)
+        
+        if(debug) {
+          cat('PE using real Sigma = ', PE_1, '\n')
+          cat('PE using estimated Sigma = ', PE_2, '\n')
+        }
+        
+        # c) Estimate PE using leave-one-out crossvalidation 
+        #     (do not perform analysis 1000 times but apply the formula for 
+        #     leave-one-out cross-validation error provided in class).
+        
+        M = new_X %*% solve(t(new_X) %*% new_X) %*% t(new_X)
+        CV = sum(((Y - Y_hat) / (1 - diag(M)))^2)
+        # cat('estimated CV = ', CV, '\n')
+        if(debug) {
+          cat('estimated PE using CV = ', CV , '\n')
+        }
+        PE_CV = c(PE_CV, CV)
+        
+        # Select the optimal model using two versions of AIC: for known and unknown σ.
+        optimal_model_known_sigma = fast_forward(
+          data=prepare_data(Y, new_X), crit=AIC_known_sigma
+        )
+        optimal_model_unknown_sigma = fast_forward(
+          data=prepare_data(Y, new_X), crit=AIC_unknown_sigma
+        )
+        
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_known_sigma)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        false_positives_unknown_sigma = c(false_positives_unknown_sigma, FP)
+        false_negatives_unknown_sigma = c(false_negatives_unknown_sigma, FN)
+        
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_unknown_sigma)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        false_negatives_known_sigma = c(false_negatives_known_sigma, FN)
+        false_positives_known_sigma = c(false_positives_known_sigma, FP)
+        
+        
+        # Task 2
+        
+        # BIC
+        optimal_model_bic = fast_forward(
+          data=prepare_data(Y, new_X), crit=bic
+        )
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_bic)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        TP = 5 - FN  # We can do it due to the way the function above works
+        RSS = get_RSS(optimal_model_bic, new_X, Y)
+        bic_FP = c(bic_FP, FP)
+        bic_TP = c(bic_TP, TP)
+        bic_RSS = c(bic_RSS, RSS)
+        
+        # AIC
+        optimal_model_aic = fast_forward(
+          data=prepare_data(Y, new_X), crit=aic
+        )
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_aic)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        TP = 5 - FN  # We can do it due to the way the function above works
+        RSS = get_RSS(optimal_model_aic, new_X, Y)
+        aic_FP = c(aic_FP, FP)
+        aic_TP = c(aic_TP, TP)
+        aic_RSS = c(aic_RSS, RSS)
+        
+        # RIC
+        optimal_model_ric = fast_forward(
+          data=prepare_data(Y, new_X), crit=ric
+        )
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_ric)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        TP = 5 - FN  # We can do it due to the way the function above works
+        RSS = get_RSS(optimal_model_ric, new_X, Y)
+        ric_FP = c(ric_FP, FP)
+        ric_TP = c(ric_TP, TP)
+        ric_RSS = c(ric_RSS, RSS)
+        
+        # mBIC
+        optimal_model_mbic = fast_forward(
+          data=prepare_data(Y, new_X), crit=mbic
+        )
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_mbic)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        TP = 5 - FN  # We can do it due to the way the function above works
+        RSS = get_RSS(optimal_model_mbic, new_X, Y)
+        mbic_FP = c(mbic_FP, FP)
+        mbic_TP = c(mbic_TP, TP)
+        mbic_RSS = c(mbic_RSS, RSS)
+        
+        # mBIC2
+        optimal_model_mbic2 = fast_forward(
+          data=prepare_data(Y, new_X), crit=mbic2
+        )
+        false_positives_and_negatives = get_false_positives_and_negatives(optimal_model_mbic2)
+        FP = false_positives_and_negatives[[1]]
+        FN = false_positives_and_negatives[[2]]
+        TP = 5 - FN  # We can do it due to the way the function above works
+        RSS = get_RSS(optimal_model_mbic2, new_X, Y)
+        mbic2_FP = c(mbic2_FP, FP)
+        mbic2_TP = c(mbic2_TP, TP)
+        mbic2_RSS = c(mbic2_RSS, RSS)
+      }
+    }
+    
+    cat('\n📊Summary after ', N_TESTS, 'tests for', n, 'columns\n')
+    
+    # For each of the considered models compare the boxplots of PE 
+    #   for three estimates of PE, mentioned above.
+    
+    # cat('PE_true mean: ', mean(PE_true), '\n') 
+    # cat('PE_real_sigma mean: ', mean(PE_real_sigma), '\n') 
+    # cat('PE_estimated_sigma mean: ', mean(PE_estimated_sigma), '\n')
+    # cat('PE_CV mean: ', mean(PE_CV), '\n')
+    
+    print(glue('bic_RSS: ', mean(bic_RSS)))
+    print(glue('bic_FP: ', mean(bic_FP)))
+    print(glue('bic_TP: ', mean(bic_TP)))
+    print(glue('FDR: ', mean(bic_FP) / (1e-12 + mean(bic_FP) + mean(bic_TP))))
+    print(glue('POWER: ', mean(bic_TP) / 5))
+    print('\n =======\n')
+    print(glue('aic_RSS: ', mean(aic_RSS)))
+    print(glue('aic_FP: ', mean(aic_FP)))
+    print(glue('aic_TP: ', mean(aic_TP)))
+    print(glue('FDR: ', mean(aic_FP) / (1e-12 + mean(aic_FP) + mean(aic_TP))))
+    print(glue('POWER: ', mean(aic_TP) / 5))
+    print('\n =======\n')
+    print(glue('ric_RSS: ', mean(ric_RSS)))
+    print(glue('ric_FP: ', mean(ric_FP)))
+    print(glue('ric_TP: ', mean(ric_TP)))
+    print(glue('FDR: ', mean(ric_FP) / (1e-12 + mean(ric_FP) + mean(ric_TP))))
+    print(glue('POWER: ', mean(ric_TP) / 5))
+    print('\n =======\n')
+    print(glue('mbic_RSS: ', mean(mbic_RSS)))
+    print(glue('mbic_FP: ', mean(mbic_FP)))
+    print(glue('mbic_TP: ', mean(mbic_TP)))
+    print(glue('FDR: ', mean(mbic_FP) / (1e-12 + mean(mbic_FP) + mean(mbic_TP))))
+    print(glue('POWER: ', mean(mbic_TP) / 5))
+    print('\n =======\n')
+    print(glue('mbic_RSS: ', mean(mbic2_RSS)))
+    print(glue('mbic_FP: ', mean(mbic2_FP)))
+    print(glue('mbic_TP: ', mean(mbic2_TP)))
+    print(glue('FDR: ', mean(mbic2_FP) / (1e-12 + mean(mbic2_FP) + mean(mbic2_TP))))
+    print(glue('POWER: ', mean(mbic2_TP) / 5))
+    
+    # boxplot(
+    #   PE_real_sigma - PE_true,
+    #   main=glue(n, ' columns ', 'PÊ known σ - true PE')
+    # )
+    # 
+    # boxplot(
+    #   PE_estimated_sigma - PE_true,
+    #   main=glue(n, ' columns ', 'PÊ unknown σ - true PE')
+    # )
+    # 
+    # boxplot(
+    #   PE_CV - PE_true,
+    #   main=glue(n, ' columns ', 'PÊ using CV - true PE')
+    # )
+
+    # Provide histograms of the number of false negatives and false positives 
+    #   produced by both versions of AIC (with known and unknown σ).
+    
+    # hist(
+    #   false_positives_known_sigma,
+    #   main=glue(n, ' columns ', 'False Positives known sigma'),
+    #   xlim=c(0, max(false_positives_known_sigma) + 1)
+    # )
+    # 
+    # hist(
+    #   false_positives_unknown_sigma,
+    #   main=glue(n, ' columns ', 'False Positives unknown sigma'),
+    #   xlim=c(0, max(false_positives_unknown_sigma) + 1)
+    # )
+    # 
+    # hist(
+    #   false_negatives_known_sigma,
+    #   main=glue(n, ' columns ', 'False Negatives known sigma'),
+    #   xlim=c(0, max(false_negatives_known_sigma) + 1)
+    # )
+    # 
+    # hist(
+    #   false_negatives_unknown_sigma,
+    #   main=glue(n, ' columns ', 'False Negatives unknown sigma'),
+    #   xlim=c(0, max(false_negatives_unknown_sigma) + 1)
+    # )
+  }
+}
+```
+ 
+```{r}
+run_multiple_tests(N_TESTS = 100, n_features=c(950))
+```
+
+ 
+```{r}
+run_multiple_tests(N_TESTS = 100, n_features=c(950))
+```
+ 
+ 
+ 
+```{r}
+run_multiple_tests(N_TESTS = 1, debug=TRUE)
+```
