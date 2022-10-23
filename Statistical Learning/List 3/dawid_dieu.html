@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Statistical Learning - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{padding-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important;position:relative}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p:last-child{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit;overflow:visible}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p:last-child,.markdown-body .alert>ul:last-child{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.figma{display:table;position:relative;width:100%;padding-bottom:56.25%}.figma iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%;border:1px solid #eee}.markmap-container{height:300px}.markmap-container>svg{width:100%;height:100%}.MJX_Assistive_MathML{display:none}#MathJax_Message{z-index:1000!important}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc.both-mode{margin-left:8px}.ui-toc.both-mode .ui-toc-label{height:40px;padding:10px 4px;border-top-left-radius:0;border-bottom-left-radius:0}.ui-toc-label{background-color:#e6e6e6;border:none;color:#868686;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:20px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child>ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:50%;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-more-info{color:#888;cursor:pointer;vertical-align:middle}.ui-more-info .fa{font-size:16px}.ui-connectedGithub,.ui-published-note{color:#888}.ui-connectedGithub{line-height:23px;white-space:nowrap}.ui-connectedGithub a.file-path{color:#888;text-decoration:none;padding-left:22px}.ui-connectedGithub a.file-path:active,.ui-connectedGithub a.file-path:hover{color:#888;text-decoration:underline}.ui-connectedGithub .fa{font-size:20px}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}.selectable{-webkit-user-select:text;-o-user-select:text;user-select:text}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}.site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em;font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="Statistical-Learning" data-id="Statistical-Learning"><a class="anchor hidden-xs" href="#Statistical-Learning" title="Statistical-Learning"><span class="octicon octicon-link"></span></a><span>Statistical Learning</span></h1><h2 id="Dawid-Dieu" data-id="Dawid-Dieu"><a class="anchor hidden-xs" href="#Dawid-Dieu" title="Dawid-Dieu"><span class="octicon octicon-link"></span></a><span>Dawid Dieu</span></h2><h2 id="Assignment-3" data-id="Assignment-3"><a class="anchor hidden-xs" href="#Assignment-3" title="Assignment-3"><span class="octicon octicon-link"></span></a><span>Assignment 3</span></h2><h4 id="Ridge-Regression-and-LASSO" data-id="Ridge-Regression-and-LASSO"><a class="anchor hidden-xs" href="#Ridge-Regression-and-LASSO" title="Ridge-Regression-and-LASSO"><span class="octicon octicon-link"></span></a><span>Ridge Regression and LASSO</span></h4><h6 id="tags-SL" data-id="tags-SL"><a class="anchor hidden-xs" href="#tags-SL" title="tags-SL"><span class="octicon octicon-link"></span></a><span>tags: </span><code>SL</code></h6><h3 id="Task-1" data-id="Task-1"><a class="anchor hidden-xs" href="#Task-1" title="Task-1"><span class="octicon octicon-link"></span></a><span>Task 1</span></h3><p><img src="https://i.imgur.com/STq62QM.png" alt="" loading="lazy"></p><p><span>First for each </span><code>k</code><span> we generated all needed parameters.</span></p><table>
+<thead>
+<tr>
+<th><span>k</span></th>
+<th><span>lambda</span></th>
+<th><span>Bias for nonzero Beta</span></th>
+<th><span>Variance</span></th>
+<th><span>MSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>20</span></td>
+<td><span>3.877551</span></td>
+<td><span>-2.7824268</span></td>
+<td><span>0.04203358</span></td>
+<td><span>194.7699</span></td>
+</tr>
+<tr>
+<td><span>100</span></td>
+<td><span>0.7755102</span></td>
+<td><span>-1.5287356</span></td>
+<td><span>0.31721496</span></td>
+<td><span>535.0575</span></td>
+</tr>
+<tr>
+<td><span>200</span></td>
+<td><span>0.387755</span></td>
+<td><span>-0.9779412</span></td>
+<td><span>0.5192474</span></td>
+<td><span>684.5588</span></td>
+</tr>
+</tbody>
+</table><p><span>Now for each </span><code>k</code><span> we do 200 steps of simulation to compare theoretical values with the empirical ones.</span></p><ul>
+<li><span>MSE</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>k</span></th>
+<th><span>theoretical</span></th>
+<th><span>ridge estimator</span></th>
+<th><span>OLS estimator</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>20</span></td>
+<td><span>194.7699</span></td>
+<td><span>194.7489</span></td>
+<td><span>946.549</span></td>
+</tr>
+<tr>
+<td><span>100</span></td>
+<td><span>535.0575</span></td>
+<td><span>536.115</span></td>
+<td><span>946.549</span></td>
+</tr>
+<tr>
+<td><span>200</span></td>
+<td><span>684.5588</span></td>
+<td><span>684.5665</span></td>
+<td><span>946.549</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>Variances</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>k</span></th>
+<th><span>theoretical</span></th>
+<th><span>ridge estimator</span></th>
+<th><span>OLS estimator</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>20</span></td>
+<td><span>-2.7824268</span></td>
+<td><span>-2.830794</span></td>
+<td><span>-0.2359125</span></td>
+</tr>
+<tr>
+<td><span>100</span></td>
+<td><span>-1.5287356</span></td>
+<td><span>-1.486266</span></td>
+<td><span>0.07540591</span></td>
+</tr>
+<tr>
+<td><span>200</span></td>
+<td><span>-0.9779412</span></td>
+<td><span>-0.9516881</span></td>
+<td><span>0.03643289</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>Biases for zero Beta:</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>k</span></th>
+<th><span>theoretical</span></th>
+<th><span>ridge estimator</span></th>
+<th><span>OLS estimator</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>20</span></td>
+<td><span>0</span></td>
+<td><span>-0.001011</span></td>
+<td><span>-0.001297</span></td>
+</tr>
+<tr>
+<td><span>100</span></td>
+<td><span>0</span></td>
+<td><span>-0.001524</span></td>
+<td><span>-0.002243</span></td>
+</tr>
+<tr>
+<td><span>200</span></td>
+<td><span>0</span></td>
+<td><span>-0.002389</span></td>
+<td><span>-0.002731</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>Biases for nonzero Beta:</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>k</span></th>
+<th><span>theoretical</span></th>
+<th><span>ridge estimator</span></th>
+<th><span>OLS estimator</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>20</span></td>
+<td><span>-2.7824268</span></td>
+<td><span>-2.830794</span></td>
+<td><span>-0.2359125</span></td>
+</tr>
+<tr>
+<td><span>100</span></td>
+<td><span>-1.5287356</span></td>
+<td><span>-1.486266</span></td>
+<td><span>0.07540591</span></td>
+</tr>
+<tr>
+<td><span>200</span></td>
+<td><span>-0.9779412</span></td>
+<td><span>-0.9516881</span></td>
+<td><span>0.03643289</span></td>
+</tr>
+</tbody>
+</table><p><span>As we can see, the Ridge estimator performed much better in all cases; resuls are very close to the theoretical values.</span></p><h3 id="Task-2" data-id="Task-2"><a class="anchor hidden-xs" href="#Task-2" title="Task-2"><span class="octicon octicon-link"></span></a><span>Task 2</span></h3><p><img src="https://i.imgur.com/aPA3UKK.png" alt="" loading="lazy"></p><p><span>After estimating the parameters we will validate those models using two metrics.</span><br>
+<span class="mathjax raw">\[ SSE = ||\hat{\beta} - \beta ||^2\]</span><br>
+<span class="mathjax raw">\[ XSSE = ||X(\hat{\beta} - \beta) ||^2\]</span></p><ul>
+<li><span>k = 20</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>200.114</span></td>
+<td><span>168.1079</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>199.8085</span></td>
+<td><span>168.1367</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>245</span></td>
+<td><span>256.5255</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>94.53028</span></td>
+<td><span>93.03195</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>245</span></td>
+<td><span>256.5255</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>150.249</span></td>
+<td><span>141.109</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>19571.29</span></td>
+<td><span>902.6226</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>201.0817</span></td>
+<td><span>211.8074</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>189.1572</span></td>
+<td><span>176.279</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 100</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>683.3758</span></td>
+<td><span>394.5984</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>668.127</span></td>
+<td><span>377.3932</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>1225</span></td>
+<td><span>1219.411</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>382.2562</span></td>
+<td><span>277.7989</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>1225</span></td>
+<td><span>1219.411</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>490.2368</span></td>
+<td><span>316.9383</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>19707.03</span></td>
+<td><span>941.783</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>1230.186</span></td>
+<td><span>1099.447</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>459.4462</span></td>
+<td><span>378.2465</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 200</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>1127.882</span></td>
+<td><span>523.0009</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>1073.185</span></td>
+<td><span>497.7537</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>2450</span></td>
+<td><span>2455.473</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>926.991</span></td>
+<td><span>446.5228</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>2450</span></td>
+<td><span>2455.473</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>928.0622</span></td>
+<td><span>454.1362</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>15594.33</span></td>
+<td><span>887.1635</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>2472.888</span></td>
+<td><span>2304.903</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>1751.143</span></td>
+<td><span>1348.727</span></td>
+</tr>
+</tbody>
+</table><p><span>Now we want to repeat the above experiment 100 times and compare the mean square errors.</span></p><ul>
+<li><span>k = 20</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>201.1945</span></td>
+<td><span>172.402</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>201.4302</span></td>
+<td><span>173.0229</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>245</span></td>
+<td><span>256.5255</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>107.1974</span></td>
+<td><span>99.333</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>245</span></td>
+<td><span>256.5255</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>146.2316</span></td>
+<td><span>132.0562</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>16899.99</span></td>
+<td><span>937.6378</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>189.8139</span></td>
+<td><span>185.9191</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>215.5512</span></td>
+<td><span>190.9234</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 100</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>747.0916</span></td>
+<td><span>436.3712</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>724.087</span></td>
+<td><span>420.0539</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>1225</span></td>
+<td><span>1219.411</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>493.806</span></td>
+<td><span>327.5307</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>1225</span></td>
+<td><span>1219.411</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>579.9695</span></td>
+<td><span>363.8726</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>16927.76</span></td>
+<td><span>964.7021</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>1208.939</span></td>
+<td><span>1129.874</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>445.8001</span></td>
+<td><span>372.164</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 200</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>747.0916</span></td>
+<td><span>436.3712</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>724.087</span></td>
+<td><span>420.0539</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>1225</span></td>
+<td><span>1219.411</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>493.806</span></td>
+<td><span>327.5307</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>1225</span></td>
+<td><span>1219.411</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>579.9695</span></td>
+<td><span>363.8726</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>16927.76</span></td>
+<td><span>964.7021</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>1208.939</span></td>
+<td><span>1129.874</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>445.8001</span></td>
+<td><span>372.164</span></td>
+</tr>
+</tbody>
+</table><p><span>As we can observe, the more significant the </span><code>k</code><span> is, the bigger the errors are. It’s worth noting that CV is almost always beneficial, and the errors are much more minor in many cases.</span><br>
+<span>As one could predict, the simple OLS performed the worst in all cases.</span></p><h3 id="Task-3" data-id="Task-3"><a class="anchor hidden-xs" href="#Task-3" title="Task-3"><span class="octicon octicon-link"></span></a><span>Task 3</span></h3><p><span>In this task we repeat the calculations from above but with:</span></p><p><span class="mathjax raw">\[ \beta_1 = ... = \beta_k = 5\]</span></p><p><span>For each </span><code>k</code><span> we simulate 100 experiments.</span></p><ul>
+<li><span>k = 20</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>370.08</span></td>
+<td><span>275.3401</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>366.8801</span></td>
+<td><span>274.3001</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>500</span></td>
+<td><span>523.0645</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>134.034</span></td>
+<td><span>124.383</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>500</span></td>
+<td><span>523.0645</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>235.2017</span></td>
+<td><span>193.7925</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>22904.16</span></td>
+<td><span>997.6643</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>168.9514</span></td>
+<td><span>152.9448</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>218.686</span></td>
+<td><span>194.3768</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 100</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>1146.44</span></td>
+<td><span>570.9534</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>1088.325</span></td>
+<td><span>540.7069</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>2500</span></td>
+<td><span>2643.077</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>476.711</span></td>
+<td><span>332.7864</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>2500</span></td>
+<td><span>2643.077</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>735.9433</span></td>
+<td><span>438.7563</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>17959.47</span></td>
+<td><span>958.7895</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>2223.85</span></td>
+<td><span>1981.496</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>869.2478</span></td>
+<td><span>741.2573</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 200</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>1908.856</span></td>
+<td><span>654.3468</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>1727.1</span></td>
+<td><span>617.5927</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>5000</span></td>
+<td><span>5213.801</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>1039.317</span></td>
+<td><span>490.1576</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>5000</span></td>
+<td><span>5213.801</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>1322.157</span></td>
+<td><span>554.8434</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>16562.42</span></td>
+<td><span>916.5706</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>4997.1</span></td>
+<td><span>4664.591</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>3429.092</span></td>
+<td><span>2851.967</span></td>
+</tr>
+</tbody>
+</table><p><span>In this task, we use a stronger signal. Both loss functions return now bigger values. CV still significantly improves the quality of the model.</span></p><h3 id="Task-4" data-id="Task-4"><a class="anchor hidden-xs" href="#Task-4" title="Task-4"><span class="octicon octicon-link"></span></a><span>Task 4</span></h3><p><img src="https://i.imgur.com/VLGTHmB.png" alt="" loading="lazy"></p><p><span>We run 100 experiments again.</span><br>
+<span>First we use </span><span class="mathjax raw">\(\beta=3.5\)</span><span> from task 2.</span></p><ul>
+<li><span>k = 20</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>445.29536</span></td>
+<td><span>227.42275</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>120.5263732</span></td>
+<td><span>73.741772</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>359.2206668</span></td>
+<td><span>203.753585</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>141.49714</span></td>
+<td><span>65.43056</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>285.119773</span></td>
+<td><span>163.544058</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>137.327924</span></td>
+<td><span>64.876841</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>38010.854</span></td>
+<td><span>952.909033</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>248.7183</span></td>
+<td><span>113.76565</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>432.326</span></td>
+<td><span>188.87178</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 100</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>950.1566814</span></td>
+<td><span>363.6333</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>725.7073</span></td>
+<td><span>273.65686</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>1587.86784</span></td>
+<td><span>790.13938</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>735.402253</span></td>
+<td><span>267.3908</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>1412.60039</span></td>
+<td><span>720.2052</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>694.492714</span></td>
+<td><span>252.5433</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>37879.9928</span></td>
+<td><span>960.13311</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>1345.27248</span></td>
+<td><span>612.83898</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>503.801647</span></td>
+<td><span>210.318714</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 200</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>1433.05391</span></td>
+<td><span>433.2023</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>1286.6696</span></td>
+<td><span>407.367759</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>2938.09128</span></td>
+<td><span>1465.47057</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>1477.00699</span></td>
+<td><span>463.400821</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>2719.92623</span></td>
+<td><span>1359.0562</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>1363.0692</span></td>
+<td><span>423.77349</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>38647.8999</span></td>
+<td><span>958.5379</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>2722.70378</span></td>
+<td><span>1229.95198</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>1805.4559</span></td>
+<td><span>725.924591</span></td>
+</tr>
+</tbody>
+</table><p><span>Now we use </span><span class="mathjax raw">\(\beta=5\)</span><span> from task 3.</span></p><ul>
+<li><span>k = 20</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>645.5601409</span></td>
+<td><span>297.4956066</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>128.4152988</span></td>
+<td><span>66.35780845</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>357.1922033</span></td>
+<td><span>197.1430232</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>146.1026887</span></td>
+<td><span>80.43129619</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>287.0214765</span></td>
+<td><span>170.4786317</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>141.2333257</span></td>
+<td><span>71.92879677</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>37765.694</span></td>
+<td><span>943.8831959</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>250.7961621</span></td>
+<td><span>123.4175934</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>430.1188163</span></td>
+<td><span>199.5527017</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 100</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>1463.051278</span></td>
+<td><span>449.4469049</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>710.6091703</span></td>
+<td><span>265.6142953</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>1584.91296</span></td>
+<td><span>815.8979346</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>718.8060363</span></td>
+<td><span>275.7655605</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>1417.035613</span></td>
+<td><span>736.4243208</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>681.5163971</span></td>
+<td><span>251.9197325</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>38789.81018</span></td>
+<td><span>953.3254101</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>1335.275561</span></td>
+<td><span>599.6270596</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>496.8045085</span></td>
+<td><span>214.7270858</span></td>
+</tr>
+</tbody>
+</table><ul>
+<li><span>k = 200</span></li>
+</ul><table>
+<thead>
+<tr>
+<th><span>estimation method</span></th>
+<th><span>SSE</span></th>
+<th><span>XSSE</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>Ridge</span></td>
+<td><span>2121.795055</span></td>
+<td><span>537.8004469</span></td>
+</tr>
+<tr>
+<td><span>Ridge with CV</span></td>
+<td><span>1297.801884</span></td>
+<td><span>400.4248966</span></td>
+</tr>
+<tr>
+<td><span>LASSO</span></td>
+<td><span>2938.874996</span></td>
+<td><span>1494.589493</span></td>
+</tr>
+<tr>
+<td><span>LASSO with CV</span></td>
+<td><span>1494.806636</span></td>
+<td><span>455.5511071</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet</span></td>
+<td><span>2721.218099</span></td>
+<td><span>1390.477981</span></td>
+</tr>
+<tr>
+<td><span>ElasticNet with CV</span></td>
+<td><span>1358.10604</span></td>
+<td><span>409.733123</span></td>
+</tr>
+<tr>
+<td><span>OLS</span></td>
+<td><span>39751.83141</span></td>
+<td><span>952.0101199</span></td>
+</tr>
+<tr>
+<td><span>OLS with mBIC2</span></td>
+<td><span>2732.804951</span></td>
+<td><span>1225.377811</span></td>
+</tr>
+<tr>
+<td><span>OLS with AIC</span></td>
+<td><span>1817.030296</span></td>
+<td><span>736.4988962</span></td>
+</tr>
+</tbody>
+</table><p><span>Not much changed in those experiments. CV was still the best way to train a model. Plain OLS was significantly worst than other methods.</span></p><h3 id="Task-5" data-id="Task-5"><a class="anchor hidden-xs" href="#Task-5" title="Task-5"><span class="octicon octicon-link"></span></a><span>Task 5</span></h3><p><img src="https://i.imgur.com/qQWj5ur.png" alt="" loading="lazy"></p><p><span>First we generate the response variable according to the formula above.</span></p><p><span>Maximal k for which the LASSO irrepresentability condition was satisfied was around </span><span class="mathjax raw">\(k_{IR} = 5\)</span><span>.</span><br>
+<span>After generating data this way, when trying to empirically find the minimal </span><span class="mathjax raw">\(\lambda\)</span><span> such that LASSO can recover the sign of </span><span class="mathjax raw">\(\beta\)</span><span> we found </span><span class="mathjax raw">\(\lambda = 5 * 10^{-10}\)</span><br>
+<img src="https://i.imgur.com/XwLcYXh.png" alt="" loading="lazy"></p><p><span>In the second case maximal k for which the LASSO irrepresentability condition was satisfied was around </span><span class="mathjax raw">\(k_{ID} = 30\)</span><span>.</span><br>
+<span>After generating data this way, when trying to empirically find the minimal </span><span class="mathjax raw">\(\lambda\)</span><span> such that LASSO can recover the sign of </span><span class="mathjax raw">\(\beta\)</span><span> we found </span><span class="mathjax raw">\(\lambda = 0.0004\)</span><br>
+<img src="https://i.imgur.com/lauSAbj.png" alt="" loading="lazy"></p><p><span>Now we want to generate response variable according to the third formula.</span><br>
+<span>We test </span><span class="mathjax raw">\(\lambda\)</span><span> in range from </span><span class="mathjax raw">\(10^{-5}\)</span><span> to </span><span class="mathjax raw">\(50\)</span><span>.</span><br>
+<span>For each lambda we fit LASSO model and check for non-zero betas.</span><br>
+<span>We count how many of them are in range from -1 to 1 and how many of them are greater than 10.</span><br>
+<span>This experiment resulted with founding that for around 80% of lambdas model estimates betas greater than 10.</span><br>
+<span>For </span><span class="mathjax raw">\(\lambda = 5 * 10^{-5}\)</span><span> all the non zero betas are recovered. As one can see below on the plot for this </span><span class="mathjax raw">\(\lambda\)</span><span> it doesn’t allow for separating non zero betas from zero betas.</span><br>
+<img src="https://i.imgur.com/NcnXoud.png" alt="" loading="lazy"></p><h3 id="Task-6" data-id="Task-6"><a class="anchor hidden-xs" href="#Task-6" title="Task-6"><span class="octicon octicon-link"></span></a><span>Task 6</span></h3><p><img src="https://i.imgur.com/hVo0SyT.png" alt="" loading="lazy"></p><h4 id="a" data-id="a"><a class="anchor hidden-xs" href="#a" title="a"><span class="octicon octicon-link"></span></a><span>a)</span></h4><p><span>We randomly select 30 individuals for the test. The remaining 180 will be used as training samples. We will compare three models, Ridge, LASSO and elastic net with </span><span class="mathjax raw">\(\alpha=0\)</span><span>. We will use cross-validation to select the tuning parameter. Then we will test models on the test set.</span></p><table>
+<thead>
+<tr>
+<th></th>
+<th><span>Ridge</span></th>
+<th><span>LASSO</span></th>
+<th><span>ElasticNet</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>RMSE</span></td>
+<td><span>0.779</span></td>
+<td><span>1.543</span></td>
+<td><span>1.553</span></td>
+</tr>
+<tr>
+<td><span>selected variables</span></td>
+<td><span>3123</span></td>
+<td><span>2</span></td>
+<td><span>3</span></td>
+</tr>
+</tbody>
+</table><h4 id="b" data-id="b"><a class="anchor hidden-xs" href="#b" title="b"><span class="octicon octicon-link"></span></a><span>b)</span></h4><p><span>Here we select 300 variables with the largest marginal correlation with the response variable and add variables selected by mBIC2.</span></p><table>
+<thead>
+<tr>
+<th></th>
+<th><span>Ridge</span></th>
+<th><span>LASSO</span></th>
+<th><span>ElasticNet</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>RMSE</span></td>
+<td><span>0.221</span></td>
+<td><span>1.782</span></td>
+<td><span>1.872</span></td>
+</tr>
+<tr>
+<td><span>selected variables</span></td>
+<td><span>243</span></td>
+<td><span>1</span></td>
+<td><span>1</span></td>
+</tr>
+</tbody>
+</table><p><span>Only Ridge regression worked better after applying these conditions.</span></p></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li><a href="#Statistical-Learning" title="Statistical Learning">Statistical Learning</a><ul class="nav">
+<li><a href="#Dawid-Dieu" title="Dawid Dieu">Dawid Dieu</a></li>
+<li><a href="#Assignment-3" title="Assignment 3">Assignment 3</a><ul class="nav">
+<li><a href="#Task-1" title="Task 1">Task 1</a></li>
+<li><a href="#Task-2" title="Task 2">Task 2</a></li>
+<li><a href="#Task-3" title="Task 3">Task 3</a></li>
+<li><a href="#Task-4" title="Task 4">Task 4</a></li>
+<li><a href="#Task-5" title="Task 5">Task 5</a></li>
+<li><a href="#Task-6" title="Task 6">Task 6</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li><a href="#Statistical-Learning" title="Statistical Learning">Statistical Learning</a><ul class="nav">
+<li><a href="#Dawid-Dieu" title="Dawid Dieu">Dawid Dieu</a></li>
+<li><a href="#Assignment-3" title="Assignment 3">Assignment 3</a><ul class="nav">
+<li><a href="#Task-1" title="Task 1">Task 1</a></li>
+<li><a href="#Task-2" title="Task 2">Task 2</a></li>
+<li><a href="#Task-3" title="Task 3">Task 3</a></li>
+<li><a href="#Task-4" title="Task 4">Task 4</a></li>
+<li><a href="#Task-5" title="Task 5">Task 5</a></li>
+<li><a href="#Task-6" title="Task 6">Task 6</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
