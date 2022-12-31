@@ -1,5 +1,6 @@
 # -ALL-COURSES-
 
+Data Science courses here: https://github.com/TheFebrin/DataScience
 ---
 
 ## Semester 1
@@ -117,4 +118,15 @@
 
 ## Semester 2
 
-TODO
+* Statistical learning
+* Algorithmic Trading
+* Object-oriented Software Development
+* Using Convolutional Neural Networks to Analyze 1D, 2D, and 3D Data
+* Modern web development
+
+## Semester 3
+
+* Modeling financial derivatives using F#
+* Statistics and Linear Models
+* Conversational bots and question answering
+* Algorithmic Causality with Applications
