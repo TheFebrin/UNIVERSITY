@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "A64dGS4iW1U2G0TnxSZfntVIaD8tzV0xSW8XhLZFkfC9HGPj+WqrXLBgraOPE4lJjU7FmCWrQeZYPq8djSsR7w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Febrin\\Desktop\\UNIVERSITY\\F#\\Project\\BlackScholes\\src\\Library\\Library.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Febrin\\.nuget\\packages\\fsharp.configuration\\2.0.0\\fsharp.configuration.2.0.0.nupkg.sha512",
+    "C:\\Users\\Febrin\\.nuget\\packages\\fsharp.core\\7.0.0\\fsharp.core.7.0.0.nupkg.sha512",
+    "C:\\Users\\Febrin\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

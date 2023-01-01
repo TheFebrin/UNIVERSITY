@@ -1,0 +1,28 @@
+{
+    "portfolio": [
+        {
+            "name" : "Netflix",
+            "strikePrice" : 60.0,
+            "currentPrice" : 62.0,
+            "riskFreeInterestRate" : 0.04,
+            "timeToMaturity" : 40.0,
+            "sigma": 0.32
+        },
+        {
+            "name" : "Tesla",
+            "strikePrice" : 100,
+            "currentPrice" : 90,
+            "riskFreeInterestRate" : 0.06,
+            "timeToMaturity" : 100,
+            "sigma": 0.6
+        },
+        {
+            "name" : "Apple",
+            "strikePrice" : 150,
+            "currentPrice" : 151,
+            "riskFreeInterestRate" : 0.04,
+            "timeToMaturity" : 200,
+            "sigma": 0.1
+        }
+    ]
+}

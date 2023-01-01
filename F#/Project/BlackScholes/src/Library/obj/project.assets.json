@@ -1,0 +1,275 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "FSharp.Configuration/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "FSharp.Core": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/FSharp.Configuration.Runtime.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/netstandard2.0/YamlDotNet.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Configuration.Runtime.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/netstandard2.0/YamlDotNet.dll": {}
+        }
+      },
+      "FSharp.Core/7.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/FSharp.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/FSharp.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/netstandard2.1/cs/FSharp.Core.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/netstandard2.1/de/FSharp.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.1/es/FSharp.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.1/fr/FSharp.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.1/it/FSharp.Core.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netstandard2.1/ja/FSharp.Core.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/netstandard2.1/ko/FSharp.Core.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/netstandard2.1/pl/FSharp.Core.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/netstandard2.1/pt-BR/FSharp.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.1/ru/FSharp.Core.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/netstandard2.1/tr/FSharp.Core.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/netstandard2.1/zh-Hans/FSharp.Core.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/netstandard2.1/zh-Hant/FSharp.Core.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "MathNet.Numerics/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FSharp.Configuration/2.0.0": {
+      "sha512": "XbZCDjHVsmLrXiNayL76F4Rj0bgrfiMjsnqM2hS0rUZRlGOzlmA4my0bV4cXT6iO5m0TczQfSyU2XdPvLV/7iQ==",
+      "type": "package",
+      "path": "fsharp.configuration/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fsharp.configuration.2.0.0.nupkg.sha512",
+        "fsharp.configuration.nuspec",
+        "lib/net461/FSharp.Configuration.Runtime.dll",
+        "lib/net461/FSharp.Configuration.Runtime.pdb",
+        "lib/net461/YamlDotNet.dll",
+        "lib/netstandard2.0/FSharp.Configuration.Runtime.deps.json",
+        "lib/netstandard2.0/FSharp.Configuration.Runtime.dll",
+        "lib/netstandard2.0/FSharp.Configuration.Runtime.pdb",
+        "lib/netstandard2.0/YamlDotNet.dll",
+        "typeproviders/fsharp41/net461/FSharp.Configuration.DesignTime.dll",
+        "typeproviders/fsharp41/net461/FSharp.Core.dll",
+        "typeproviders/fsharp41/net461/System.Configuration.ConfigurationManager.dll",
+        "typeproviders/fsharp41/net461/System.Security.AccessControl.dll",
+        "typeproviders/fsharp41/net461/System.Security.Permissions.dll",
+        "typeproviders/fsharp41/net461/System.Security.Principal.Windows.dll",
+        "typeproviders/fsharp41/net461/YamlDotNet.dll",
+        "typeproviders/fsharp41/net461/netstandard.dll",
+        "typeproviders/fsharp41/netstandard2.0/FSharp.Configuration.DesignTime.dll",
+        "typeproviders/fsharp41/netstandard2.0/FSharp.Core.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Buffers.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Configuration.ConfigurationManager.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Memory.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Numerics.Vectors.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Security.AccessControl.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Security.Permissions.dll",
+        "typeproviders/fsharp41/netstandard2.0/System.Security.Principal.Windows.dll",
+        "typeproviders/fsharp41/netstandard2.0/YamlDotNet.dll"
+      ]
+    },
+    "FSharp.Core/7.0.0": {
+      "sha512": "UcPaa9FW4civPrXL059dEa6Pk8ZMfllEf9RRcChv0reBLnM1WfcXXn7pW357FxGb+CUosq0W93TevJQ6z8G93g==",
+      "type": "package",
+      "path": "fsharp.core/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "fsharp.core.7.0.0.nupkg.sha512",
+        "fsharp.core.nuspec",
+        "lib/netstandard2.0/FSharp.Core.dll",
+        "lib/netstandard2.0/FSharp.Core.xml",
+        "lib/netstandard2.0/cs/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/de/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/es/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/fr/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/it/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/ja/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/ko/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/pl/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/pt-BR/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/ru/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/tr/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/zh-Hans/FSharp.Core.resources.dll",
+        "lib/netstandard2.0/zh-Hant/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/FSharp.Core.dll",
+        "lib/netstandard2.1/FSharp.Core.xml",
+        "lib/netstandard2.1/cs/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/de/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/es/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/fr/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/it/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/ja/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/ko/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/pl/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/pt-BR/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/ru/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/tr/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/zh-Hans/FSharp.Core.resources.dll",
+        "lib/netstandard2.1/zh-Hant/FSharp.Core.resources.dll"
+      ]
+    },
+    "MathNet.Numerics/5.0.0": {
+      "sha512": "pg1W2VwaEQMAiTpGK840hZgzavnqjlCMTVSbtVCXVyT+7AX4mc1o89SPv4TBlAjhgCOo9c1Y+jZ5m3ti2YgGgA==",
+      "type": "package",
+      "path": "mathnet.numerics/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net461/MathNet.Numerics.dll",
+        "lib/net461/MathNet.Numerics.xml",
+        "lib/net48/MathNet.Numerics.dll",
+        "lib/net48/MathNet.Numerics.xml",
+        "lib/net5.0/MathNet.Numerics.dll",
+        "lib/net5.0/MathNet.Numerics.xml",
+        "lib/net6.0/MathNet.Numerics.dll",
+        "lib/net6.0/MathNet.Numerics.xml",
+        "lib/netstandard2.0/MathNet.Numerics.dll",
+        "lib/netstandard2.0/MathNet.Numerics.xml",
+        "mathnet.numerics.5.0.0.nupkg.sha512",
+        "mathnet.numerics.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "FSharp.Configuration >= 2.0.0",
+      "FSharp.Core >= 7.0.0",
+      "MathNet.Numerics >= 5.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Febrin\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Febrin\\Desktop\\UNIVERSITY\\F#\\Project\\BlackScholes\\src\\Library\\Library.fsproj",
+      "projectName": "Library",
+      "projectPath": "C:\\Users\\Febrin\\Desktop\\UNIVERSITY\\F#\\Project\\BlackScholes\\src\\Library\\Library.fsproj",
+      "packagesPath": "C:\\Users\\Febrin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Febrin\\Desktop\\UNIVERSITY\\F#\\Project\\BlackScholes\\src\\Library\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Febrin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.101\\FSharp\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "dependencies": {
+          "FSharp.Configuration": {
+            "target": "Package",
+            "version": "[2.0.0, )",
+            "generatePathProperty": true
+          },
+          "FSharp.Core": {
+            "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+            "target": "Package",
+            "version": "[7.0.0, )",
+            "generatePathProperty": true
+          },
+          "MathNet.Numerics": {
+            "target": "Package",
+            "version": "[5.0.0, )",
+            "generatePathProperty": true
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

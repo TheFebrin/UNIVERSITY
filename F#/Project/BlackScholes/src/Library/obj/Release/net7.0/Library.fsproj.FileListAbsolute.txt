@@ -1,0 +1,13 @@
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\bin\Release\net7.0\Library.deps.json
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\bin\Release\net7.0\Library.dll
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\bin\Release\net7.0\Library.pdb
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\bin\Release\net7.0\Library.xml
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.fsproj.AssemblyReference.cache
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.AssemblyInfoInputs.cache
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.AssemblyInfo.fs
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.fsproj.CoreCompileInputs.cache
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.dll
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\refint\Library.dll
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.xml
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\Library.pdb
+C:\Users\Febrin\Desktop\UNIVERSITY\F#\Project\BlackScholes\src\Library\obj\Release\net7.0\ref\Library.dll
